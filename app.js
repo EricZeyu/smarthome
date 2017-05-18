@@ -18,8 +18,6 @@ const
 	tcp.create_tcp_server();
 
 	// view engine setup
-	// app.set('views', path.join(__dirname, 'views'));
-	// app.set('view engine', 'jade');
 	app.set('views', path.join(__dirname, 'views'));
 	app.engine('.html', ejs.__express);
 	app.set('view engine', 'html');
@@ -64,7 +62,6 @@ const
 		socket.on('Start_Info', (data) => {
 
 				console.log(data.info);
-				console.log('d');
 
 				var tweets = setInterval(() => {
 
