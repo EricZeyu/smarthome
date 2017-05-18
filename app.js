@@ -64,6 +64,7 @@ const
 		socket.on('Start_Info', (data) => {
 
 				console.log(data.info);
+				console.log('d');
 
 				var tweets = setInterval(() => {
 
@@ -76,9 +77,9 @@ const
 						// 							}
 						// 					});
 							
-						socket.emit('Gateways', JSON.stringify(Gateways));
+					//	socket.emit('Gateways', JSON.stringify(Gateways));
 					}else {
-						socket.emit('Home_Info', "Home say hi.");
+					//	socket.emit('Home_Info', "Home say hi.");
 					}
 
 				}, 2000);
