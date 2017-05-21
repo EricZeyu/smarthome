@@ -56,6 +56,10 @@ const
 	  });
 	});
 
+	let us = require("./http_server/models/user.model");
+//	us.add('zeyu', 123456, 'ZJUT');
+	us.exist('zeyu', 123456);
+
 	//---HTTP
 	socket.on('connection', (socket) => {
 
