@@ -8,7 +8,7 @@ const
 	Rec = require('./models/Received.model'),
 	Send = require('./models/Send.model');
 
-var 
+let 
 	sockets = [],
 	sockets_Read = [],
 	sockets_Written = [];

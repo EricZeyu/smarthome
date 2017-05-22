@@ -21,21 +21,23 @@
 <ul class="nav nav-pills">
   	<li role="presentation" class="active"><a href="#">Homes</a></li>
   	<li role="presentation"><a href="#">Users</a></li>
-  	<li role="presentation"><a href="#">Messages</a></li>
+  	<li role="presentation"><a href="#">Gateways</a></li>
 </ul>
 
 <table id="table"
        	data-toggle="table"
        	data-height="400"
         data-toolbar="#toolbar"
-		data-sort-name="IP"
+		data-sort-name="home"
 		data-sort-order="asc"
 		>
 		<thead>
             <tr>
-                <th data-field="IP" data-sortable="true">IP</th>
-                <th data-field="port" data-sortable="true">port</th>
-                <th data-field="Owner" data-sortable="true">Owner</th>
+                <th data-field="home" data-sortable="true">Home</th>
+                <th data-field="location" data-sortable="true">location</th>
+                <th data-field="owner" data-sortable="true">Owner</th>
+                <th data-field="mail" data-sortable="true">Mail</th>
+                <th data-field="tel" data-sortable="true">Tel</th>
             </tr>
 		</thead>
 </table>
@@ -47,22 +49,29 @@
 	<script>
 		
 		$(document).ready(function(){
-
 			var socket = io.connect();
-			socket.emit('Start_Info', {info : 'Gateways'});
-
-			socket.on('Gateways', (Gateways) => {
-				
-				console.log(Gateways);
-
-				// $("#table").bootstrapTable('load', Gateways);
-				$("#table").bootstrapTable('load', JSON.parse(Gateways));
+			socket.emit('get', 'homes');
+			socket.on('homes', (homes)=>{
+				console.log(homes);
+				$("#table").bootstrapTable('load', JSON.parse(homes));
 			});
+			socket.on('users', (users)=>{});
+			socket.on('gateways', (gateways)=>{});
+			// var socket = io.connect();
+			// socket.emit('Start_Info', {info : 'Gateways'});
+
+			// socket.on('Gateways', (Gateways) => {
+				
+			// 	console.log(Gateways);
+
+			// 	// $("#table").bootstrapTable('load', Gateways);
+			// 	$("#table").bootstrapTable('load', JSON.parse(Gateways));
+			// });
 
 		});
 
 		$(document).unload(function(){
-			socket.emit('End_Info', {info : 'Gateways'});
+			// socket.emit('End_Info', {info : 'Gateways'});
 		});
 
 	</script>

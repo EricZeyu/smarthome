@@ -1,11 +1,11 @@
-let 	
+let
 	ct = require("../../sql_server/my_sql");
 
 module.exports = {
 
-	add(name, password, home = 'null'){
-		ct.query("INSERT INTO users(name, password, home) VALUES(?, ?, ?)",
-								[name, password, home],
+	add(home, location, owner, mail, tel){
+		ct.query("INSERT INTO homes(home, location, owner, mail, tel) VALUES(?, ?, ?, ?, ?)",
+								[home, location, owner, mail, tel],
 								function(err, result){
 									if(err) {
 										console.log("[INSERT ERROR] - ", err.message);
@@ -18,9 +18,9 @@ module.exports = {
 								});
 	},
 
-	delete(name){
-		ct.query("DELETE FROM users WHERE name = ?",
-								[name],
+	delete(home){
+		ct.query("DELETE FROM homes WHERE home = ?",
+								[home],
 								function(err, result){
 									if(err) {
 										console.log("[DELETE ERROR] - ", err.message);
@@ -29,9 +29,9 @@ module.exports = {
 								});
 	},
 
-	update(name, newname, newpassword, newhome){
-		ct.query("UPDATE users SET name = ?, password = ?, home = ? WHERE name = ?",
-								[newname, newpassword, newhome, name],
+	update(home, newhome, newlocation, newowner, newmail, newtel){
+		ct.query("UPDATE homes SET home = ?, location = ?, owner = ?, mail = ?, tel = ? WHERE home = ?",
+								[newhome, newlocation, newowner, newmail, newtel, name],
 								function(err, result){
 									if(err) {
 										console.log("[UPDATE ERROR] - ", err.message);
@@ -41,9 +41,9 @@ module.exports = {
 			});
 	},
 
-	exist(name, password){
-		ct.query("SELECT * FROM users WHERE (name = ? AND password = ?) limit 1",
-								[name, password],
+	exist(home){
+		ct.query("SELECT * FROM users WHERE home = ? limit 1",
+								[home],
 								function(err, result){
 									if(err) {
 										console.log("[SELECT ERROR] - ", err.message);

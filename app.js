@@ -7,15 +7,13 @@ const
 	http_server = app.listen(http_port, () => {
 								console.log("http_server : ", http_server.address());
 							}),
-	tcp = require('./tcp_server/tcp_server'),
+	tcp = require('./tcp_server/tcp_server').create_tcp_server(),
 	sio = require('socket.io'),
 	socket = sio.listen(http_server),
 	path = require('path'),
 	ejs = require('ejs'),
 	cookieParser = require('cookie-parser'),
 	bodyParser = require('body-parser');
-
-	tcp.create_tcp_server();
 
 	// view engine setup
 	app.set('views', path.join(__dirname, 'views'));
@@ -63,13 +61,11 @@ const
 	//---HTTP
 	socket.on('connection', (socket) => {
 
-		socket.on('Start_Info', (data) => {
+		socket.on('get', (data) => {
 
-				console.log(data.info);
+				console.log(data);
 
-				var tweets = setInterval(() => {
-
-					if (data.info == 'Gateways') {
+				if (data == 'homes') {
 						// var Gateways = sockets.map((item) => {
 						// 					return {
 						// 							"IP" : item.remoteAddress,
@@ -82,14 +78,7 @@ const
 					}else {
 					//	socket.emit('Home_Info', "Home say hi.");
 					}
-
-				}, 2000);
 		});
-
-		socket.on('End_Info', (data) => {
-			clearInterval(tweets);
-		});
-
 	});
 
 module.exports = app;
