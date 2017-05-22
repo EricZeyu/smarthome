@@ -1,5 +1,5 @@
-let 	
-	ct = require("../../sql_server/my_sql");
+const 	
+	ct = require('../../sql_server/my_sql');
 
 module.exports = {
 

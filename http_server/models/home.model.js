@@ -1,5 +1,5 @@
-let
-	ct = require("../../sql_server/my_sql");
+const
+	ct = require('../../sql_server/my_sql');
 
 module.exports = {
 
@@ -42,7 +42,7 @@ module.exports = {
 	},
 
 	exist(home){
-		ct.query("SELECT * FROM users WHERE home = ? limit 1",
+		ct.query("SELECT * FROM homes WHERE home = ? limit 1",
 								[home],
 								function(err, result){
 									if(err) {
@@ -57,5 +57,36 @@ module.exports = {
 									if (result.length > 0) return true;
 										else return false;
 								});
+	},
+
+	all(){
+
+		let mhome = [];
+		ct.query("SELECT * FROM homes",
+				function(err, result){
+					if (err) {
+						console.log("[SELECT ERROR] - ", err.message);
+						return;
+					}
+
+
+						// mhome = result.map((item) => {
+						// 					return {
+						// 							"home" : item.home,
+						// 							"location" : item.location,
+						// 							"owner" : item.owner,
+						// 							"mail" : item.mail,
+						// 							"tel" : item.tel											
+						// 							}
+						// 					});
+					
+					
+
+						mhome = [{"home":"Banhu","location":"Shao Xin","owner":"banhuer","mail":"banhu@shaoxin.com","tel":"99999999"},
+						{"home":"Banhu","location":"Shao Xin","owner":"banhuer","mail":"banhu@shaoxin.com","tel":"99999999"}];
+						console.log(mhome);
+
+						return mhome;
+				});		
 	}
 }

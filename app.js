@@ -27,10 +27,11 @@ const
 	app.use(cookieParser());
 	app.use(express.static(path.join(__dirname, 'public')));
 
-	app.use('/', require('./routes/index'));
-	app.post('/register', require('./routes/register'));
-	app.post('/login', require('./routes/login'));
-	app.post('/logout', require('./routes/logout'));
+	app.use('/', require('./routes/index.route'));
+	app.use('/home', require('./routes/home.route'));
+	app.use('/register', require('./routes/register.route'));
+	app.use('/login', require('./routes/login.route'));
+	app.use('/logout', require('./routes/logout.route'));
 
 	// catch 404 and forward to error handler
 	app.use(function(req, res, next) {
@@ -57,6 +58,7 @@ const
 	let us = require("./http_server/models/user.model");
 //	us.add('zeyu', 123456, 'ZJUT');
 	us.exist('zeyu', 123456);
+	let hm = require("./http_server/models/home.model");
 
 	//---HTTP
 	socket.on('connection', (socket) => {
@@ -66,6 +68,16 @@ const
 				console.log(data);
 
 				if (data == 'homes') {
+
+						var hkm = [{"home":"Banhu","location":"Shao Xin","owner":"banhuer","mail":"banhu@shaoxin.com","tel":"99999999"},
+						{"home":"Banhu","location":"Shao Xin","owner":"banhuer","mail":"banhu@shaoxin.com","tel":"99999999"}];
+						console.log(hkm);
+
+						var hhhh = hm.all();
+						console.log("hhhh=",hhhh);
+
+						socket.emit('homes', hhhh);
+						// socket.emit('homes', hkm);
 						// var Gateways = sockets.map((item) => {
 						// 					return {
 						// 							"IP" : item.remoteAddress,
