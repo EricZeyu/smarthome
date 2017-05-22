@@ -31,7 +31,6 @@ const
 	app.use('/home', require('./routes/home.route'));
 	app.use('/register', require('./routes/register.route'));
 	app.use('/login', require('./routes/login.route'));
-	app.use('/logout', require('./routes/logout.route'));
 
 	// catch 404 and forward to error handler
 	app.use(function(req, res, next) {
@@ -55,42 +54,42 @@ const
 	  });
 	});
 
-	let us = require("./http_server/models/user.model");
-//	us.add('zeyu', 123456, 'ZJUT');
-	us.exist('zeyu', 123456);
-	let hm = require("./http_server/models/home.model");
+// 	let us = require("./http_server/models/user.model");
+// //	us.add('zeyu', 123456, 'ZJUT');
+// 	us.exist('zeyu', 123456);
+// 	let hm = require("./http_server/models/home.model");
 
 	//---HTTP
-	socket.on('connection', (socket) => {
+	// socket.on('connection', (socket) => {
 
-		socket.on('get', (data) => {
+	// 	socket.on('get', (data) => {
 
-				console.log(data);
+	// 			console.log(data);
 
-				if (data == 'homes') {
+	// 			if (data == 'homes') {
 
-						var hkm = [{"home":"Banhu","location":"Shao Xin","owner":"banhuer","mail":"banhu@shaoxin.com","tel":"99999999"},
-						{"home":"Banhu","location":"Shao Xin","owner":"banhuer","mail":"banhu@shaoxin.com","tel":"99999999"}];
-						console.log(hkm);
+	// 					var hkm = [{"home":"Banhu","location":"Shao Xin","owner":"banhuer","mail":"banhu@shaoxin.com","tel":"99999999"},
+	// 					{"home":"Banhu","location":"Shao Xin","owner":"banhuer","mail":"banhu@shaoxin.com","tel":"99999999"}];
+	// 					console.log(hkm);
 
-						var hhhh = hm.all();
-						console.log("hhhh=",hhhh);
+	// 					var hhhh = hm.all();
+	// 					console.log("hhhh=",hhhh);
 
-						socket.emit('homes', hhhh);
-						// socket.emit('homes', hkm);
-						// var Gateways = sockets.map((item) => {
-						// 					return {
-						// 							"IP" : item.remoteAddress,
-						// 							"port" : item.remotePort,
-						// 							"Owner" : "testing"
-						// 							}
-						// 					});
+	// 					socket.emit('homes', hhhh);
+	// 					// socket.emit('homes', hkm);
+	// 					// var Gateways = sockets.map((item) => {
+	// 					// 					return {
+	// 					// 							"IP" : item.remoteAddress,
+	// 					// 							"port" : item.remotePort,
+	// 					// 							"Owner" : "testing"
+	// 					// 							}
+	// 					// 					});
 							
-					//	socket.emit('Gateways', JSON.stringify(Gateways));
-					}else {
-					//	socket.emit('Home_Info', "Home say hi.");
-					}
-		});
-	});
+	// 				//	socket.emit('Gateways', JSON.stringify(Gateways));
+	// 				}else {
+	// 				//	socket.emit('Home_Info', "Home say hi.");
+	// 				}
+	// 	});
+	// });
 
 module.exports = app;

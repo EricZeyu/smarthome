@@ -41,52 +41,39 @@ module.exports = {
 			});
 	},
 
-	exist(home){
+	exist(home, callback){
 		ct.query("SELECT * FROM homes WHERE home = ? limit 1",
 								[home],
 								function(err, result){
 									if(err) {
-										console.log("[SELECT ERROR] - ", err.message);
-										return;
+											console.log("[SELECT ERROR] - ", err.message);
+											callback(error());
 										}
 
-										// console.log("-----SELECT ok-----");
-										// console.log("SELECT : ", result);
-										// console.log("----------------\n");
-
-									if (result.length > 0) return true;
-										else return false;
+									if (result.length > 0) return callback(ture);
+										else return callback(false);
 								});
 	},
 
-	all(){
-
-		let mhome = [];
+	all(callback){
 		ct.query("SELECT * FROM homes",
 				function(err, result){
 					if (err) {
 						console.log("[SELECT ERROR] - ", err.message);
-						return;
+						callback(error());
 					}
 
+					let homes = result.map((item) => {
+								return {
+											"home" : item.home,
+											"location" : item.location,
+											"owner" : item.owner,
+											"mail" : item.mail,
+											"tel" : item.tel											
+										}
+								});
 
-						// mhome = result.map((item) => {
-						// 					return {
-						// 							"home" : item.home,
-						// 							"location" : item.location,
-						// 							"owner" : item.owner,
-						// 							"mail" : item.mail,
-						// 							"tel" : item.tel											
-						// 							}
-						// 					});
-					
-					
-
-						mhome = [{"home":"Banhu","location":"Shao Xin","owner":"banhuer","mail":"banhu@shaoxin.com","tel":"99999999"},
-						{"home":"Banhu","location":"Shao Xin","owner":"banhuer","mail":"banhu@shaoxin.com","tel":"99999999"}];
-						console.log(mhome);
-
-						return mhome;
-				});		
+					callback(homes);
+				});
 	}
 }
