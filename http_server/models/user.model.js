@@ -3,7 +3,22 @@ const
 
 module.exports = {
 
-	add(name, password, home = 'null'){
+	register(name, password, home = 'NULL'){
+		ct.query("INSERT INTO users(name, password, home) VALUES(?, ?, ?)",
+								[name, password, home],
+								function(err, result){
+									if(err) {
+										console.log("[INSERT ERROR] - ", err.message);
+										return;
+										}
+
+										// console.log("-----INSERT ok-----");
+										// console.log("INSERT : ", result);
+										// console.log("----------------\n");
+								});
+	},
+
+	add(name, password, home = 'NULL'){
 		ct.query("INSERT INTO users(name, password, home) VALUES(?, ?, ?)",
 								[name, password, home],
 								function(err, result){
