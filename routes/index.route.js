@@ -8,8 +8,10 @@ const
 
 router.get('/', indexController.indexRender);
 router.post('/login', accountController.accountValidate);
+router.get('/accountModify', accountController.accountModify);
 router.get('/logout', accountController.accountLogout);
-router.post('/register', accountController.accountNew);
+router.post('/register', accountController.accountRegister);
+router.get('/account', accountController.accountRender);
 router.get('/home', homeController.homeRender);
 router.get('/member', memberController.memberRender);
 // router.get('/gateway', userController.usersList);

@@ -27,22 +27,23 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">+New Account</h4>
+        <h4 class="modal-title" id="myModalLabel" style="color: Coral">New Account</h4>
       </div>
       <div class="modal-body">
       		<input type="text" class="form-control" placeholder="Username" id="new_username" required>
 			<input type="password" class="form-control" placeholder="Password" id="new_password" required>
 			<input type="password" class="form-control" placeholder="Confirm Password" id="new_password2" required>
+			<input type="text" class="form-control" placeholder="Home" id="new_home" required>
+			<input type="text" class="form-control" placeholder="Location" id="new_location" required>
+			<input type="text" class="form-control" placeholder="Mail" id="new_mail" required>
+			<input type="text" class="form-control" placeholder="Tel" id="new_tel" required>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="register">Register</button>
+        <button type="button" class="btn btn-warning" id="register">Register</button>
       </div>
     </div>
   </div>
-</div>
-<div>
-	<!-- <img src="/images/flower.png" class="img-responsive center-block"> -->
 </div>
 
 	<script src="/libs/jquery-2.2.4/dist/jquery.min.js"></script>
@@ -54,6 +55,10 @@
 				$("#new_username").val("");
 				$("#new_password").val("");
 				$("#new_password2").val("");
+				$("#new_home").val("");
+				$("#new_location").val("");				
+				$("#new_mail").val("");
+				$("#new_tel").val("");
 			});
 
 			$("#register").click(function(){

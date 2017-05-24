@@ -5,7 +5,10 @@ const
 module.exports = {
 
 	homeRender(req, res, next){
-		res.render('home', {username:req.body.username});
+		res.render('home', {
+								username : req.session.username,
+								authority: req.session.authority
+			});
 	},
 
 	homesList(req, res, next){

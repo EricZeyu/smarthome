@@ -5,7 +5,10 @@ const
 module.exports = {
 
 	memberRender(req, res, next){
-		res.render('member', {username:req.body.username});
+		res.render('member', {
+								username : req.session.username,
+								authority: req.session.authority
+			});
 	},
 
 	membersList(req, res, next){

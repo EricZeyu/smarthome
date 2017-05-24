@@ -12,6 +12,7 @@ const
 	socket = sio.listen(http_server),
 	path = require('path'),
 	ejs = require('ejs'),
+    expressSession = require('express-session'),
 	cookieParser = require('cookie-parser'),
 	bodyParser = require('body-parser');
 
@@ -25,7 +26,26 @@ const
 	app.use(bodyParser.json());
 	app.use(bodyParser.urlencoded({ extended: false }));
 	app.use(cookieParser());
+	app.use(expressSession({
+		secret:'sessionKey',
+		resave: false,
+  		saveUninitialized: true
+	}));
 	app.use(express.static(path.join(__dirname, 'public')));
+	
+	// let u =require('./http_server/models/user.model');
+	// u.add('zeyu','zeyu','owner', 'Banhu');
+	// // u.delete('root');
+
+
+	app.use((req,res,next) => {
+	  if(req.session.username || req.originalUrl === '/' || req.originalUrl === '/login') {
+	    next();
+	  } else {
+	    //没有权限的路由都重定向到登录页
+	    res.redirect('/');
+	  }
+	});
 
 	// app.use('/home', require('./routes/home.route'));
 	app.use('/', require('./routes/index.route'));
