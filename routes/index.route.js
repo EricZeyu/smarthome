@@ -8,7 +8,7 @@ const
 
 router.get('/', indexController.indexRender);
 router.post('/login', accountController.accountValidate);
-router.post('/logout', accountController.accountLogout);
+router.get('/logout', accountController.accountLogout);
 router.post('/register', accountController.accountNew);
 router.get('/home', homeController.homeRender);
 router.get('/member', memberController.memberRender);

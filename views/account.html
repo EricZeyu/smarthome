@@ -9,37 +9,65 @@
 <body>
 
 <div class="jumbotron" style="background: MistyRose">
-  	<h1>Welcome, <%= username %>.</h1>
-  	<div class="input-group" style="float: right;">
+  	<h1>Smart Home <small>For Better Life</small></h1>
+	<div class="dropdown" style="float: right;">
+	  	<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+	  	<button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+	    <%= username %>
+	    	<span class="caret"></span>
+	  	</button>
+	  	<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
+		    <li><a href="/modify">Modify</a></li>
+		    <li role="separator" class="divider"></li>
+		    <li><a href="/logout">LogOut</a></li>		    
+	  	</ul>
+	</div>
+<!--   	<div class="input-group" style="float: right;">
+  		<span class="glyphicon glyphicon-user" aria-hidden="true" style="float: left;"></span>
   		<form class="navbar-form navbar-left" role="search" action="/logout" method="POST">
 		  	<button type="submit" class="btn btn-default">LogOut</button>
 		</form>
-	</div>
+	</div> -->
 </div>
 
-<ul class="nav nav-pills">
-  	<li role="presentation"><a href="/home">Home</a></li>
-  	<li role="presentation"><a href="/member">Member</a></li>
-  	<li role="presentation"><a href="/gateway">Gateway</a></li>
-</ul>
-
-<table id="table"
+<div id="main">
+<div id="top_nav">
+	<ul class="nav nav-tabs">
+		  	<li role="presentation" class="active"><a href="/home">Home</a></li>
+		  	<li role="presentation"><a href="/member">Member</a></li>
+		  	<li role="presentation"><a href="/gateway">Gateway</a></li>
+	</ul>
+</div>
+<div id="contain" style="width: 100%; height: 100%">
+	<div id="left_nav" style="width: 10%; float: left;">
+		<ul class="nav nav-pills nav-stacked">
+		  	<li role="presentation" class="active"><a href="/homesList">HomeList</a></li>
+		  	<li role="presentation"><a href="#">HomeList2</a></li>
+		  	<li role="presentation"><a href="#">HomeList3</a></li>
+		  	<li role="presentation"><a href="#">HomeList4</a></li>		  	
+		</ul>
+	</div>
+	<div id="showform" style="width: 90%; float: right;">
+		<table id="table"
        	data-toggle="table"
        	data-height="400"
         data-toolbar="#toolbar"
 		data-sort-name="home"
 		data-sort-order="asc"
 		>
-		<thead>
-            <tr>
-                <th data-field="home" data-sortable="true">Home</th>
-                <th data-field="location" data-sortable="true">location</th>
-                <th data-field="owner" data-sortable="true">Owner</th>
-                <th data-field="mail" data-sortable="true">Mail</th>
-                <th data-field="tel" data-sortable="true">Tel</th>
-            </tr>
-		</thead>
-</table>
+			<thead>
+	            <tr>
+	                <th data-field="home" data-sortable="true">Home</th>
+	                <th data-field="location" data-sortable="true">location</th>
+	                <th data-field="owner" data-sortable="true">Owner</th>
+	                <th data-field="mail" data-sortable="true">Mail</th>
+	                <th data-field="tel" data-sortable="true">Tel</th>
+	            </tr>
+			</thead>
+		</table>
+	</div>
+</div>
+</div>
 
 	<script src="/libs/jquery-2.2.4/dist/jquery.min.js"></script>
 	<script src="/libs/bootstrap-3.3.6/dist/js/bootstrap.min.js"></script>
@@ -48,6 +76,7 @@
 	<script>
 		
 		$(document).ready(function(){
+			
 		});
 
 		$(document).unload(function(){
