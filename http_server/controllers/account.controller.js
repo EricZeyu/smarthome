@@ -22,22 +22,13 @@ module.exports = {
 				res.redirect('/');
 			}
 		});
-		// if (req.body.username == 'root'
-		// 	&& req.body.password == '123456'){
-		// 				res.render('account', {username:'root'});
-		// }else if (req.body.username == "test" 
-		// 			&& req.body.password == "111111") {
-  // 								res.render('account', {username:req.body.username});
-  // 				}else{
-		// 				res.redirect('/');
-		// 			}
 	},
 
 	accountRegister(req, res, next){
 		;
 	},
 
-	accountModify(req, res, next){
+	accountSetting(req, res, next){
 		;
 	},
 

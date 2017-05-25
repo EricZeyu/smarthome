@@ -2,52 +2,50 @@
 <html>
 <head>
 	<meta charset="utf-8"> 
-	<title>Homes</title>
-	<link rel="stylesheet" href="/libs/bootstrap-3.3.6/dist/css/bootstrap.min.css">
-	<link rel="stylesheet" href="/libs/bootstrap-table-master/dist/bootstrap-table.min.css">
+	<title>Home</title>
+	<%- include style.html %>
 </head>
 <body>
+<%- include nav.html %>
 
-<div class="jumbotron" style="background: MistyRose">
-  	<h1>Welcome, <%= username %>.</h1>
-  	<div class="input-group" style="float: right;">
-  		<form class="navbar-form navbar-left" role="search" action="/logout" method="POST">
-		  	<button type="submit" class="btn btn-default">LogOut</button>
-		</form>
+	<div class="row">
+		<div class="col-md-3">
+			<ul class="nav nav-pills nav-stacked">
+			  	<li role="presentation" id="home_device"><a href="#">Device</a></li>
+			  	<li role="presentation" id="home_gateway"><a href="#">Gateway</a></li>
+			  	<li role="presentation" id="home_setting"><a href="#">Setting</a></li>  	
+			</ul>
+		</div>
+		<div class="col-md-9">
+		<
+			<table id="table"
+	       	data-toggle="table"
+	       	data-height="400"
+	        data-toolbar="#toolbar"
+			data-sort-name="home"
+			data-sort-order="asc"
+			>
+				<thead>
+		            <tr>
+		                <th data-field="home" data-sortable="true">Home</th>
+		                <th data-field="location" data-sortable="true">location</th>
+		                <th data-field="contact" data-sortable="true">Contact</th>
+		                <th data-field="mail" data-sortable="true">Mail</th>
+		                <th data-field="tel" data-sortable="true">Tel</th>
+		            </tr>
+				</thead>
+			</table>
+		</div>
 	</div>
-</div>
 
-<ul class="nav nav-pills">
-  	<li role="presentation"><a href="/home">Home</a></li>
-  	<li role="presentation"><a href="/member">Member</a></li>
-  	<li role="presentation"><a href="/gateway">Gateway</a></li>
-</ul>
 
-<table id="table"
-       	data-toggle="table"
-       	data-height="400"
-        data-toolbar="#toolbar"
-		data-sort-name="home"
-		data-sort-order="asc"
-		>
-		<thead>
-            <tr>
-                <th data-field="home" data-sortable="true">Home</th>
-                <th data-field="location" data-sortable="true">location</th>
-                <th data-field="owner" data-sortable="true">Owner</th>
-                <th data-field="mail" data-sortable="true">Mail</th>
-                <th data-field="tel" data-sortable="true">Tel</th>
-            </tr>
-		</thead>
-</table>
-
-	<script src="/libs/jquery-2.2.4/dist/jquery.min.js"></script>
-	<script src="/libs/bootstrap-3.3.6/dist/js/bootstrap.min.js"></script>
-	<script src="/libs/bootstrap-table-master/dist/bootstrap-table.min.js"></script>
-	<script src="/socket.io/socket.io.js"></script>
+	<%- include script.html %>
 	<script>
 		
 		$(document).ready(function(){
+
+			$("#myhome").addClass("active");
+			$("#home_device").addClass("active");
 			$.getJSON('/homesList', function(data){
 				console.log(data);
 				$("#table").bootstrapTable('load', data);

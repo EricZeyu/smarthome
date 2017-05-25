@@ -4,7 +4,7 @@ const
 module.exports = {
 
 	register(name, password, authority = 'owner', home = 'NULL'){
-		ct.query("INSERT INTO users(name, password, authority, home) VALUES(?, ?, ?, ?)",
+		ct.query("INSERT INTO user(name, password, authority, home) VALUES(?, ?, ?, ?)",
 								[name, password, authority, home],
 								function(err, result){
 									if(err) {
@@ -19,7 +19,7 @@ module.exports = {
 	},
 
 	add(name, password, authority = 'member', home = 'NULL'){
-		ct.query("INSERT INTO users(name, password, authority, home) VALUES(?, ?, ?, ?)",
+		ct.query("INSERT INTO user(name, password, authority, home) VALUES(?, ?, ?, ?)",
 								[name, password, authority, home],
 								function(err, result){
 									if(err) {
@@ -34,7 +34,7 @@ module.exports = {
 	},
 
 	delete(name){
-		ct.query("DELETE FROM users WHERE name = ?",
+		ct.query("DELETE FROM user WHERE name = ?",
 								[name],
 								function(err, result){
 									if(err) {
@@ -45,7 +45,7 @@ module.exports = {
 	},
 
 	modify(name, newpassword, newauthority, newhome){
-		ct.query("UPDATE users SET password = ?, authority = ?, home = ? WHERE name = ?",
+		ct.query("UPDATE user SET password = ?, authority = ?, home = ? WHERE name = ?",
 								[newpassword, newauthority, newhome, name],
 								function(err, result){
 									if(err) {
@@ -57,7 +57,7 @@ module.exports = {
 	},
 
 	validate(name, password, callback){
-		ct.query("SELECT * FROM users WHERE (name = ? AND password = ?) limit 1",
+		ct.query("SELECT * FROM user WHERE (name = ? AND password = ?) limit 1",
 								[name, password],
 								function(err, result){
 									if(err) {

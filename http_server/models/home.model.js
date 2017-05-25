@@ -3,9 +3,9 @@ const
 
 module.exports = {
 
-	add(home, location, owner, mail, tel){
-		ct.query("INSERT INTO homes(home, location, owner, mail, tel) VALUES(?, ?, ?, ?, ?)",
-								[home, location, owner, mail, tel],
+	add(home, location, contact, mail, tel){
+		ct.query("INSERT INTO home(home, location, contact, mail, tel) VALUES(?, ?, ?, ?, ?)",
+								[home, location, contact, mail, tel],
 								function(err, result){
 									if(err) {
 										console.log("[INSERT ERROR] - ", err.message);
@@ -19,7 +19,7 @@ module.exports = {
 	},
 
 	delete(home){
-		ct.query("DELETE FROM homes WHERE home = ?",
+		ct.query("DELETE FROM home WHERE home = ?",
 								[home],
 								function(err, result){
 									if(err) {
@@ -29,9 +29,9 @@ module.exports = {
 								});
 	},
 
-	update(home, newhome, newlocation, newowner, newmail, newtel){
-		ct.query("UPDATE homes SET home = ?, location = ?, owner = ?, mail = ?, tel = ? WHERE home = ?",
-								[newhome, newlocation, newowner, newmail, newtel, name],
+	update(home, newhome, newlocation, newcontact, newmail, newtel){
+		ct.query("UPDATE home SET home = ?, location = ?, contact = ?, mail = ?, tel = ? WHERE home = ?",
+								[newhome, newlocation, newcontact, newmail, newtel, name],
 								function(err, result){
 									if(err) {
 										console.log("[UPDATE ERROR] - ", err.message);
@@ -42,7 +42,7 @@ module.exports = {
 	},
 
 	exist(home, callback){
-		ct.query("SELECT * FROM homes WHERE home = ? limit 1",
+		ct.query("SELECT * FROM home WHERE home = ? limit 1",
 								[home],
 								function(err, result){
 									if(err) {
@@ -56,7 +56,7 @@ module.exports = {
 	},
 
 	all(callback){
-		ct.query("SELECT * FROM homes",
+		ct.query("SELECT * FROM home",
 				function(err, result){
 					if (err) {
 						console.log("[SELECT ERROR] - ", err.message);
@@ -67,7 +67,7 @@ module.exports = {
 								return {
 											"home" : item.home,
 											"location" : item.location,
-											"owner" : item.owner,
+											"contact" : item.contact,
 											"mail" : item.mail,
 											"tel" : item.tel											
 										}

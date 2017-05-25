@@ -3,11 +3,11 @@
 <head>
 	<meta charset="utf-8"> 
 	<title>Smart Home</title>
-	<link rel="stylesheet" href="/libs/bootstrap-3.3.6/dist/css/bootstrap.min.css">
+	<%- include style.html %>
 </head>
 <body style="background-image: url(images/library.jpg); background-repeat: no-repeat; background-size: cover;">
-<div class="jumbotron">
-  	<h1>Smart Home</h1>
+<div class="jumbotron" style="background: MistyRose">
+  	<h1>Smart Home <small>For Better Life</small> </h1>
   	<div class="input-group" style="float: right;">
   		<form class="navbar-form navbar-left" role="search" action="/login" method="POST">
 		  	<div class="form-group">		  		
@@ -22,6 +22,7 @@
 		</form>
 	</div>
 </div>
+
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -32,11 +33,12 @@
       <div class="modal-body">
       		<input type="text" class="form-control" placeholder="Username" id="new_username" required>
 			<input type="password" class="form-control" placeholder="Password" id="new_password" required>
-			<input type="password" class="form-control" placeholder="Confirm Password" id="new_password2" required>
-			<input type="text" class="form-control" placeholder="Home" id="new_home" required>
+			<input type="password" class="form-control" placeholder="Confirm Password" id="new_passwordconfirm" required>
+<!-- 			<input type="text" class="form-control" placeholder="Home" id="new_home" required>
 			<input type="text" class="form-control" placeholder="Location" id="new_location" required>
+			<input type="text" class="form-control" placeholder="Contact" id="new_contact" required>
 			<input type="text" class="form-control" placeholder="Mail" id="new_mail" required>
-			<input type="text" class="form-control" placeholder="Tel" id="new_tel" required>
+			<input type="text" class="form-control" placeholder="Tel" id="new_tel" required> -->
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -46,31 +48,6 @@
   </div>
 </div>
 
-	<script src="/libs/jquery-2.2.4/dist/jquery.min.js"></script>
-	<script src="/libs/bootstrap-3.3.6/dist/js/bootstrap.min.js"></script>
-	<script>
-		$(document).ready(function(){
-
-			$("#myModal").on('show.bs.modal', function(){
-				$("#new_username").val("");
-				$("#new_password").val("");
-				$("#new_password2").val("");
-				$("#new_home").val("");
-				$("#new_location").val("");				
-				$("#new_mail").val("");
-				$("#new_tel").val("");
-			});
-
-			$("#register").click(function(){
-				$.post('/register',
-						{
-							new_username : $("#new_username").val(),
-							new_password : $("#new_password").val(),
-							new_password2 : $("#new_password2").val()
-						});
-				$("#myModal").modal('hide');
-			});
-		});
-	</script>
+	<%- include script.html %>
 </body>
 </html>
