@@ -31,7 +31,7 @@ module.exports = {
 
 	update(home, newhome, newlocation, newcontact, newmail, newtel){
 		ct.query("UPDATE home SET home = ?, location = ?, contact = ?, mail = ?, tel = ? WHERE home = ?",
-								[newhome, newlocation, newcontact, newmail, newtel, name],
+								[newhome, newlocation, newcontact, newmail, newtel, home],
 								function(err, result){
 									if(err) {
 										console.log("[UPDATE ERROR] - ", err.message);
@@ -53,6 +53,28 @@ module.exports = {
 									if (result.length > 0) return callback(ture);
 										else return callback(false);
 								});
+	},
+
+	myHome(name, callback){
+		ct.query("SELECT a.* FROM home a, user b WHERE (a.home = b.home AND b.name = ?) limit 1", [name],
+				function(err, result){
+					if (err) {
+						console.log("[SELECT ERROR] - ", err.message);
+						callback(error());
+					}
+
+					let homes = result.map((item) => {
+								return {
+											"home" : item.home,
+											"location" : item.location,
+											"contact" : item.contact,
+											"mail" : item.mail,
+											"tel" : item.tel											
+										}
+								});
+
+					callback(homes);
+		});
 	},
 
 	all(callback){

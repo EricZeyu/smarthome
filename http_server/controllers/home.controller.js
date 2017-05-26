@@ -8,18 +8,23 @@ module.exports = {
 		res.render('homePreview', {
 								username : req.session.username,
 								authority: req.session.authority
-			});
+		});
 	},
 
-	homesList(req, res, next){
+	homeList(req, res, next){
 
 		// co(function* (){
 			// homes = yield home_model.all();
-
-			home_model.all(function(data){
-				// console.log(data);
-				res.json(data);
-			});
+			if (req.session.authority == 'root') {
+				home_model.all(function(data){
+					// console.log(data);
+					res.json(data);
+				});
+			}else {
+				home_model.myHome(req.session.username, function(data){
+					res.json(data);
+				});
+			}
 			// let homes = [{"home":"Banhu","location":"Shao Xin","owner":"banhuer","mail":"banhu@shaoxin.com","tel":"99999999"},
 			// 		{"home":"Banhu","location":"Shao Xin","owner":"banhuer","mail":"banhu@shaoxin.com","tel":"99999999"}];
 		// });

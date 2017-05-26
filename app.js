@@ -35,7 +35,16 @@ const
 	
 	// let u =require('./http_server/models/user.model');
 	// u.add('zeyu','zeyu','owner', 'Banhu');
-	// // u.delete('root');
+	// u.delete('root');
+	// u.add('ban2','ban2','member','Banhu');
+	// u.testall();
+
+	// let hm = require("./http_server/models/home.model");
+	// // let hm = require('./http_server/models/home.model');
+	// hm.update('School', 'ZJUT', 'Hang Zhou', 'ZJUTshcool', 'zjutschool@edu.com.cn', '0571-85290777');
+	// hm.all(function(data){
+	// 	console.log(data);
+	// });
 
 
 	app.use((req,res,next) => {
@@ -49,9 +58,7 @@ const
 
 	app.use('/', require('./routes/index.route'));
 	app.use('/home', require('./routes/home.route'));
-	// app.use('/login', require('./routes/login.route'));
-	// app.use('/register', require('./routes/register.route'));	
-	// app.use('/user', require('./routes/user.route'));
+	app.use('/member', require('./routes/member.route'));
 
 	// catch 404 and forward to error handler
 	app.use(function(req, res, next) {
@@ -75,10 +82,6 @@ const
 	  });
 	});
 
-// 	let us = require("./http_server/models/user.model");
-// //	us.add('zeyu', 123456, 'ZJUT');
-// 	us.exist('zeyu', 123456);
-// 	let hm = require("./http_server/models/home.model");
 
 	//---HTTP
 	// socket.on('connection', (socket) => {

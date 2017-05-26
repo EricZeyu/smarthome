@@ -44,9 +44,9 @@ module.exports = {
 								});
 	},
 
-	modify(name, newpassword, newauthority, newhome){
-		ct.query("UPDATE user SET password = ?, authority = ?, home = ? WHERE name = ?",
-								[newpassword, newauthority, newhome, name],
+	modify(name, newpassword, newhome){
+		ct.query("UPDATE user SET password = ?, home = ? WHERE name = ?",
+								[newpassword, newhome, name],
 								function(err, result){
 									if(err) {
 										console.log("[UPDATE ERROR] - ", err.message);
@@ -85,5 +85,41 @@ module.exports = {
 										callback(user);
 									}									
 								});
+	},
+
+	members(name, callback){
+		ct.query("SELECT a.name, a.authority FROM user a, user b WHERE (a.home = b.home AND b.name = ?)", [name], 
+				function(err, result){
+					if (err) {
+						console.log("[SELECT ERROR] - ", err.message);
+						callback(error());
+					}else {
+						let members = result.map((item) => {
+								return {
+											"name" : item.name,
+											"authority" : item.authority,
+											"online" : "null"										
+										}
+								});
+
+						callback(members);
+					}
+				});
+	},
+
+	testall(){
+		ct.query("SELECT * FROM user",
+								function(err, result){
+									if(err) {
+											console.log("[SELECT ERROR] - ", err.message);
+											callback(error());
+										}
+
+										// console.log("-----SELECT ok-----");
+										// console.log("SELECT : ", result);
+										// console.log("----------------\n");
+									
+									console.log(result);
+		});
 	}
 }

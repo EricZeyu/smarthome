@@ -1,17 +1,19 @@
 const
-	// user_model = require('../models/user.model'),
+	user_model = require('../models/user.model'),
 	co = require('co');
 
 module.exports = {
 
-	memberRender(req, res, next){
-		res.render('member', {
+	memberPreview(req, res, next){
+		res.render('memberPreview', {
 								username : req.session.username,
 								authority: req.session.authority
-			});
+		});
 	},
 
 	membersList(req, res, next){
-		res.json({});
+		user_model.members(req.session.username, function(data){
+			res.json(data);
+		});
 	}
 };
