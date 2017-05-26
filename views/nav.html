@@ -14,9 +14,9 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav" id="nav_ul">
-        <li id="myhome"><a href="/home">Home</a></li>
-        <li id="mymember"><a href="/member">Member</a></li>
-        <li id="myother"><a href="/message">Message</a></li>
+        <li id="home"><a href="/home/preview">Home</a></li>
+        <li id="member"><a href="/member/preview">Member</a></li>
+        <li id="message"><a href="/message">Message</a></li>
       </ul>
       <form class="navbar-form navbar-left">
         <div class="form-group">
@@ -33,7 +33,7 @@
             <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
-            <li data-toggle="modal" data-target="#myModalSetting"><a href="/setting">Setting</a></li>
+            <li data-toggle="modal" data-target="#myModalSettings"><a href="#">Settings</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="/logout">Logout</a></li>
           </ul>
@@ -43,21 +43,21 @@
   </div><!-- /.container-fluid -->
 </nav>
 
-<div class="modal fade" id="myModalSetting" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="myModalSettings" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel" style="color: Coral">Setting</h4>
+        <h4 class="modal-title" id="myModalLabel" style="color: Coral">Settings</h4>
       </div>
       <div class="modal-body">
           <input type="text" class="form-control" placeholder="Old Password" id="old_password" required>
-      <input type="password" class="form-control" placeholder="New Password" id="new_password" required>
-      <input type="password" class="form-control" placeholder="Confirm Password" id="new_passwordconfirm" required>
+          <input type="password" class="form-control" placeholder="New Password" id="new_password" required>
+          <input type="password" class="form-control" placeholder="Confirm Password" id="new_passwordconfirm" required>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-warning" id="setting">Sure</button>
+        <button type="button" class="btn btn-warning" id="account_settings">Sure</button>
       </div>
     </div>
   </div>

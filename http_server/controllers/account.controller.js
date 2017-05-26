@@ -4,31 +4,24 @@ const
 
 module.exports = {
 
-	accountRender(req, res, next){
-		res.render('account', {
-								username : req.session.username,
-								authority: req.session.authority
-				});
-	},
-
 	accountValidate(req, res, next){
 
 		user_model.validate(req.body.username, req.body.password, function(data){
 			if (data.validate) {
 				req.session.username = data.name;
 				req.session.authority = data.authority;
-				res.redirect('/account');
+				res.redirect('/home/preview');
 			}else{
 				res.redirect('/');
 			}
 		});
 	},
 
-	accountRegister(req, res, next){
-		;
+	accountSettings(req, res, next){
+		console.log("settings");
 	},
 
-	accountSetting(req, res, next){
+	accountRegister(req, res, next){
 		;
 	},
 

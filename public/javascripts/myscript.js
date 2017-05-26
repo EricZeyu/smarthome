@@ -6,15 +6,15 @@ $(document).ready(function(){
 		$("#new_passwordconfirm").val("");
 	});
 	
-	$("#myModalSetting").on('show.bs.modal', function(){
+	$("#myModalSettings").on('show.bs.modal', function(){
 		$("#old_password").val("");
 		$("#new_password").val("");
 		$("#new_passwordconfirm").val("");
 	});
 
 
-	$("#register").click(function(){
-		$.post('/register',
+	$("#account_register").click(function(){
+		$.post('/account_register',
 			{
 				new_username : $("#new_username").val(),
 				new_password : $("#new_password").val(),
@@ -23,14 +23,14 @@ $(document).ready(function(){
 		$("#myModal").modal('hide');
 	});
 
-	$("#setting").click(function(){
-		$.post('/setting',
+	$("#account_settings").click(function(){
+		$.post('/account_settings',
 			{
 				old_password : $("old_password").val(),
 				new_password : $("#new_password").val(),
 				new_passwordconfirm : $("#new_passwordconfirm").val()
 			});
-		$("#myModalSetting").modal('hide');
+		$("#myModalSettings").modal('hide');
 	});
 		
 });

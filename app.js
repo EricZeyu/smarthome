@@ -47,8 +47,8 @@ const
 	  }
 	});
 
-	// app.use('/home', require('./routes/home.route'));
 	app.use('/', require('./routes/index.route'));
+	app.use('/home', require('./routes/home.route'));
 	// app.use('/login', require('./routes/login.route'));
 	// app.use('/register', require('./routes/register.route'));	
 	// app.use('/user', require('./routes/user.route'));
