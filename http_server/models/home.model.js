@@ -50,7 +50,7 @@ module.exports = {
 											callback(error());
 										}
 
-									if (result.length > 0) return callback(ture);
+									if (result.length > 0) return callback(true);
 										else return callback(false);
 								});
 	},

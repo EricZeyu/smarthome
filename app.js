@@ -34,17 +34,23 @@ const
 	app.use(express.static(path.join(__dirname, 'public')));
 	
 	// let u =require('./http_server/models/user.model');
-	// u.add('zeyu','zeyu','owner', 'Banhu');
-	// u.delete('root');
+	// // u.add('zeyu','zeyu','owner', 'Banhu');
+	// u.delete('sf');
 	// u.add('ban2','ban2','member','Banhu');
 	// u.testall();
 
 	// let hm = require("./http_server/models/home.model");
 	// // let hm = require('./http_server/models/home.model');
-	// hm.update('School', 'ZJUT', 'Hang Zhou', 'ZJUTshcool', 'zjutschool@edu.com.cn', '0571-85290777');
+	// hm.update('ZJUT', 'ZJUT', 'Hang Zhou', 'test', 'test@edu.com.cn', '0571-85290777');
 	// hm.all(function(data){
 	// 	console.log(data);
 	// });
+
+	// let gmm = require("./http_server/models/gateway.model");
+	// // gmm.delete('D8B04CBE2939');
+	// gmm.add('D8B04CBE2939', '10.8.208.134', '3333', 'Banhu');
+	// gmm.add('AC243FB00876', '10.8.208.135', '3334', 'ZJUT');
+
 
 
 	app.use((req,res,next) => {

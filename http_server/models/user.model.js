@@ -44,9 +44,9 @@ module.exports = {
 								});
 	},
 
-	modify(name, newpassword, newhome){
-		ct.query("UPDATE user SET password = ?, home = ? WHERE name = ?",
-								[newpassword, newhome, name],
+	changepassword(name, newpassword){
+		ct.query("UPDATE user SET password = ? WHERE name = ?",
+								[newpassword, name],
 								function(err, result){
 									if(err) {
 										console.log("[UPDATE ERROR] - ", err.message);
@@ -54,6 +54,35 @@ module.exports = {
 										}
 								
 			});
+	},
+
+	changehome(name, newhome){
+		ct.query("UPDATE user SET home = ? WHERE name = ?",
+								[newhome, name],
+								function(err, result){
+									if(err) {
+										console.log("[UPDATE ERROR] - ", err.message);
+										return;
+										}
+								
+			});
+	},
+
+	notexistname(name, callback){
+		ct.query("SELECT name FROM user WHERE (name = ?) limit 1",
+				[name],
+				function(err, result){
+					if (err) {
+						console.log("[SELECT ERROR] - ", err.message);
+						callback(error());
+					}
+
+					if (result.length > 0){
+						callback(false);
+					}else{
+						callback(true);
+					}
+				});
 	},
 
 	validate(name, password, callback){

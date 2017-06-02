@@ -1,5 +1,5 @@
 const
-	tcp_host = '10.8.208.190',
+	tcp_host = '10.8.208.156',
 	tcp_port = '4001';
 
 const
@@ -32,7 +32,7 @@ exports.create_tcp_server = function(){
 
 		sockets.push(socket);
 
-		gateway.connect(socket);
+		// gateway.connect(socket);
 
 		console.log("Tcp socket connected to IP: " + socket.remoteAddress + ", port : " + socket.remotePort);
 
@@ -41,7 +41,7 @@ exports.create_tcp_server = function(){
 
 			sockets.splice(sockets.indexOf(socket), 1);
 
-			gateway.disconnect(socket);
+		// gateway.disconnect(socket);
 
 			socket.destroy();
 		});
@@ -51,7 +51,7 @@ exports.create_tcp_server = function(){
 			
 			sockets.splice(sockets.indexOf(socket), 1);
 
-			gateway.disconnect(socket);
+			// gateway.disconnect(socket);
 		});
 
 		socket.on('data', (data) => {

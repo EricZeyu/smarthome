@@ -1,5 +1,6 @@
 const
 	home_model = require('../models/home.model'),
+	gateway_model = require('../models/gateway.model'),
 	co = require('co');
 
 module.exports = {
@@ -11,10 +12,32 @@ module.exports = {
 		});
 	},
 
+	homeGuide(req, res, next){
+
+		if (req.session.authority == 'owner') {
+			
+			home_model.add(req.body.home,
+							req.body.location,
+							req.session.username,
+							req.body.mail,
+							req.body.tel);
+
+			gateway_model.add(req.body.MAC,
+								req.body.IP,
+								req.body.port,
+								req.body.home);
+
+		}
+
+		res.redirect('/home/preview');
+	},
+
+	homeRecord(req, res, next){
+		
+	},
+
 	homeList(req, res, next){
 
-		// co(function* (){
-			// homes = yield home_model.all();
 			if (req.session.authority == 'root') {
 				home_model.all(function(data){
 					// console.log(data);
@@ -25,8 +48,5 @@ module.exports = {
 					res.json(data);
 				});
 			}
-			// let homes = [{"home":"Banhu","location":"Shao Xin","owner":"banhuer","mail":"banhu@shaoxin.com","tel":"99999999"},
-			// 		{"home":"Banhu","location":"Shao Xin","owner":"banhuer","mail":"banhu@shaoxin.com","tel":"99999999"}];
-		// });
 	}
 };
