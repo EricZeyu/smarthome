@@ -65,6 +65,7 @@ const
 	app.use('/', require('./routes/index.route'));
 	app.use('/home', require('./routes/home.route'));
 	app.use('/member', require('./routes/member.route'));
+	app.use('/device', require('./routes/device.route'));
 
 	// catch 404 and forward to error handler
 	app.use(function(req, res, next) {

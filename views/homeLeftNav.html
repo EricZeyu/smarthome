@@ -1,0 +1,32 @@
+<div class="col-md-3">
+	<ul class="nav nav-pills nav-stacked">
+    <li role="presentation" id="home_home"><a href="/home/home">Home</a></li>
+		<li role="presentation" id="home_gateway"><a href="/home/gateway">Gateway</a></li>
+		<li role="presentation" data-toggle="modal" data-target="#myHomeGuideModal"><a href="#">Guide</a></li>
+		<li role="presentation" id="home_record"><a href="/home/record">Records</a></li>
+	</ul>
+</div>
+
+<div class="modal fade" id="myHomeGuideModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel" style="color: MediumSlateBlue">Home Guide</h4>
+      </div>
+      <div class="modal-body">
+      <input type="text" class="form-control" placeholder="home" id="home" required>
+			<input type="password" class="form-control" placeholder="location" id="location" required>
+			<input type="password" class="form-control" placeholder="Your mail" id="mail" required>
+			<input type="password" class="form-control" placeholder="Your tel" id="tel" required>
+			<input type="password" class="form-control" placeholder="Gateway's MAC" id="MAC" required>
+			<input type="password" class="form-control" placeholder="Gateway's IP" id="IP" required>
+			<input type="password" class="form-control" placeholder="Gateway's port" id="port" required>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-warning" id="home_guide_sure">Sure</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -10,7 +10,7 @@ module.exports = {
 			if (data.validate){
 				req.session.username = data.name;
 				req.session.authority = data.authority;
-				res.redirect('/home/preview');
+				res.redirect('/home/home');
 			}else{
 				res.redirect('/');
 			}

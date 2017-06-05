@@ -1,0 +1,26 @@
+<div class="col-md-3">
+  <ul class="nav nav-pills nav-stacked">
+    <li role="presentation" id="member_member"><a href="/member/member">Member</a></li>
+    <li role="presentation" data-toggle="modal" data-target="#myMemberAddModal"><a href="#">Add Member</a></li>
+    <li role="presentation" id="member_logs"><a href="/member/logs">Logs</a></li>
+  </ul>
+</div>
+
+<div class="modal fade" id="myMemberAddModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel" style="color: MediumSeaGreen">Add Member</h4>
+      </div>
+      <div class="modal-body">
+          <input type="text" class="form-control" placeholder="member name" id="member_name" required>
+      <input type="password" class="form-control" placeholder="member password" id="memeber_password" required>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-success" id="member_add">Add</button>
+      </div>
+    </div>
+  </div>
+</div>

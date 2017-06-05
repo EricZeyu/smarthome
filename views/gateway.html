@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<title>Gateway</title>
+	<%- include style.html %>
+</head>
+<body>
+	<%- include nav.html %>
+	<%- include homeLeftNav.html %>
+	
+	<div class="col-md-9">
+		<div class="panel panel-info">
+		  	<div class="panel-heading">
+		    	<h3 class="panel-title">Gateway</h3>
+		  	</div>
+		  	<div id="gatewayToolbar">
+                <div class="btn-group" role="group" aria-label="...">
+				  	<button type="button" class="btn btn-success">
+				  		Import<span class="glyphicon glyphicon-import" aria-hidden="true"></span>
+				  	</button>
+				  	<button type="button" class="btn btn-info">
+				  		Export<span class="glyphicon glyphicon-export" aria-hidden="true"></span>
+				  	</button>
+				  	<button type="button" class="btn btn-warning"  data-toggle="modal" data-target="#gatewayAddModel">
+				  		Add<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+				  	</button>
+				</div>
+            </div>
+		  	<table id="gatewayTable"></table>
+            <div class="modal fade" id="gatewayAddModel" tabindex="-1" role="dialog" aria-hidden="true">
+                   <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                    &times;
+                                </button>
+                                <h4 class="modal-title" id="myModalLabel" style="color: Coral">Add New Gateway</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form role="form" action="#" method="POST">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="MAC" placeholder="MAC">
+                                        <input type="text" class="form-control" id="IP" placeholder="IP">
+                                        <input type="text" class="form-control" id="port" placeholder="port">
+                                        <input type="text" class="form-control" id="home" placeholder="home">
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-warning" id="addNewGateway">OK</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+		</div>
+
+	</div>
+
+	<%- include script.html %>
+	<script>
+		
+		$(document).ready(function(){
+
+			$("#home").addClass("active");
+			$("#home_gateway").addClass("active");
+
+
+			window.gatewayOperateEvents = {
+
+	            'click .gatewayEdit': function (e, value, row, index) {
+	            	console.log(value);
+	            	console.log(row);
+	            	console.log(index);
+	            alert('You click Edit action, row: ' + JSON.stringify(row));
+	            },
+
+	            'click .gatewayRemove': function (e, value, row, index) {
+	                $('#tableGateway').bootstrapTable('remove', {
+	                    field: 'MAC',
+	                    values: [row.MAC]
+	                });
+	            }
+	        };
+
+			$('#gatewayTable').bootstrapTable({
+				method: "get",//请求方式
+                url: "/home/table_gateway_infos",//数据源
+                striped: true,
+                pagination: true,//是否分页
+                pageSize: 20,//单页记录数
+                pageList: [5, 10, 20, 50],//分页步进值
+                queryParamsType: "limit",//查询参数组织方式
+                queryParams: function getParams(params) {
+                    //params obj
+                    params.other = "otherInfo";
+                    return params;
+                },
+                search: true,//是否搜索                
+                searchOnEnterKey: false,//回车搜索
+                searchAlign: "right",//查询框对齐方式                
+                showRefresh: true,//刷新按钮
+                showColumns: true,//列选择按钮
+                buttonsAlign: "right",//按钮对齐方式
+                toolbar: "#gatewayToolbar",
+                toolbarAlign: "left",
+                columns: [
+                    {
+                        field: "MAC",//键名
+                        title: "MAC",//标题
+                        sortable: true,//是否可排序
+                        order: "asc"//默认排序方式
+                    },
+                    {
+                        field: "IP",
+                        title: "IP",
+                        sortable: true,
+                    },
+                    {
+                        field: "port",
+                        title: "port",
+                        sortable: true,
+                    },
+                    {
+                        field: "home",
+                        title: "home",
+                        sortable: true,
+                    },
+                    {
+                        field: "state",
+                        title: "state",
+                        sortable: true,
+                    },
+                    {
+                        field: "operate",
+                        title: "operate",
+                        align: "center",
+                        events: gatewayOperateEvents,
+                        formatter: gatewayOperateFormatter
+                    }
+                ],
+                onClickRow: function(row, $element, field) {
+                    //$element是当前tr的jquery对象
+                    // $element.css("background-color", "green");
+                    console.log("click row", row);
+
+                }//单击row事件
+            });
+
+            function gatewayOperateFormatter(value, row, index){
+	            return [
+	            '<a class="gatewayEdit" href="javascript:void(0)" title="Edit">',
+	            '<i class="glyphicon glyphicon-edit"></i>',
+	            '</a>',
+	            '<a class="gatewayRemove" href="javascript:void(0)" title="Remove">',
+	            '<i class="glyphicon glyphicon-remove"></i>',
+	            '</a>'
+	            ].join('');
+        	};
+
+		});
+
+		$(document).unload(function(){
+		});
+
+	</script>
+</body>
+</html>

@@ -4,8 +4,8 @@ const
 
 module.exports = {
 
-	memberPreview(req, res, next){
-		res.render('memberPreview', {
+	memberRender(req, res, next){
+		res.render('member', {
 								username : req.session.username,
 								authority: req.session.authority
 		});

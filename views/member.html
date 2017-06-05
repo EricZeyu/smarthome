@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<title>Member</title>
+	<%- include style.html %>
+</head>
+<body>
+	<%- include nav.html %>
+	<%- include memberLeftNav.html %>
+
+	<div class="col-md-9">
+		<div class="panel panel-success">
+		  	<div class="panel-heading">
+		    	<h3 class="panel-title">Members</h3>
+		  	</div>
+			<table
+	       	data-toggle="table"
+			data-sort-name="name"
+			data-sort-order="asc"
+			data-method="get"
+			data-url="/member/table_members_infos"
+			>
+				<thead>
+		            <tr>
+		                <th data-field="name" data-sortable="true">Name</th>
+		                <th data-field="authority" data-sortable="true">Authority</th>
+		                <th data-field="online" data-sortable="true">OnLine</th>
+		            </tr>
+				</thead>
+			</table>
+		</div>
+	</div>
+
+	<%- include script.html %>
+	<script>
+		
+		$(document).ready(function(){
+			$("#member").addClass("active");
+			$("#member_member").addClass("active");
+
+			$.getJSON('/member/table_members_infos', function(data){
+				console.log(data);
+				$("#table_members").bootstrapTable('load', data);
+			});
+		});
+
+		$(document).unload(function(){
+		});
+
+	</script>
+</body>
+</html>

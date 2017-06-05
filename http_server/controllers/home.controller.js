@@ -5,8 +5,8 @@ const
 
 module.exports = {
 
-	homePreview(req, res, next){
-		res.render('homePreview', {
+	homeRender(req, res, next){
+		res.render('home', {
 								username : req.session.username,
 								authority: req.session.authority
 		});
@@ -29,7 +29,7 @@ module.exports = {
 
 		}
 
-		res.redirect('/home/preview');
+		res.redirect('/home/home');
 	},
 
 	homeRecord(req, res, next){

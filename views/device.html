@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<title>Device</title>
+	<%- include style.html %>
+</head>
+<body>
+	<%- include nav.html %>
+	<%- include deviceLeftNav.html %>
+
+	<div class="col-md-9">
+		<div class="panel panel-warning">
+		  	<div class="panel-heading">
+		    	<h3 class="panel-title">Devices</h3>
+		  	</div>
+
+		  	<table id="table_devices"
+	       	data-toggle="table"
+			data-sort-name="device"
+			data-sort-order="asc"
+			>
+				<thead>
+		            <tr>
+		                <th data-field="device" data-sortable="true">Device</th>
+		                <th data-field="type" data-sortable="true">Type</th>
+		                <th data-field="nickname" data-sortable="true">Nickname</th>
+		                <th data-field="signal" data-sortable="true">Signal</th>
+		            </tr>
+				</thead>
+			</table>
+		</div>
+
+	</div>
+
+	<%- include script.html %>
+
+	<script>
+		
+		$(document).ready(function(){
+
+			$("#device").addClass("active");
+			$("#device_device").addClass("active");
+		});
+
+		$(document).unload(function(){
+		});
+
+	</script>
+</body>
+</html>
