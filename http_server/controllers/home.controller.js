@@ -33,7 +33,7 @@ module.exports = {
 	},
 
 	homeRecord(req, res, next){
-		
+		res.render('table');
 	},
 
 	homeList(req, res, next){

@@ -46,7 +46,7 @@ $(document).ready(function(){
 		$("#myHomeGuideModal").modal('hide');
 		$.post('/home/guide',
 			{
-				home : $("home").val(),
+				home : $("#home").val(),
 				location : $("#location").val(),
 				mail : $("#mail").val(),
 				tel : $("#tel").val(),
