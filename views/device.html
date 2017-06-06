@@ -10,27 +10,60 @@
 	<%- include deviceLeftNav.html %>
 
 	<div class="col-md-9">
-		<div class="panel panel-warning">
+		<div class="panel panel-success">
 		  	<div class="panel-heading">
 		    	<h3 class="panel-title">Devices</h3>
 		  	</div>
-
-		  	<table id="table_devices"
-	       	data-toggle="table"
-			data-sort-name="device"
-			data-sort-order="asc"
-			>
-				<thead>
-		            <tr>
-		                <th data-field="device" data-sortable="true">Device</th>
-		                <th data-field="type" data-sortable="true">Type</th>
-		                <th data-field="nickname" data-sortable="true">Nickname</th>
-		                <th data-field="signal" data-sortable="true">Signal</th>
-		            </tr>
-				</thead>
-			</table>
+			<div id="deviceToolbar">
+                <div class="btn-group" role="group" aria-label="...">
+				  	<button type="button" class="btn btn-success">
+				  		Import<span class="glyphicon glyphicon-import" aria-hidden="true"></span>
+				  	</button>
+				  	<button type="button" class="btn btn-info">
+				  		Export<span class="glyphicon glyphicon-export" aria-hidden="true"></span>
+				  	</button>
+				  	<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#deviceAddModel">
+				  		Add<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+				  	</button>
+				</div>
+            </div>
+		  	<table id="deviceTable"></table>
+		  	<div class="modal fade" id="deviceAddModel" tabindex="-1" role="dialog" aria-hidden="true">
+                   <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                    &times;
+                                </button>
+                                <h4 class="modal-title" id="myModalLabel" style="color: Coral">Add New Device</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form role="form" action="/device/addNewDevice" method="POST">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="device" placeholder="Device serial number">
+                                        <select class="form-control" name="type">
+                                            <option value="router">Router</option>
+                                            <option value="baroceptor">Baroceptor</option>
+                                            <option value="hygrometer">Hygrometer</option>
+                                            <option value="particulator">Particulator</option>
+                                            <option value="lighter">Lighter</option>
+                                            <option value="lamp">Lamp</option>
+                                            <option value="door">Door</option>
+                                        </select>
+                                        <input type="text" class="form-control" name="nickname" placeholder="Nickname">
+                                        <input type="text" class="form-control" name="home" placeholder="Home">
+                                        <input type="text" class="form-control" name="remark" placeholder="Remark">
+                                    </div>
+                                    <div class="modal-footer">
+                                		<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                		<button type="submit" class="btn btn-warning">OK</button>
+                            		</div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 		</div>
-
 	</div>
 
 	<%- include script.html %>
@@ -41,6 +74,94 @@
 
 			$("#device").addClass("active");
 			$("#device_device").addClass("active");
+
+			window.deviceOperateEvents = {
+				'click .deviceEdit': function (e, value, row, index) {
+	            	console.log(value);
+	            	console.log(row);
+	            	console.log(index);
+	            alert('You click Edit action, row: ' + JSON.stringify(row));
+	            },
+
+	            'click .deviceRemove': function (e, value, row, index) {
+	            	$.post('/device/removeDevice',{
+	            		device: row.device
+	            		});
+	                $('#deviceTable').bootstrapTable('remove', {
+	                    field: 'device',
+	                    values: [row.device]
+	                });
+	            }
+			};
+
+	        $('#deviceTable').bootstrapTable({
+				method: "get",//请求方式
+                url: "/device/table_devices_infos",//数据源
+                striped: true,
+                pagination: true,//是否分页
+                pageSize: 5,//单页记录数
+                pageList: [5, 10, 20, 50],//分页步进值
+                queryParamsType: "limit",//查询参数组织方式
+                queryParams: function getParams(params) {
+                    //params obj
+                    params.other = "otherInfo";
+                    return params;
+                },
+                search: true,//是否搜索
+                searchOnEnterKey: false,//回车搜索
+                searchAlign: "right",//查询框对齐方式                
+                showRefresh: true,//刷新按钮
+                showColumns: true,//列选择按钮
+                buttonsAlign: "right",//按钮对齐方式
+                toolbar: "#deviceToolbar",
+                toolbarAlign: "left",
+                columns: [
+                    {
+                        field: "device",//键名
+                        title: "Device",//标题
+                        sortable: true,//是否可排序
+                        order: "asc"//默认排序方式
+                    },
+                    {
+                        field: "type",
+                        title: "Type",
+                        sortable: true,
+                    },
+                    {
+                        field: "nickname",
+                        title: "Nickname",
+                        sortable: true,
+                    },
+                    {
+                        field: "home",
+                        title: "Home",
+                        sortable: true,
+                    },
+                    {
+                        field: "remark",
+                        title: "Remark",
+                        sortable: true,
+                    },
+                    {
+                        field: "operate",
+                        title: "Operate",
+                        align: "center",
+                        events: deviceOperateEvents,
+                        formatter: deviceOperateFormatter
+                    }
+                ],
+            });
+
+        	function deviceOperateFormatter(value, row, index){
+	            return [
+	            '<a class="deviceEdit" href="javascript:void(0)" title="Edit">',
+	            '<i class="glyphicon glyphicon-edit"></i>',
+	            '</a>',
+	            '<a class="deviceRemove" href="javascript:void(0)" title="Remove">',
+	            '<i class="glyphicon glyphicon-remove"></i>',
+	            '</a>'
+	            ].join('');
+        	};
 		});
 
 		$(document).unload(function(){

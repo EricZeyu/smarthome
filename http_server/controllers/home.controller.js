@@ -32,10 +32,6 @@ module.exports = {
 		}
 	},
 
-	homeRecord(req, res, next){
-		// res.render('table');
-	},
-
 	homeList(req, res, next){
 
 			if (req.session.authority == 'root') {
@@ -43,10 +39,12 @@ module.exports = {
 					// console.log(data);
 					res.json(data);
 				});
-			}else {
-						home_model.groupHome(req.session.username, function(data){
+			}else if (req.session.authority == 'owner') {
+						home_model.ownerHome(req.session.username, function(data){
 							res.json(data);
 						});
+				}else {
+					;;
 				}
 	}
 };

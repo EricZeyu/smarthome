@@ -4,6 +4,8 @@ const
 	router = express.Router();
 
 router.get('/device', deviceController.deviceRender);
+router.post('/addNewDevice', deviceController.deviceAdd);
+router.post('/removeDevice', deviceController.deviceRemove);
 router.get('/table_devices_infos', deviceController.devicesList);
 
 

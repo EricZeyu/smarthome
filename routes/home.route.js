@@ -11,7 +11,6 @@ router.post('/addNewHome', homeController.homeAdd);
 router.post('/removeHome', homeController.homeRemove);
 router.post('/addNewGateway', gatewayController.gatewayAdd);
 router.post('/removeGateway', gatewayController.gatewayRemove);
-router.get('/record', homeController.homeRecord);
 router.get('/table_home_infos', homeController.homeList);
 router.get('/table_gateway_infos', gatewayController.gatewayList);
 

@@ -1,5 +1,5 @@
 const
-	// device_model = require('../models/home.model'),
+	device_model = require('../models/device.model'),
 	co = require('co');
 
 module.exports = {
@@ -11,9 +11,31 @@ module.exports = {
 		});
 	},
 
+	deviceAdd(req, res, next){
+		if (req.session.authority == 'owner'){
+
+			device_model.add(req.body.device,
+							req.body.type,
+							req.body.nickname,
+							req.body.home,
+							req.body.remark);
+		}
+
+		res.redirect('/deivce/deivce');
+	},
+
+	deviceRemove(req, res, next){
+
+		if (req.session.authority == 'owner'){
+
+			device_model.delete(req.body.device);
+		}
+	},
+
 	devicesList(req, res, next){
 
-		console.log({"deivce":"01a4bf"});
-		res.json([]);
+		device_model.homeDevices(req.session.username, function(data){
+			res.json(data);
+		});
 	}
 };
