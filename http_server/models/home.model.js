@@ -55,8 +55,30 @@ module.exports = {
 								});
 	},
 
-	myHome(name, callback){
-		ct.query("SELECT a.* FROM home a, user b WHERE (a.home = b.home AND b.name = ?) limit 1", [name],
+	ownerHome(name, callback){
+		ct.query("SELECT * FROM home WHERE (contact = ?)", [name],
+				function(err, result){
+					if (err) {
+						console.log("[SELECT ERROR] - ", err.message);
+						callback(error());
+					}
+
+					let homes = result.map((item) => {
+								return {
+											"home" : item.home,
+											"location" : item.location,
+											"contact" : item.contact,
+											"mail" : item.mail,
+											"tel" : item.tel											
+										}
+								});
+
+					callback(homes);
+		});
+	},
+
+	memberHome(name, callback){
+		ct.query("SELECT a.* FROM home a, user b WHERE (a.home = b.home AND b.name = ?)", [name],
 				function(err, result){
 					if (err) {
 						console.log("[SELECT ERROR] - ", err.message);

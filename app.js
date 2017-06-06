@@ -47,7 +47,7 @@ const
 	// });
 
 	// let gmm = require("./http_server/models/gateway.model");
-	// // gmm.delete('D8B04CBE2939');
+	// gmm.delete('z');
 	// gmm.add('D8B04CBE2939', '10.8.208.134', '3333', 'Banhu');
 	// gmm.add('AC243FB00876', '10.8.208.135', '3334', 'ZJUT');
 

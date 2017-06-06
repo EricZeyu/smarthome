@@ -12,28 +12,48 @@ module.exports = {
 		});
 	},
 
-	homeGuide(req, res, next){
+	// homeGuide(req, res, next){
 
-		if (req.session.authority == 'owner') {
+	// 	if (req.session.authority == 'owner') {
 			
+	// 		home_model.add(req.body.home,
+	// 						req.body.location,
+	// 						req.session.username,
+	// 						req.body.mail,
+	// 						req.body.tel);
+
+	// 		gateway_model.add(req.body.MAC,
+	// 							req.body.IP,
+	// 							req.body.port,
+	// 							req.body.home);
+
+	// 	}
+
+	// 	res.redirect('/home/home');
+	// },
+
+	homeAdd(req, res, next){
+		if (req.session.authority == 'owner'){
+
 			home_model.add(req.body.home,
 							req.body.location,
-							req.session.username,
+							req.body.contact,
 							req.body.mail,
 							req.body.tel);
-
-			gateway_model.add(req.body.MAC,
-								req.body.IP,
-								req.body.port,
-								req.body.home);
-
 		}
 
 		res.redirect('/home/home');
 	},
 
+	homeRemove(req, res, next){
+		if (req.session.authority == 'owner'){
+
+			home_model.delete(req.body.home);
+		}
+	},
+
 	homeRecord(req, res, next){
-		res.render('table');
+		// res.render('table');
 	},
 
 	homeList(req, res, next){
@@ -43,8 +63,13 @@ module.exports = {
 					// console.log(data);
 					res.json(data);
 				});
-			}else {
-				home_model.myHome(req.session.username, function(data){
+			}else if (req.session.authority == 'owner'){
+				home_model.ownerHome(req.session.username, function(data){
+									res.json(data);
+								});
+			}
+			else {
+				home_model.memberHome(req.session.username, function(data){
 					res.json(data);
 				});
 			}

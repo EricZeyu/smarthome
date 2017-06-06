@@ -136,6 +136,26 @@ module.exports = {
 				});
 	},
 
+	usersAll(callback){
+		ct.query("SELECT * FROM user",
+				function(err, result){
+					if (err) {
+						console.log("[SELECT ERROR] - ", err.message);
+						callback(error());
+					}else {
+						let users = result.map((item) => {
+								return {
+											"name" : item.name,
+											"authority" : item.authority,
+											"online" : "null"										
+										}
+								});
+
+						callback(users);
+					}
+				});
+	},
+
 	testall(){
 		ct.query("SELECT * FROM user",
 								function(err, result){

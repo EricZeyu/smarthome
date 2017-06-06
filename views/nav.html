@@ -44,7 +44,7 @@
   </div><!-- /.container-fluid -->
 </nav>
 
-<div class="modal fade" id="myModalSettings" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<!-- <div class="modal fade" id="myModalSettings" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -62,4 +62,30 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
+
+        <div class="modal fade" id="myModalSettings" tabindex="-1" role="dialog" aria-hidden="true">
+                   <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                    &times;
+                                </button>
+                                <h4 class="modal-title" id="myModalLabel" style="color: Coral">Settings</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form role="form" action="/account_settings" method="POST">
+                                    <div class="form-group">
+                                        <input type="password" class="form-control" name="old_password" placeholder="Old Password">
+                                        <input type="password" class="form-control" name="new_password" placeholder="New Password">
+                                        <input type="password" class="form-control" name="new_passwordconfirm" placeholder="Confirm Password">
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                      <button type="submit" class="btn btn-warning">Sure</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+        </div>

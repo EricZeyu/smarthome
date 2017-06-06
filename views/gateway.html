@@ -38,22 +38,22 @@
                                 <h4 class="modal-title" id="myModalLabel" style="color: Coral">Add New Gateway</h4>
                             </div>
                             <div class="modal-body">
-                                <form role="form" action="#" method="POST">
+                                <form role="form" action="/home/addNewGateway" method="POST">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="MAC" placeholder="MAC">
-                                        <input type="text" class="form-control" id="IP" placeholder="IP">
-                                        <input type="text" class="form-control" id="port" placeholder="port">
-                                        <input type="text" class="form-control" id="home" placeholder="home">
+                                        <input type="text" class="form-control" name="MAC" placeholder="MAC">
+                                        <input type="text" class="form-control" name="IP" placeholder="IP">
+                                        <input type="text" class="form-control" name="port" placeholder="port">
+                                        <input type="text" class="form-control" name="home" placeholder="home">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-warning">OK</button>
                                     </div>
                                 </form>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                <button type="submit" class="btn btn-warning" id="addNewGateway">OK</button>
-                            </div>
                         </div>
                     </div>
-                </div>
+            </div>
 		</div>
 
 	</div>
@@ -77,7 +77,12 @@
 	            },
 
 	            'click .gatewayRemove': function (e, value, row, index) {
-	                $('#tableGateway').bootstrapTable('remove', {
+
+                    $.post('/home/removeGateway',{
+                        MAC: row.MAC
+                        });
+
+	                $('#gatewayTable').bootstrapTable('remove', {
 	                    field: 'MAC',
 	                    values: [row.MAC]
 	                });
@@ -89,7 +94,7 @@
                 url: "/home/table_gateway_infos",//数据源
                 striped: true,
                 pagination: true,//是否分页
-                pageSize: 20,//单页记录数
+                pageSize: 5,//单页记录数
                 pageList: [5, 10, 20, 50],//分页步进值
                 queryParamsType: "limit",//查询参数组织方式
                 queryParams: function getParams(params) {

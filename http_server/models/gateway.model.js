@@ -52,7 +52,7 @@ module.exports = {
 	},
 
 	mygateway(name, callback){
-		ct.query("SELECT a.* FROM gateway a, user b WHERE (a.home = b.home AND b.name = ?) limit 1", 
+		ct.query("SELECT a.* FROM gateway a, home b WHERE (a.home = b.home AND b.contact = ?)",
 				[name],
 				function(err, result){
 					if (err) {

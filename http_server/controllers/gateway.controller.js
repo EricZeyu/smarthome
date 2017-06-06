@@ -11,6 +11,25 @@ module.exports = {
 		});
 	},
 
+	gatewayAdd(req, res, next){
+		if (req.session.authority == 'owner'){
+
+			gateway_model.add(req.body.MAC,
+							req.body.IP,
+							req.body.port,
+							req.body.home);
+		}
+
+		res.redirect('/home/gateway');
+	},
+
+	gatewayRemove(req, res, next){
+		if (req.session.authority == 'owner'){
+
+			gateway_model.delete(req.body.MAC);
+		}
+	},
+
 	gatewayList(req, res, next){
 
 		if (req.session.authority == 'root') {
@@ -18,10 +37,12 @@ module.exports = {
 				// console.log(data);
 				res.json(data);
 			});
-		}else {
+		}else if (req.session.authority == 'owner'){
 				gateway_model.mygateway(req.session.username, function(data){
 					res.json(data);
 				});
-		}
+			}else{
+				;
+			}
 	}
 };

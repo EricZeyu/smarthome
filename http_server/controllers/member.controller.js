@@ -12,8 +12,17 @@ module.exports = {
 	},
 
 	membersList(req, res, next){
-		user_model.members(req.session.username, function(data){
-			res.json(data);
-		});
+
+		if (req.session.authority == 'root'){
+			user_model.usersAll(function(data){
+				res.json(data);
+			});
+		}else if (req.session.authority == 'owner'){
+			user_model.members(req.session.username, function(data){
+				res.json(data);
+			});
+		}else{
+			;;
+		}
 	}
 };

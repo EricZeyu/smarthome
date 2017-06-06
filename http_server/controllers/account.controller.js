@@ -22,8 +22,13 @@ module.exports = {
 		user_model.validate(req.session.username, req.body.old_password, function(data){
 			if (data.validate){
 				user_model.changepassword(req.session.username, req.body.new_password);
-			}else{
 				res.redirect('/');
+			}else{
+					res.render('error', {
+		  			title: "Error Page",
+		  			message: "Password error",
+		  			error: "error"
+	  			});
 			}
 		});	
 	},
@@ -32,6 +37,7 @@ module.exports = {
 		user_model.notexistname(req.body.username, function(data){
 			if (data == true){
 				user_model.register(req.body.username, req.body.password);
+				res.redirect('/');
 			}else{
 				res.redirect('/');
 			}
