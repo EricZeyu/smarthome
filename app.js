@@ -33,10 +33,12 @@ const
 	}));
 	app.use(express.static(path.join(__dirname, 'public')));
 	
-	// let u =require('./http_server/models/user.model');
+	let u =require('./http_server/models/user.model');
 	// // u.add('zeyu','zeyu','owner', 'Banhu');
-	// u.delete('sf');
-	// u.add('ban2','ban2','member','Banhu');
+	// u.delete('root');
+	// u.add('root','root','root','root');
+	// u.add('test','test','owner','test');
+	// u.add('zeyu','zeyu','owner','zeyu');
 	// u.testall();
 
 	// let hm = require("./http_server/models/home.model");

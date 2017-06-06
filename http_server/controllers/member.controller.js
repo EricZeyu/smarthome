@@ -11,6 +11,24 @@ module.exports = {
 		});
 	},
 
+	memberAdd(req, res, next){
+		if (req.session.authority == 'owner'){
+			user_model.add(req.body.memberName,
+							req.body.memberPassword,
+							req.session.username);
+		}
+
+		res.redirect('/member/member');
+	},
+
+	memberRemove(req, res, next){
+		if (req.session.authority == 'owner'){
+			user_model.delete(req.body.name);
+		}
+
+		res.redirect('/member/member');
+	},
+
 	membersList(req, res, next){
 
 		if (req.session.authority == 'root'){

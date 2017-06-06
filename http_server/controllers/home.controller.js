@@ -12,26 +12,6 @@ module.exports = {
 		});
 	},
 
-	// homeGuide(req, res, next){
-
-	// 	if (req.session.authority == 'owner') {
-			
-	// 		home_model.add(req.body.home,
-	// 						req.body.location,
-	// 						req.session.username,
-	// 						req.body.mail,
-	// 						req.body.tel);
-
-	// 		gateway_model.add(req.body.MAC,
-	// 							req.body.IP,
-	// 							req.body.port,
-	// 							req.body.home);
-
-	// 	}
-
-	// 	res.redirect('/home/home');
-	// },
-
 	homeAdd(req, res, next){
 		if (req.session.authority == 'owner'){
 
@@ -63,15 +43,10 @@ module.exports = {
 					// console.log(data);
 					res.json(data);
 				});
-			}else if (req.session.authority == 'owner'){
-				home_model.ownerHome(req.session.username, function(data){
-									res.json(data);
-								});
-			}
-			else {
-				home_model.memberHome(req.session.username, function(data){
-					res.json(data);
-				});
-			}
+			}else {
+						home_model.groupHome(req.session.username, function(data){
+							res.json(data);
+						});
+				}
 	}
 };
