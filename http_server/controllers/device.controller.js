@@ -1,13 +1,18 @@
 const
 	device_model = require('../models/device.model'),
+	home_model = require('../models/home.model'),
+	user_model = require('../models/user.model'),
 	co = require('co');
 
 module.exports = {
 
 	deviceRender(req, res, next){
+		console.log("device page");
+		console.log(req.params.home);
 		res.render('device', {
 								username : req.session.username,
-								authority: req.session.authority
+								authority: req.session.authority,
+								home: req.params.home
 		});
 	},
 
@@ -34,8 +39,22 @@ module.exports = {
 
 	devicesList(req, res, next){
 
-		device_model.homeDevices(req.session.username, function(data){
-			res.json(data);
-		});
+		// if (req.session.authority == 'root'){
+
+		// }else{
+		// 	user_model.getCreator(req.session.username, function(data){
+
+		// 		home_model.getHomes(data, function(data){
+
+		// 			data.map((item) => {
+						
+		// 					device_model.homeDevices(item.home, function(data){
+
+
+		// 					});
+		// 			});
+		// 		});
+		// 	});
+		// }
 	}
 };

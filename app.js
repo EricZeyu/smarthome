@@ -33,7 +33,10 @@ const
 	}));
 	app.use(express.static(path.join(__dirname, 'public')));
 	
-	let u =require('./http_server/models/user.model');
+	// let u =require('./http_server/models/user.model');
+	// u.getCreator('ban0', function(data){
+	// 	console.log('ban0 creator is', data);
+	// });
 	// // u.add('zeyu','zeyu','owner', 'Banhu');
 	// u.delete('root');
 	// u.add('root','root','root','root');

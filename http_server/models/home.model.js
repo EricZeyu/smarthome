@@ -55,8 +55,8 @@ module.exports = {
 								});
 	},
 
-	ownerHome(name, callback){
-		ct.query("SELECT a.* FROM home a, user b WHERE (a.contact = b.creator AND b.name = ?)", 
+	getHomes(name, callback){
+		ct.query("SELECT * FROM home WHERE (contact = ?)",
 				[name],
 				function(err, result){
 					if (err) {

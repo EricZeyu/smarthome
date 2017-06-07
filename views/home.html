@@ -16,13 +16,13 @@
 		  	</div>
 			<div id="homeToolbar">
                 <div class="btn-group" role="group" aria-label="...">
-				  	<button type="button" class="btn btn-success">
+				  	<button type="button" class="btn btn-success" title="Import">
 				  		Import<span class="glyphicon glyphicon-import" aria-hidden="true"></span>
 				  	</button>
-				  	<button type="button" class="btn btn-info">
+				  	<button type="button" class="btn btn-info" title="Export">
 				  		Export<span class="glyphicon glyphicon-export" aria-hidden="true"></span>
 				  	</button>
-				  	<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#homeAddModel">
+				  	<button type="button" class="btn btn-warning" title="Add" data-toggle="modal" data-target="#homeAddModel">
 				  		Add<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
 				  	</button>
 				</div>
@@ -56,28 +56,6 @@
                     </div>
                 </div>
 		</div>
-		
-<!-- 		<div class="panel panel-warning">
-		  	<div class="panel-heading">
-		    	<h3 class="panel-title">Devices</h3>
-		  	</div>
-		  	<table
-	       	data-toggle="table"
-			data-sort-name="device"
-			data-sort-order="asc"
-			data-method="get"
-			data-url="/home/table_devices_infos"
-			>
-				<thead>
-		            <tr>
-		                <th data-field="device">Device</th>
-		                <th data-field="type">Type</th>
-		                <th data-field="nickname">Nickname</th>
-		                <th data-field="signal">Signal</th>
-		            </tr>
-				</thead>
-			</table>
-		</div> -->
 
 	</div>
 
@@ -90,6 +68,17 @@
 			$("#home_home").addClass("active");
 
 			window.homeOperateEvents = {
+				'click .home': function (e, value, row, index) {
+					// console.log(row);
+					let url = '/device/' + row.home;
+					console.log(url);
+					// $("a .home").attr("href",url);
+					$("a .homeEdit").remove();
+	            	// $.post('/home/device',{
+	            	// 	home: row.home
+	            	// 	});
+	            },
+
 				'click .homeEdit': function (e, value, row, index) {
 	            	console.log(value);
 	            	console.log(row);
@@ -167,17 +156,35 @@
             });
 
         	function homeOperateFormatter(value, row, index){
+        		// let homeURL = '/device/' + row.home;
+        		// console.log(homeURL);
+        		// let homelink = '<a class="home col-md-4" href="' + homeURL + '" title="Home">';
 	            return [
-	            '<a class="homeEdit" href="javascript:void(0)" title="Edit">',
-	            '<i class="glyphicon glyphicon-edit"></i>',
+	         	'<a class="home col-md-4" href="/device/' + row.home + '" title="Home">',
+	            '<span class="glyphicon glyphicon-home" aria-hidden="true"></span>',
 	            '</a>',
-	            '<a class="homeRemove" href="javascript:void(0)" title="Remove">',
-	            '<i class="glyphicon glyphicon-remove"></i>',
+	            '<a class="homeEdit col-md-4" href="javascript:void(0)" title="Edit">',
+	            '<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>',
+	            '</a>',
+	            '<a class="homeRemove col-md-4" href="javascript:void(0)" title="Remove">',
+	            '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>',
 	            '</a>'
 	            ].join('');
         	};
 
-
+					    	// '<button type="button" class="home btn btn-default" title="Home"><span class="glyphicon glyphicon-home col-md-4" aria-hidden="true"></span></button>',
+					    	// '<button type="button" class="homeEdit btn btn-default" title="Edit"><span class="glyphicon glyphicon-edit col-md-4" aria-hidden="true"></span></button>',
+					    	// '<button type="button" class="homeRemove btn btn-default" title="Remove"><span class="glyphicon glyphicon-remove col-md-4" aria-hidden="true"></span></button>',
+	            // '',
+	            // '<a class="home col-md-4" href="javascript:void(0)" title="Home">',
+	            // '<i class="glyphicon glyphicon-home"></i>',
+	            // '</a>',
+	            // '<a class="homeEdit col-md-4" href="javascript:void(0)" title="Edit">',
+	            // '<i class="glyphicon glyphicon-edit"></i>',
+	            // '</a>',
+	            // '<a class="homeRemove col-md-4" href="javascript:void(0)" title="Remove">',
+	            // '<i class="glyphicon glyphicon-remove"></i>',
+	            // '</a>'
 
 			// $('#table').on('click-row.bs.table',function(e,row,$element,field){
 			// 	console.log("click row");

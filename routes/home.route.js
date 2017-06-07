@@ -7,6 +7,7 @@ const
 
 router.get('/home', homeController.homeRender);
 router.get('/gateway', gatewayController.gatewayRender);
+// router.post('/device', homeController.homeDevice);
 router.post('/addNewHome', homeController.homeAdd);
 router.post('/removeHome', homeController.homeRemove);
 router.post('/addNewGateway', gatewayController.gatewayAdd);

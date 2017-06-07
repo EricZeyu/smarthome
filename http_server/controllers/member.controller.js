@@ -35,12 +35,12 @@ module.exports = {
 			user_model.usersAll(function(data){
 				res.json(data);
 			});
-		}else if (req.session.authority == 'owner'){
-			user_model.members(req.session.username, function(data){
-				res.json(data);
+		}else {
+			user_model.getCreator(req.session.username, function(data){
+				user_model.members(data, function(data){
+					res.json(data);
+				});
 			});
-		}else{
-			;;
 		}
 	}
 };

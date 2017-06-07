@@ -106,6 +106,19 @@ module.exports = {
 								});
 	},
 
+	getCreator(name, callback){
+		ct.query("SELECT creator FROM user WHERE (name = ?) limit 1",
+				[name],
+				function(err, result){
+					if (err) {
+						console.log("[SELECT ERROR] - ", err.message);
+						callback(error());
+					}else{
+						callback(result[0].creator);
+					}
+				});
+	},
+
 	members(name, callback){
 		ct.query("SELECT a.* FROM user a, user b WHERE (a.creator = b.name AND b.name = ?)", [name], 
 				function(err, result){

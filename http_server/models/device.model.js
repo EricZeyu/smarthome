@@ -29,39 +29,27 @@ module.exports = {
 								});
 	},
 
-	homeDevices(name, callback){
-		ct.query("SELECT a.home FROM home a, user b WHERE (a.contact = b.creator AND b.name = ?)", 
-				[name],
+	homeDevices(home, callback){
+		ct.query("SELECT * FROM device WHERE (home = ?)",
+				[home],
 				function(err, result){
 					if (err) {
 						console.log("[SELECT ERROR] - ", err.message);
 						callback(error());
-					}
+					}else {
+						let devices = result.map((item) => {
 
-					let devices = result.map((item) => {
-
-						console.log(item.home);
-
-						ct.query("SELECT * FROM device WHERE (home = ?)",
-								[item.home],
-								function(err, result){
-
-									if(err) {
-											console.log("[SELECT ERROR] - ", err.message);
-											callback(error());
-										}
-
-									return {
-												"device" : item.device,
-												"type" : item.type,
-												"nickname" : item.nickname,
-												"home" : item.home,
-												"remark" : item.remark
-											}
+										return {
+													"device" : item.device,
+													"type" : item.type,
+													"nickname" : item.nickname,
+													"home" : item.home,
+													"remark" : item.remark
+												}
 									});
-								});
 
-					callback(devices);
+						callback(devices);
+					}
 		});
 	},
 
@@ -71,19 +59,20 @@ module.exports = {
 					if (err) {
 						console.log("[SELECT ERROR] - ", err.message);
 						callback(error());
+					}else {
+
+						let devices = result.map((item) => {
+									return {
+												"device" : item.device,
+												"type" : item.type,
+												"nickname" : item.nickname,
+												"home" : item.home,
+												"remark" : item.remark											
+											}
+									});
+
+						callback(devices);
 					}
-
-					let devices = result.map((item) => {
-								return {
-											"device" : item.device,
-											"type" : item.type,
-											"nickname" : item.nickname,
-											"home" : item.home,
-											"remark" : item.remark											
-										}
-								});
-
-					callback(devices);
 				});
 	}
 }
