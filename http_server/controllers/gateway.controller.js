@@ -11,6 +11,13 @@ module.exports = {
 		});
 	},
 
+	gatewayEdit(req, res, next){
+		if (req.session.authority == 'owner'){
+
+			;
+		}
+	},	
+
 	gatewayAdd(req, res, next){
 		if (req.session.authority == 'owner'){
 

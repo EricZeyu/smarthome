@@ -13,24 +13,18 @@ module.exports = {
 		});
 	},
 
-	// homeDevice(req, res, next){
-
-	// 	console.log("homeDevice controller");
-	// 	console.log(req.session.home);
-
-	// 	// res.render('device', {
-	// 	// 						username : req.session.username,
-	// 	// 						authority: req.session.authority,
-	// 	// 						home     : req.body.home
-	// 	// });
-	// },
+	homeEdit(req, res, next){
+		if (req.session.authority == 'owner'){
+			;
+		}
+	},
 
 	homeAdd(req, res, next){
 		if (req.session.authority == 'owner'){
 
 			home_model.add(req.body.home,
 							req.body.location,
-							req.body.contact,
+							req.session.username,
 							req.body.mail,
 							req.body.tel);
 		}
@@ -41,10 +35,8 @@ module.exports = {
 	homeRemove(req, res, next){
 		if (req.session.authority == 'owner'){
 
-			// home_model.delete(req.body.home);
+			home_model.delete(req.body.home);
 		}
-
-		res.redirect('/');
 	},
 
 	homeList(req, res, next){

@@ -16,18 +16,46 @@
 		  	</div>
 			<div id="homeToolbar">
                 <div class="btn-group" role="group" aria-label="...">
-				  	<button type="button" class="btn btn-success" title="Import">
+				  	<button type="button" class="btn btn-success">
 				  		Import<span class="glyphicon glyphicon-import" aria-hidden="true"></span>
 				  	</button>
-				  	<button type="button" class="btn btn-info" title="Export">
+				  	<button type="button" class="btn btn-info">
 				  		Export<span class="glyphicon glyphicon-export" aria-hidden="true"></span>
 				  	</button>
-				  	<button type="button" class="btn btn-warning" title="Add" data-toggle="modal" data-target="#homeAddModel">
+				  	<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#homeAddModel">
 				  		Add<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
 				  	</button>
 				</div>
             </div>
 		  	<table id="homeTable"></table>
+
+		  	<div class="modal fade" id="homeEditModel" tabindex="-1" role="dialog" aria-hidden="true">
+                   <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                    &times;
+                                </button>
+                                <h4 class="modal-title" id="myModalLabel" style="color: Coral">Edit Home</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form role="form" action="/home/editHome" method="POST">
+                                    <div class="form-group">
+                                    	<input type="text" class="form-control" name="newhome" placeholder="New Home">
+                                        <input type="text" class="form-control" name="newlocation" placeholder="New Location">
+                                        <input type="text" class="form-control" name="newmail" placeholder="Your New mail">
+                                        <input type="text" class="form-control" name="newtel" placeholder="Your New tel">
+                                    </div>
+                                    <div class="modal-footer">
+                                		<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                		<button type="submit" class="btn btn-warning">OK</button>
+                            		</div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+
 		  	<div class="modal fade" id="homeAddModel" tabindex="-1" role="dialog" aria-hidden="true">
                    <div class="modal-dialog">
                         <div class="modal-content">
@@ -42,7 +70,6 @@
                                     <div class="form-group">
                                         <input type="text" class="form-control" name="home" placeholder="Home">
                                         <input type="text" class="form-control" name="location" placeholder="Location">
-                                        <input type="text" class="form-control" name="contact" placeholder="Your name">
                                         <input type="text" class="form-control" name="mail" placeholder="Your mail">
                                         <input type="text" class="form-control" name="tel" placeholder="Your tel">
                                     </div>
@@ -54,7 +81,8 @@
                             </div>
                         </div>
                     </div>
-                </div>
+            </div>
+
 		</div>
 
 	</div>
@@ -68,32 +96,25 @@
 			$("#home_home").addClass("active");
 
 			window.homeOperateEvents = {
-				'click .home': function (e, value, row, index) {
-					// console.log(row);
-					let url = '/device/' + row.home;
-					console.log(url);
-					// $("a .home").attr("href",url);
-					$("a .homeEdit").remove();
-	            	// $.post('/home/device',{
-	            	// 	home: row.home
-	            	// 	});
-	            },
 
 				'click .homeEdit': function (e, value, row, index) {
-	            	console.log(value);
-	            	console.log(row);
-	            	console.log(index);
-	            alert('You click Edit action, row: ' + JSON.stringify(row));
+	            // 	console.log(value);
+	            // 	console.log(row);
+	            // 	console.log(index);
+	            // alert('You click Edit action, row: ' + JSON.stringify(row));
 	            },
 
 	            'click .homeRemove': function (e, value, row, index) {
-	            	$.post('/home/removeHome',{
-	            		home: row.home
+
+	            	if (confirm('Are you sure to remove?')){
+	            		$.post('/home/removeHome',{
+	            			home: row.home
 	            		});
-	                $('#homeTable').bootstrapTable('remove', {
-	                    field: 'home',
-	                    values: [row.home]
+	                	$('#homeTable').bootstrapTable('remove', {
+		                    field: 'home',
+		                    values: [row.home]
 	                });
+	            	}
 	            }
 			};
 
@@ -152,7 +173,7 @@
                         events: homeOperateEvents,
                         formatter: homeOperateFormatter
                     }
-                ],
+                ]
             });
 
         	function homeOperateFormatter(value, row, index){
@@ -163,10 +184,10 @@
 	         	'<a class="home col-md-4" href="/device/' + row.home + '" title="Home">',
 	            '<span class="glyphicon glyphicon-home" aria-hidden="true"></span>',
 	            '</a>',
-	            '<a class="homeEdit col-md-4" href="javascript:void(0)" title="Edit">',
+	            '<a class="homeEdit col-md-4" href="#" title="Edit" data-toggle="modal" data-target="#homeEditModel">',
 	            '<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>',
 	            '</a>',
-	            '<a class="homeRemove col-md-4" href="javascript:void(0)" title="Remove">',
+	            '<a class="homeRemove col-md-4" href="#" title="Remove">',
 	            '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>',
 	            '</a>'
 	            ].join('');

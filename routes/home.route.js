@@ -7,9 +7,10 @@ const
 
 router.get('/home', homeController.homeRender);
 router.get('/gateway', gatewayController.gatewayRender);
-// router.post('/device', homeController.homeDevice);
+router.post('/editHome', homeController.homeEdit);
 router.post('/addNewHome', homeController.homeAdd);
 router.post('/removeHome', homeController.homeRemove);
+router.post('/editGateway', gatewayController.gatewayEdit);
 router.post('/addNewGateway', gatewayController.gatewayAdd);
 router.post('/removeGateway', gatewayController.gatewayRemove);
 router.get('/table_home_infos', homeController.homeList);

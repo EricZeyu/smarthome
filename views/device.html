@@ -10,7 +10,7 @@
 	<%- include deviceLeftNav.html %>
 
 	<div class="col-md-9">
-		<div class="panel panel-success">
+		<div class="panel panel-info">
 		  	<div class="panel-heading">
 		    	<h3 class="panel-title"><%= home %></h3>
 		  	</div>
@@ -71,10 +71,8 @@
 	<script>
 		
 		$(document).ready(function(){
-
-			$("#device").addClass("active");
-			$("#device_device").addClass("active");
-
+            $("#home").addClass("active");
+            
 			window.deviceOperateEvents = {
 				'click .deviceEdit': function (e, value, row, index) {
 	            	console.log(value);
