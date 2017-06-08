@@ -28,6 +28,8 @@
 				</div>
             </div>
 		  	<table id="gatewayTable"></table>
+		</div>
+	</div>
 
             <div class="modal fade" id="gatewayEditModel" tabindex="-1" role="dialog" aria-hidden="true">
                    <div class="modal-dialog">
@@ -45,6 +47,12 @@
                                         <input type="text" class="form-control" name="newIP" placeholder="New IP">
                                         <input type="text" class="form-control" name="newport" placeholder="New port">
                                         <input type="text" class="form-control" name="newhome" placeholder="New home">
+                                        <select class="form-control" name="newhome2">
+                                            <option value="A">A</option>
+                                            <option value="B">B</option>
+                                            <option value="C">C</option>
+                                            <option value="D">D</option>
+                                        </select>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -72,6 +80,8 @@
                                         <input type="text" class="form-control" name="IP" placeholder="IP">
                                         <input type="text" class="form-control" name="port" placeholder="port">
                                         <input type="text" class="form-control" name="home" placeholder="home">
+                                        <select id="homeSelect" class="form-control" name="homeSelect">
+                                        </select>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -83,10 +93,6 @@
                     </div>
             </div>
 
-		</div>
-
-	</div>
-
 	<%- include script.html %>
 	<script>
 		
@@ -95,6 +101,16 @@
 			$("#home").addClass("active");
 			$("#home_gateway").addClass("active");
 
+            $(".modal").click(function(){
+                $("#homeSelect").empty();
+                $.get('/home/gatewayHomeSelect',function(data, status){
+
+                    console.log(data);
+                    data.map((item)=>{
+                        $("#homeSelect").append('<option value="' + item.home + '">' + item.home + '</option>');
+                    });
+                });
+            });
 
 			window.gatewayOperateEvents = {
 

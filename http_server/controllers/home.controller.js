@@ -13,6 +13,34 @@ module.exports = {
 		});
 	},
 
+	gatewayHomeSelect(req, res, next){
+		if (req.session.authority == 'root'){
+				home_model.all(function(data){
+					
+					let homeSelect = data.map((item) => {
+								return {
+											"home" : item.home										
+										}
+								});
+
+					res.send(homeSelect);
+				});
+		}else{
+				user_model.getCreator(req.session.username, function(data){
+					home_model.getHomes(data, function(data){
+						
+						let homeSelect = data.map((item) => {
+								return {
+											"home" : item.home										
+										}
+								});
+
+						res.send(homeSelect);
+					});
+				});
+			}
+	},
+
 	homeEdit(req, res, next){
 		if (req.session.authority == 'owner'){
 			;
