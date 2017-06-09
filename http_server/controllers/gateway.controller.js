@@ -14,8 +14,14 @@ module.exports = {
 	gatewayEdit(req, res, next){
 		if (req.session.authority !== 'member'){
 
-			;
+			gateway_model.update(req.body.myMAC,
+									req.body.newMAC,
+									req.body.newIP,
+									req.body.newport,
+									req.body.newhome);
 		}
+
+		res.redirect('/home/gateway');		
 	},	
 
 	gatewayAdd(req, res, next){

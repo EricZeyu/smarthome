@@ -50,7 +50,7 @@ module.exports = {
 								req.body.newtel);
 		}
 
-		res.redirect('/home/home');		
+		res.redirect('/home/home');
 	},
 
 	homeAdd(req, res, next){

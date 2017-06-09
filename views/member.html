@@ -28,7 +28,11 @@
 				</div>
             </div>
 		  	<table id="memberTable"></table>
-		  	<div class="modal fade" id="memberAddModel" tabindex="-1" role="dialog" aria-hidden="true">
+		</div>
+
+	</div>
+
+                <div class="modal fade" id="memberAddModel" tabindex="-1" role="dialog" aria-hidden="true">
                    <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -40,22 +44,63 @@
                             <div class="modal-body">
                                 <form role="form" action="/member/addNewMember" method="POST">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="memberName" placeholder="Member Name">
-                                        <input type="password" class="form-control" name="memberPassword" placeholder="Member Password">
-                                        <input type="password" class="form-control" name="memberPasswordConfirm" placeholder="Password Confirm">
+                                        <label>Member Name</label>
+                                        <input type="text" class="form-control" name="memberName" placeholder="Member Name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Member Password</label>
+                                        <input type="password" class="form-control" name="memberPassword" placeholder="Member Password" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Password Confirm</label>
+                                        <input type="password" class="form-control" name="memberPasswordConfirm" placeholder="Password Confirm" required>
                                     </div>
                                     <div class="modal-footer">
-                                		<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                		<button type="submit" class="btn btn-warning">OK</button>
-                            		</div>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-warning">OK</button>
+                                    </div>
                                 </form>
                             </div>
                         </div>
                     </div>
                 </div>
-		</div>
 
-	</div>
+                <div class="modal fade" id="memberEditModel" tabindex="-1" role="dialog" aria-hidden="true">
+                   <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                    &times;
+                                </button>
+                                <h4 class="modal-title" id="myModalLabel" style="color: Coral">Edit Member</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form role="form" action="/member/editMember" method="POST">
+                                    <div class="form-group">
+                                        <label for="mymemberName">Member Name</label>
+                                        <input id="mymemberName" type="text" class="form-control" name="mymemberName" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="oldmemberPassword">Member Password</label>
+                                        <input id="oldmemberPassword" type="password" class="form-control" name="oldmemberPassword" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="newmemberPassword">New Member Password</label>
+                                        <input id="newmemberPassword" type="password" class="form-control" name="newmemberPassword" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="newmemberPasswordConfirm">Password Confirm</label>
+                                        <input id="newmemberPasswordConfirm" type="password" class="form-control" name="newmemberPasswordConfirm" required>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-warning">OK</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 	<%- include script.html %>
 	<script>
@@ -66,20 +111,20 @@
 
 			window.memberOperateEvents = {
 				'click .memberEdit': function (e, value, row, index) {
-	            	console.log(value);
-	            	console.log(row);
-	            	console.log(index);
-	            alert('You click Edit action, row: ' + JSON.stringify(row));
+                    $("#mymemberName").val(row.name);
 	            },
 
 	            'click .memberRemove': function (e, value, row, index) {
-	            	$.post('/member/removeMember',{
-	            		name: row.name
-	            		});
-	                $('#memberTable').bootstrapTable('remove', {
-	                    field: 'name',
-	                    values: [row.name]
-	                });
+
+                    if (confirm('Are you sure to remove?')){
+                        $.post('/member/removeMember',{
+                            name: row.name
+                            });
+                        $('#memberTable').bootstrapTable('remove', {
+                            field: 'name',
+                            values: [row.name]
+                        });
+                    }
 	            }
 			};
 
@@ -138,12 +183,12 @@
 
         	function memberOperateFormatter(value, row, index){
 	            return [
-	            '<a class="memberEdit col-md-6" href="javascript:void(0)" title="Edit">',
-	            '<i class="glyphicon glyphicon-edit"></i>',
-	            '</a>',
-	            '<a class="memberRemove col-md-6" href="javascript:void(0)" title="Remove">',
-	            '<i class="glyphicon glyphicon-remove"></i>',
-	            '</a>'
+    	            '<a class="memberEdit col-md-6" href="#" title="Edit" data-toggle="modal" data-target="#memberEditModel">',
+    	            '<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>',
+    	            '</a>',
+    	            '<a class="memberRemove col-md-6" href="#" title="Remove">',
+    	            '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>',
+    	            '</a>'
 	            ].join('');
         	};
 		});

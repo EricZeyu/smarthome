@@ -21,6 +21,15 @@ module.exports = {
 		res.redirect('/member/member');
 	},
 
+	memberEdit(req, res, next){
+		if (req.session.authority == 'owner'){
+			user_model.changepassword(req.body.mymemberName,
+							req.body.newmemberPassword);
+		}
+
+		res.redirect('/member/member');
+	},
+
 	memberRemove(req, res, next){
 		if (req.session.authority == 'owner'){
 			user_model.delete(req.body.name);

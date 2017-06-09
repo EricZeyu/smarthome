@@ -43,11 +43,27 @@
                             <div class="modal-body">
                                 <form role="form" action="/home/editGateway" method="POST">
                                     <div class="form-group">
-                                        <input id="oldMAC" type="text" class="form-control" name="newMAC">
-                                        <input id="oldIP" type="text" class="form-control" name="newIP">
-                                        <input id="oldport" type="text" class="form-control" name="newport">
-                                        <select id="homeEditSelect" class="form-control" name="newhome">
-                                        </select>
+                                        <div class="form-group">
+                                            <label for="myMAC">Old MAC</label>
+                                            <input id="myMAC" type="text" class="form-control" name="myMAC" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="oldMAC">New MAC</label>
+                                            <input id="oldMAC" type="text" class="form-control" name="newMAC">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="oldIP">New IP</label>
+                                            <input id="oldIP" type="text" class="form-control" name="newIP">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="oldport">New port</label>
+                                            <input id="oldport" type="text" class="form-control" name="newport">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="homeEditSelect">New Home Select</label>
+                                            <select id="homeEditSelect" class="form-control" name="newhome">
+                                            </select>
+                                        </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -71,11 +87,23 @@
                             <div class="modal-body">
                                 <form role="form" action="/home/addNewGateway" method="POST">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="MAC" placeholder="MAC">
-                                        <input type="text" class="form-control" name="IP" placeholder="IP">
-                                        <input type="text" class="form-control" name="port" placeholder="port">
-                                        <select id="homeAddSelect" class="form-control" name="home">
-                                        </select>
+                                        <div class="form-group">
+                                            <label>MAC</label>
+                                            <input type="text" class="form-control" name="MAC" placeholder="MAC" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>IP</label>
+                                            <input type="text" class="form-control" name="IP" placeholder="IP" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>port</label>
+                                            <input type="text" class="form-control" name="port" placeholder="port" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Home Select</label>
+                                            <select id="homeAddSelect" class="form-control" name="home">
+                                            </select>
+                                        </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -106,6 +134,7 @@
 
 	            'click .gatewayEdit': function (e, value, row, index) {
 
+                    $("#myMAC").val(row.MAC);
                     $("#oldMAC").val(row.MAC);
                     $("#oldIP").val(row.IP);
                     $("#oldport").val(row.port);

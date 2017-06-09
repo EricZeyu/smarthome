@@ -54,11 +54,19 @@
                             </div>
                             <div class="modal-body">
                                 <form role="form" action="/account_register" method="POST">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" name="username" placeholder="Username">
-                                        <input type="password" class="form-control" name="password" placeholder="Password">
-                                        <input type="password" class="form-control" name="passwordconfirm" placeholder="Confirm Password">
+                    				<div class="form-group">
+                                        <label>Username</label>
+                                    	<input type="text" class="form-control" name="username" placeholder="Username" required>
                                     </div>
+                                    <div class="form-group">
+                                        <label>Password</label>
+										<input type="password" class="form-control" name="password" placeholder="Password" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Confirm Password</label>
+										<input type="password" class="form-control" name="passwordconfirm" placeholder="Confirm Password" required>
+                                    </div>
+                                    
                                     <div class="modal-footer">
                                       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                       <button type="submit" class="btn btn-warning">Register</button>

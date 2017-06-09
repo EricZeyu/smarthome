@@ -25,9 +25,9 @@ module.exports = {
 								});
 	},
 
-	update(MAC, newMAC, newIP, newport, newhome, newstate = 'Off'){
-		ct.query("UPDATE gateway SET MAC = ?, IP = ?, port = ?, home = ?, state = ? WHERE MAC = ?",
-								[newMAC, newIP, newport, newhome, newstate, MAC],
+	update(MAC, newMAC, newIP, newport, newhome){
+		ct.query("UPDATE gateway SET MAC = ?, IP = ?, port = ?, home = ? WHERE (MAC = ?)",
+								[newMAC, newIP, newport, newhome, MAC],
 								function(err, result){
 									if(err) {
 										console.log("[UPDATE ERROR] - ", err.message);
