@@ -12,14 +12,14 @@ module.exports = {
 	},
 
 	gatewayEdit(req, res, next){
-		if (req.session.authority == 'owner'){
+		if (req.session.authority !== 'member'){
 
 			;
 		}
 	},	
 
 	gatewayAdd(req, res, next){
-		if (req.session.authority == 'owner'){
+		if (req.session.authority !== 'member'){
 
 			gateway_model.add(req.body.MAC,
 							req.body.IP,
@@ -31,7 +31,7 @@ module.exports = {
 	},
 
 	gatewayRemove(req, res, next){
-		if (req.session.authority == 'owner'){
+		if (req.session.authority !== 'member'){
 
 			gateway_model.delete(req.body.MAC);
 		}

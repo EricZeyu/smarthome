@@ -43,15 +43,10 @@
                             <div class="modal-body">
                                 <form role="form" action="/home/editGateway" method="POST">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="newMAC" placeholder="New MAC">
-                                        <input type="text" class="form-control" name="newIP" placeholder="New IP">
-                                        <input type="text" class="form-control" name="newport" placeholder="New port">
-                                        <input type="text" class="form-control" name="newhome" placeholder="New home">
-                                        <select class="form-control" name="newhome2">
-                                            <option value="A">A</option>
-                                            <option value="B">B</option>
-                                            <option value="C">C</option>
-                                            <option value="D">D</option>
+                                        <input id="oldMAC" type="text" class="form-control" name="newMAC">
+                                        <input id="oldIP" type="text" class="form-control" name="newIP">
+                                        <input id="oldport" type="text" class="form-control" name="newport">
+                                        <select id="homeEditSelect" class="form-control" name="newhome">
                                         </select>
                                     </div>
                                     <div class="modal-footer">
@@ -79,8 +74,7 @@
                                         <input type="text" class="form-control" name="MAC" placeholder="MAC">
                                         <input type="text" class="form-control" name="IP" placeholder="IP">
                                         <input type="text" class="form-control" name="port" placeholder="port">
-                                        <input type="text" class="form-control" name="home" placeholder="home">
-                                        <select id="homeSelect" class="form-control" name="homeSelect">
+                                        <select id="homeAddSelect" class="form-control" name="home">
                                         </select>
                                     </div>
                                     <div class="modal-footer">
@@ -101,21 +95,42 @@
 			$("#home").addClass("active");
 			$("#home_gateway").addClass("active");
 
-            $(".modal").click(function(){
-                $("#homeSelect").empty();
-                $.get('/home/gatewayHomeSelect',function(data, status){
-
-                    console.log(data);
-                    data.map((item)=>{
-                        $("#homeSelect").append('<option value="' + item.home + '">' + item.home + '</option>');
-                    });
+            $.get('/home/gatewayHomeSelect',function(data, status){
+                data.map((item)=>{
+                    $("#homeAddSelect").append('<option value="' + item.home + '">' + item.home + '</option>');
+                    // $("#homeEditSelect").append('<option value="' + item.home + '">' + item.home + '</option>');
                 });
             });
 
 			window.gatewayOperateEvents = {
 
 	            'click .gatewayEdit': function (e, value, row, index) {
-                    ;
+
+                    $("#oldMAC").val(row.MAC);
+                    $("#oldIP").val(row.IP);
+                    $("#oldport").val(row.port);
+
+                    $("#homeEditSelect").empty();
+                    
+                    $.get('/home/gatewayHomeSelect',function(data, status){
+                        data.map((item)=>{
+                            if (item.home == row.home){
+                                $("#homeEditSelect").append('<option value="' + item.home + '" selected>' + item.home + '</option>');
+                            }else{
+                                $("#homeEditSelect").append('<option value="' + item.home + '">' + item.home + '</option>');
+                            }
+                        });
+                    });
+                    
+                    // let sel = "[value='" + row.home + "']";
+                    // console.log(row.home);
+                    // // $("#homeEditSelect").children("[selected='selected']").text();
+                    // console.log("optionold=", $("#homeEditSelect").children("[selected='selected']").text());
+                    // $("#homeEditSelect").children("[selected='selected']").removeAttr("selected");
+                    // console.log("optionseenow=", $("#homeEditSelect").children("[selected='selected']").text());
+
+                    // $("#homeEditSelect").children(sel).attr("selected", "selected");
+                    // console.log("optionnew=", $("#homeEditSelect").children("[selected='selected']").text());
 	            },
 
 	            'click .gatewayRemove': function (e, value, row, index) {

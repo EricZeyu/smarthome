@@ -42,13 +42,19 @@ module.exports = {
 	},
 
 	homeEdit(req, res, next){
-		if (req.session.authority == 'owner'){
-			;
+		if (req.session.authority !== 'member'){
+			
+			home_model.update(req.body.myhome,
+								req.body.newlocation,
+								req.body.newmail,
+								req.body.newtel);
 		}
+
+		res.redirect('/home/home');		
 	},
 
 	homeAdd(req, res, next){
-		if (req.session.authority == 'owner'){
+		if (req.session.authority !== 'member'){
 
 			home_model.add(req.body.home,
 							req.body.location,

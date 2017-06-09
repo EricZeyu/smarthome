@@ -29,9 +29,9 @@ module.exports = {
 								});
 	},
 
-	update(home, newhome, newlocation, newcontact, newmail, newtel){
-		ct.query("UPDATE home SET home = ?, location = ?, contact = ?, mail = ?, tel = ? WHERE home = ?",
-								[newhome, newlocation, newcontact, newmail, newtel, home],
+	update(home, newlocation, newmail, newtel){
+		ct.query("UPDATE home SET location = ?, mail = ?, tel = ? WHERE home = ?",
+								[newlocation, newmail, newtel, home],
 								function(err, result){
 									if(err) {
 										console.log("[UPDATE ERROR] - ", err.message);

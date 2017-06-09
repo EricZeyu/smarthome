@@ -41,10 +41,20 @@
                             <div class="modal-body">
                                 <form role="form" action="/home/editHome" method="POST">
                                     <div class="form-group">
-                                    	<input type="text" class="form-control" name="newhome" placeholder="New Home">
-                                        <input type="text" class="form-control" name="newlocation" placeholder="New Location">
-                                        <input type="text" class="form-control" name="newmail" placeholder="Your New mail">
-                                        <input type="text" class="form-control" name="newtel" placeholder="Your New tel">
+                                        <label for="myhome">Home</label>
+                                    	<input id="myhome" type="text" class="form-control" name="myhome" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="oldlocation">Location</label>
+                                        <input id="oldlocation" type="text" class="form-control" name="newlocation" placeholder="New Location">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="oldmail">Your Mail</label>
+                                        <input id="oldmail" type="text" class="form-control" name="newmail" placeholder="Your New Mail">                                        
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="oldtel">Your Tel</label>
+                                        <input id="oldtel" type="text" class="form-control" name="newmail" placeholder="Your New Mail">                                        
                                     </div>
                                     <div class="modal-footer">
                                 		<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -70,8 +80,8 @@
                                     <div class="form-group">
                                         <input type="text" class="form-control" name="home" placeholder="Home">
                                         <input type="text" class="form-control" name="location" placeholder="Location">
-                                        <input type="text" class="form-control" name="mail" placeholder="Your mail">
-                                        <input type="text" class="form-control" name="tel" placeholder="Your tel">
+                                        <input type="text" class="form-control" name="mail" placeholder="Your Mail">
+                                        <input type="text" class="form-control" name="tel" placeholder="Your Tel">
                                     </div>
                                     <div class="modal-footer">
                                 		<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -98,10 +108,11 @@
 			window.homeOperateEvents = {
 
 				'click .homeEdit': function (e, value, row, index) {
-	            // 	console.log(value);
-	            // 	console.log(row);
-	            // 	console.log(index);
-	            // alert('You click Edit action, row: ' + JSON.stringify(row));
+                    
+                    $("#myhome").val(row.home);
+                    $("#oldlocation").val(row.location);
+                    $("#oldmail").val(row.mail);
+                    $("#oldtel").val(row.tel);
 	            },
 
 	            'click .homeRemove': function (e, value, row, index) {
