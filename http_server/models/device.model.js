@@ -3,9 +3,9 @@ const
 
 module.exports = {
 
-	add(device, type, nickname, home, remark = "NULL"){
-		ct.query("INSERT INTO device(device, type, nickname, home, remark) VALUES(?, ?, ?, ?, ?)",
-								[device, type, nickname, home, remark],
+	add(device, type, nickname, creator, remark = "NULL"){
+		ct.query("INSERT INTO device(device, type, nickname, creator, remark) VALUES(?, ?, ?, ?, ?)",
+								[device, type, nickname, creator, remark],
 								function(err, result){
 									if(err) {
 										console.log("[INSERT ERROR] - ", err.message);
@@ -29,9 +29,9 @@ module.exports = {
 								});
 	},
 
-	homeDevices(home, callback){
-		ct.query("SELECT * FROM device WHERE (home = ?)",
-				[home],
+	myDevices(creator, callback){
+		ct.query("SELECT * FROM device WHERE (creator = ?)",
+				[creator],
 				function(err, result){
 					if (err) {
 						console.log("[SELECT ERROR] - ", err.message);
@@ -43,7 +43,7 @@ module.exports = {
 													"device" : item.device,
 													"type" : item.type,
 													"nickname" : item.nickname,
-													"home" : item.home,
+													"creator" : item.creator,
 													"remark" : item.remark
 												}
 									});
@@ -66,7 +66,7 @@ module.exports = {
 												"device" : item.device,
 												"type" : item.type,
 												"nickname" : item.nickname,
-												"home" : item.home,
+												"creator" : item.creator,
 												"remark" : item.remark											
 											}
 									});

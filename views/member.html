@@ -42,7 +42,7 @@
                                 <h4 class="modal-title" id="myModalLabel" style="color: Coral">Add New Member</h4>
                             </div>
                             <div class="modal-body">
-                                <form role="form" action="/member/addNewMember" method="POST">
+                                <form role="form" action="/member/memberAdd" method="POST">
                                     <div class="form-group">
                                         <label>Member Name</label>
                                         <input type="text" class="form-control" name="memberName" placeholder="Member Name" required>
@@ -75,7 +75,7 @@
                                 <h4 class="modal-title" id="myModalLabel" style="color: Coral">Edit Member</h4>
                             </div>
                             <div class="modal-body">
-                                <form role="form" action="/member/editMember" method="POST">
+                                <form role="form" action="/member/memberEdit" method="POST">
                                     <div class="form-group">
                                         <label for="mymemberName">Member Name</label>
                                         <input id="mymemberName" type="text" class="form-control" name="mymemberName" readonly>
@@ -107,7 +107,7 @@
 		
 		$(document).ready(function(){
 			$("#member").addClass("active");
-			$("#member_member").addClass("active");
+			$("#member_members").addClass("active");
 
 			window.memberOperateEvents = {
 				'click .memberEdit': function (e, value, row, index) {
@@ -117,7 +117,7 @@
 	            'click .memberRemove': function (e, value, row, index) {
 
                     if (confirm('Are you sure to remove?')){
-                        $.post('/member/removeMember',{
+                        $.post('/member/memberRemove',{
                             name: row.name
                             });
                         $('#memberTable').bootstrapTable('remove', {
@@ -130,7 +130,7 @@
 
 	        $('#memberTable').bootstrapTable({
 				method: "get",//请求方式
-                url: "/member/table_members_infos",//数据源
+                url: "/member/membersList",//数据源
                 striped: true,
                 pagination: true,//是否分页
                 pageSize: 5,//单页记录数

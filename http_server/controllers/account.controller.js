@@ -10,7 +10,14 @@ module.exports = {
 			if (data.validate){
 				req.session.username = data.name;
 				req.session.authority = data.authority;
-				res.redirect('/home/home');
+				if (req.session.authority == 'member'){
+					user_model.getHome(req.session.username, function(data){
+						req.session.home = data;
+					});
+				}else{
+					req.session.home = data.home;
+				}
+				res.redirect('/home');
 			}else{
 				res.redirect('/');
 			}
@@ -34,9 +41,13 @@ module.exports = {
 	},
 
 	accountRegister(req, res, next){
+		console.log("accountRegister call");
+		console.log(req.body);
+
 		user_model.notexistname(req.body.username, function(data){
 			if (data == true){
-				user_model.register(req.body.username, req.body.password);
+				console.log(req.body);
+				user_model.register(req.body.username, req.body.password, req.body.home);
 				res.redirect('/');
 			}else{
 				res.redirect('/');

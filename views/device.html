@@ -6,8 +6,8 @@
 	<%- include style.html %>
 </head>
 <body>
-	<%- include nav.html %>
-	<%- include deviceLeftNav.html %>
+    <%- include nav.html %>
+    <%- include homeLeftNav.html %>
 
 	<div class="col-md-9">
 		<div class="panel panel-info">
@@ -41,7 +41,7 @@
                                 <h4 class="modal-title" id="myModalLabel" style="color: Coral">Add New Device</h4>
                             </div>
                             <div class="modal-body">
-                                <form role="form" action="/device/addNewDevice" method="POST">
+                                <form role="form" action="/device/deviceAdd" method="POST">
                                     <div class="form-group">
                                         <label>Device Serial Number</label>
                                         <input type="text" class="form-control" name="device" placeholder="Device serial number" required>
@@ -61,10 +61,6 @@
                                     <div class="form-group">
                                         <label>Nickname</label>
                                         <input type="text" class="form-control" name="nickname" placeholder="Nickname" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Home</label>
-                                        <input type="text" class="form-control" name="home" value=<%=home%> readonly>
                                     </div>
                                     <div class="form-group">
                                         <label>Remark</label>
@@ -90,7 +86,7 @@
                                 <h4 class="modal-title" id="myModalLabel" style="color: Coral">Edit Device</h4>
                             </div>
                             <div class="modal-body">
-                                <form role="form" action="/device/editDevice" method="POST">
+                                <form role="form" action="/device/deviceEdit" method="POST">
                                     <div class="form-group">
                                         <label  for="mydevice">Device Serial Number</label>
                                         <input id="mydevice" type="text" class="form-control" name="mydevice" readonly>
@@ -116,10 +112,6 @@
                                         <input id="newnickname" type="text" class="form-control" name="newnickname" required>
                                     </div>
                                     <div class="form-group">
-                                        <label>Home</label>
-                                        <input type="text" class="form-control" name="home" value=<%=home%> readonly>
-                                    </div>
-                                    <div class="form-group">
                                         <label for="newremark">Remark</label>
                                         <input type="text" class="form-control" name="newremark">
                                     </div>
@@ -139,6 +131,7 @@
 		
 		$(document).ready(function(){
             $("#home").addClass("active");
+            $("#device").addClass("active");
             
 			window.deviceOperateEvents = {
 				'click .deviceEdit': function (e, value, row, index) {
@@ -164,7 +157,7 @@
 
 	        $('#deviceTable').bootstrapTable({
 				method: "get",//请求方式
-                url: "/device/table_devices_infos",//数据源
+                url: "/device/devicesList",//数据源
                 striped: true,
                 pagination: true,//是否分页
                 pageSize: 5,//单页记录数
@@ -199,10 +192,10 @@
                         field: "nickname",
                         title: "Nickname",
                         sortable: true,
-                    },
+                    },                    
                     {
-                        field: "home",
-                        title: "Home",
+                        field: "creator",
+                        title: "Creator",
                         sortable: true,
                     },
                     {

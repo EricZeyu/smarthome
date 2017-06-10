@@ -1,15 +1,11 @@
 const
 	device_model = require('../models/device.model'),
-	home_model = require('../models/home.model'),
 	user_model = require('../models/user.model'),
 	co = require('co');
 
 module.exports = {
 
 	deviceRender(req, res, next){
-		// console.log("device page");
-		console.log("params",req.params.home);
-		req.session.home = req.params.home;
 
 		res.render('device', {
 								username : req.session.username,
@@ -24,9 +20,11 @@ module.exports = {
 			device_model.add(req.body.device,
 							req.body.type,
 							req.body.nickname,
-							req.session.home,
+							req.session.username,
 							req.body.remark);
 		}
+
+		res.redirect('/device');
 	},
 
 	deviceRemove(req, res, next){
@@ -45,10 +43,16 @@ module.exports = {
 			device_model.all(function(data){
 				res.json(data);
 			});
-		}else{
-			device_model.homeDevices(req.session.home, function(data){
-				res.json(data);
-			});
-		}
+		}else if (req.session.authority == 'owner'){
+					device_model.myDevices(req.session.username, function(data){
+						res.json(data);
+				});
+			}else{
+				user_model.getCreator(req.session.username, function(data){
+					device_model.myDevices(data, function(data){
+						res.json(data);
+					});
+				});
+			}
 	}
 };

@@ -1,4 +1,5 @@
 const
+	user_model = require('../models/user.model'),
 	gateway_model = require('../models/gateway.model'),
 	co = require('co');
 
@@ -7,7 +8,8 @@ module.exports = {
 	gatewayRender(req, res, next){
 		res.render('gateway', {
 								username : req.session.username,
-								authority: req.session.authority
+								authority: req.session.authority,
+								home : req.session.home
 		});
 	},
 
@@ -17,11 +19,10 @@ module.exports = {
 			gateway_model.update(req.body.myMAC,
 									req.body.newMAC,
 									req.body.newIP,
-									req.body.newport,
-									req.body.newhome);
+									req.body.newport);
 		}
 
-		res.redirect('/home/gateway');		
+		res.redirect('/gateway');
 	},	
 
 	gatewayAdd(req, res, next){
@@ -30,10 +31,10 @@ module.exports = {
 			gateway_model.add(req.body.MAC,
 							req.body.IP,
 							req.body.port,
-							req.body.home);
+							req.session.username);
 		}
 
-		res.redirect('/home/gateway');
+		res.redirect('/gateway');
 	},
 
 	gatewayRemove(req, res, next){
@@ -51,11 +52,15 @@ module.exports = {
 				res.json(data);
 			});
 		}else if (req.session.authority == 'owner'){
-				gateway_model.mygateway(req.session.username, function(data){
+				user_model.mygateway(req.session.username, function(data){
 					res.json(data);
 				});
 			}else{
-				;
+				user_model.getCreator(req.session.username, function(data){
+					gateway_model.mygateway(data, function(data){
+						res.json(data);
+					});
+				});
 			}
 	}
 };

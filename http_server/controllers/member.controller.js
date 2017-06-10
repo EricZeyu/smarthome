@@ -7,7 +7,8 @@ module.exports = {
 	memberRender(req, res, next){
 		res.render('member', {
 								username : req.session.username,
-								authority: req.session.authority
+								authority: req.session.authority,
+								home : req.session.home
 		});
 	},
 
@@ -18,7 +19,7 @@ module.exports = {
 							req.session.username);
 		}
 
-		res.redirect('/member/member');
+		res.redirect('/member');
 	},
 
 	memberEdit(req, res, next){
@@ -27,7 +28,7 @@ module.exports = {
 							req.body.newmemberPassword);
 		}
 
-		res.redirect('/member/member');
+		res.redirect('/member');
 	},
 
 	memberRemove(req, res, next){
@@ -35,7 +36,7 @@ module.exports = {
 			user_model.delete(req.body.name);
 		}
 
-		res.redirect('/member/member');
+		res.redirect('/member');
 	},
 
 	membersList(req, res, next){
@@ -44,12 +45,16 @@ module.exports = {
 			user_model.usersAll(function(data){
 				res.json(data);
 			});
-		}else {
-			user_model.getCreator(req.session.username, function(data){
-				user_model.members(data, function(data){
-					res.json(data);
+		}else if (req.session.authority == 'owner'){
+					user_model.members(req.session.username, function(data){
+						res.json(data);
 				});
-			});
-		}
+			}else{
+					user_model.getCreator(req.session.username, function(data){
+						user_model.members(data, function(data){
+							res.json(data);
+						});
+					});
+				}
 	}
 };

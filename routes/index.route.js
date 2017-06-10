@@ -8,8 +8,8 @@ const
 router.get('/', indexController.indexRender);
 router.post('/login', accountController.accountValidate);
 router.get('/logout', accountController.accountLogout);
-router.post('/account_settings', accountController.accountSettings);
-router.post('/account_register', accountController.accountRegister);
+router.post('/accountSettings', accountController.accountSettings);
+router.post('/accountRegister', accountController.accountRegister);
 
 
 module.exports = router;

@@ -3,10 +3,10 @@ const
 	express = require('express'),
 	router = express.Router();
 
-router.get('/HOME/:home', deviceController.deviceRender);
-router.post('/addNewDevice', deviceController.deviceAdd);
-router.post('/removeDevice', deviceController.deviceRemove);
-router.get('/table_devices_infos', deviceController.devicesList);
+router.get('/', deviceController.deviceRender);
+router.post('/deviceAdd', deviceController.deviceAdd);
+router.post('/deviceRemove', deviceController.deviceRemove);
+router.get('/devicesList', deviceController.devicesList);
 
 
 module.exports = router;

@@ -3,11 +3,11 @@ const
 	express = require('express'),
 	router = express.Router();
 
-router.get('/member', memberController.memberRender);
-router.post('/addNewMember', memberController.memberAdd);
-router.post('/editMember', memberController.memberEdit);
-router.post('/removeMember', memberController.memberRemove);
-router.get('/table_members_infos', memberController.membersList);
+router.get('/', memberController.memberRender);
+router.post('/memberAdd', memberController.memberAdd);
+router.post('/memberEdit', memberController.memberEdit);
+router.post('/memberRemove', memberController.memberRemove);
+router.get('/membersList', memberController.membersList);
 
 
 module.exports = router;

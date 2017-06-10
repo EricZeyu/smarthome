@@ -3,9 +3,9 @@ const
 
 module.exports = {
 
-	add(MAC, IP, port, home, state = 'Off'){
-		ct.query("INSERT INTO gateway(MAC, IP, port, home, state) VALUES(?, ?, ?, ?, ?)",
-								[MAC, IP, port, home, state],
+	add(MAC, IP, port, creator, state = 'Off'){
+		ct.query("INSERT INTO gateway(MAC, IP, port, creator, state) VALUES(?, ?, ?, ?, ?)",
+								[MAC, IP, port, creator, state],
 								function(err, result){
 									if(err) {
 										console.log("[INSERT ERROR] - ", err.message);
@@ -25,9 +25,9 @@ module.exports = {
 								});
 	},
 
-	update(MAC, newMAC, newIP, newport, newhome){
-		ct.query("UPDATE gateway SET MAC = ?, IP = ?, port = ?, home = ? WHERE (MAC = ?)",
-								[newMAC, newIP, newport, newhome, MAC],
+	update(MAC, newMAC, newIP, newport){
+		ct.query("UPDATE gateway SET MAC = ?, IP = ?, port = ? WHERE (MAC = ?)",
+								[newMAC, newIP, newport, MAC],
 								function(err, result){
 									if(err) {
 										console.log("[UPDATE ERROR] - ", err.message);
@@ -37,9 +37,9 @@ module.exports = {
 			});
 	},
 
-	exist(home, callback){
-		ct.query("SELECT * FROM gateway WHERE home = ? limit 1",
-								[home],
+	exist(creator, callback){
+		ct.query("SELECT * FROM gateway WHERE creator = ? limit 1",
+								[creator],
 								function(err, result){
 									if(err) {
 											console.log("[SELECT ERROR] - ", err.message);
@@ -51,9 +51,9 @@ module.exports = {
 								});
 	},
 
-	mygateway(name, callback){
-		ct.query("SELECT a.* FROM gateway a, home b WHERE (a.home = b.home AND b.contact = ?)",
-				[name],
+	mygateway(creator, callback){
+		ct.query("SELECT * FROM gateway WHERE (creator = ?)",
+				[creator],
 				function(err, result){
 					if (err) {
 						console.log("[SELECT ERROR] - ", err.message);
@@ -65,7 +65,7 @@ module.exports = {
 											"MAC" : item.MAC,
 											"IP" : item.IP,
 											"port" : item.port,
-											"home" : item.home,
+											"creator" : item.creator,
 											"state" : item.state
 										}
 								});
@@ -87,7 +87,7 @@ module.exports = {
 											"MAC" : item.MAC,
 											"IP" : item.IP,
 											"port" : item.port,
-											"home" : item.home,
+											"creator" : item.creator,
 											"state" : item.state										
 										}
 								});

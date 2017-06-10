@@ -41,7 +41,7 @@
                                 <h4 class="modal-title" id="myModalLabel" style="color: Coral">Edit Gateway</h4>
                             </div>
                             <div class="modal-body">
-                                <form role="form" action="/home/editGateway" method="POST">
+                                <form role="form" action="/gateway/gatewayEdit" method="POST">
                                     <div class="form-group">
                                         <div class="form-group">
                                             <label for="myMAC">Old MAC</label>
@@ -58,11 +58,6 @@
                                         <div class="form-group">
                                             <label for="oldport">New port</label>
                                             <input id="oldport" type="text" class="form-control" name="newport" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="homeEditSelect">New Home Select</label>
-                                            <select id="homeEditSelect" class="form-control" name="newhome">
-                                            </select>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -85,7 +80,7 @@
                                 <h4 class="modal-title" id="myModalLabel" style="color: Coral">Add New Gateway</h4>
                             </div>
                             <div class="modal-body">
-                                <form role="form" action="/home/addNewGateway" method="POST">
+                                <form role="form" action="/gateway/gatewayAdd" method="POST">
                                     <div class="form-group">
                                         <div class="form-group">
                                             <label>MAC</label>
@@ -98,11 +93,6 @@
                                         <div class="form-group">
                                             <label>port</label>
                                             <input type="text" class="form-control" name="port" placeholder="port" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Home Select</label>
-                                            <select id="homeAddSelect" class="form-control" name="home">
-                                            </select>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -121,14 +111,7 @@
 		$(document).ready(function(){
 
 			$("#home").addClass("active");
-			$("#home_gateway").addClass("active");
-
-            $.get('/home/gatewayHomeSelect',function(data, status){
-                data.map((item)=>{
-                    $("#homeAddSelect").append('<option value="' + item.home + '">' + item.home + '</option>');
-                    // $("#homeEditSelect").append('<option value="' + item.home + '">' + item.home + '</option>');
-                });
-            });
+			$("#gateway").addClass("active");
 
 			window.gatewayOperateEvents = {
 
@@ -139,32 +122,22 @@
                     $("#oldIP").val(row.IP);
                     $("#oldport").val(row.port);
 
-                    $("#homeEditSelect").empty();
+                    // $("#homeEditSelect").empty();
                     
-                    $.get('/home/gatewayHomeSelect',function(data, status){
-                        data.map((item)=>{
-                            if (item.home == row.home){
-                                $("#homeEditSelect").append('<option value="' + item.home + '" selected>' + item.home + '</option>');
-                            }else{
-                                $("#homeEditSelect").append('<option value="' + item.home + '">' + item.home + '</option>');
-                            }
-                        });
-                    });
-                    
-                    // let sel = "[value='" + row.home + "']";
-                    // console.log(row.home);
-                    // // $("#homeEditSelect").children("[selected='selected']").text();
-                    // console.log("optionold=", $("#homeEditSelect").children("[selected='selected']").text());
-                    // $("#homeEditSelect").children("[selected='selected']").removeAttr("selected");
-                    // console.log("optionseenow=", $("#homeEditSelect").children("[selected='selected']").text());
-
-                    // $("#homeEditSelect").children(sel).attr("selected", "selected");
-                    // console.log("optionnew=", $("#homeEditSelect").children("[selected='selected']").text());
+                    // $.get('/home/gatewayHomeSelect',function(data, status){
+                    //     data.map((item)=>{
+                    //         if (item.home == row.home){
+                    //             $("#homeEditSelect").append('<option value="' + item.home + '" selected>' + item.home + '</option>');
+                    //         }else{
+                    //             $("#homeEditSelect").append('<option value="' + item.home + '">' + item.home + '</option>');
+                    //         }
+                    //     });
+                    // });
 	            },
 
 	            'click .gatewayRemove': function (e, value, row, index) {
                     if (confirm('Are you sure to remove?')){
-                        $.post('/home/removeGateway',{
+                        $.post('/gateway/gatewayRemove',{
                             MAC: row.MAC
                             });
 
@@ -178,7 +151,7 @@
 
 			$('#gatewayTable').bootstrapTable({
 				method: "get",//请求方式
-                url: "/home/table_gateway_infos",//数据源
+                url: "/gateway/gatewayList",//数据源
                 striped: true,
                 pagination: true,//是否分页
                 pageSize: 5,//单页记录数
@@ -212,11 +185,6 @@
                     {
                         field: "port",
                         title: "port",
-                        sortable: true,
-                    },
-                    {
-                        field: "home",
-                        title: "home",
                         sortable: true,
                     },
                     {
