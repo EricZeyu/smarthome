@@ -46,15 +46,15 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="oldlocation">Location</label>
-                                        <input id="oldlocation" type="text" class="form-control" name="newlocation">
+                                        <input id="oldlocation" type="text" class="form-control" name="newlocation" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="oldmail">Your Mail</label>
-                                        <input id="oldmail" type="text" class="form-control" name="newmail">                                        
+                                        <input id="oldmail" type="text" class="form-control" name="newmail" required>                                        
                                     </div>
                                     <div class="form-group">
                                         <label for="oldtel">Your Tel</label>
-                                        <input id="oldtel" type="text" class="form-control" name="newtel">                                        
+                                        <input id="oldtel" type="text" class="form-control" name="newtel" required>                                        
                                     </div>
                                     <div class="modal-footer">
                                 		<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -204,7 +204,7 @@
         		// console.log(homeURL);
         		// let homelink = '<a class="home col-md-4" href="' + homeURL + '" title="Home">';
 	            return [
-	         	'<a class="home col-md-4" href="/device/' + row.home + '" title="Home">',
+	         	'<a class="home col-md-4" href="/device/HOME/' + row.home + '" title="Home">',
 	            '<span class="glyphicon glyphicon-home" aria-hidden="true"></span>',
 	            '</a>',
 	            '<a class="homeEdit col-md-4" href="#" title="Edit" data-toggle="modal" data-target="#homeEditModel">',

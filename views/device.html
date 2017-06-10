@@ -28,7 +28,10 @@
 				</div>
             </div>
 		  	<table id="deviceTable"></table>
-		  	<div class="modal fade" id="deviceAddModel" tabindex="-1" role="dialog" aria-hidden="true">
+		</div>
+	</div>
+
+            <div class="modal fade" id="deviceAddModel" tabindex="-1" role="dialog" aria-hidden="true">
                    <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -40,7 +43,11 @@
                             <div class="modal-body">
                                 <form role="form" action="/device/addNewDevice" method="POST">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="device" placeholder="Device serial number">
+                                        <label>Device Serial Number</label>
+                                        <input type="text" class="form-control" name="device" placeholder="Device serial number" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Device Type</label>
                                         <select class="form-control" name="type">
                                             <option value="router">Router</option>
                                             <option value="baroceptor">Baroceptor</option>
@@ -50,21 +57,81 @@
                                             <option value="lamp">Lamp</option>
                                             <option value="door">Door</option>
                                         </select>
-                                        <input type="text" class="form-control" name="nickname" placeholder="Nickname">
-                                        <input type="text" class="form-control" name="home" placeholder="Home">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Nickname</label>
+                                        <input type="text" class="form-control" name="nickname" placeholder="Nickname" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Home</label>
+                                        <input type="text" class="form-control" name="home" value=<%=home%> readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Remark</label>
                                         <input type="text" class="form-control" name="remark" placeholder="Remark">
                                     </div>
                                     <div class="modal-footer">
-                                		<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                		<button type="submit" class="btn btn-warning">OK</button>
-                            		</div>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-warning">OK</button>
+                                    </div>
                                 </form>
                             </div>
                         </div>
                     </div>
-                </div>
-		</div>
-	</div>
+            </div>
+
+            <div class="modal fade" id="deviceEditModel" tabindex="-1" role="dialog" aria-hidden="true">
+                   <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                    &times;
+                                </button>
+                                <h4 class="modal-title" id="myModalLabel" style="color: Coral">Edit Device</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form role="form" action="/device/editDevice" method="POST">
+                                    <div class="form-group">
+                                        <label  for="mydevice">Device Serial Number</label>
+                                        <input id="mydevice" type="text" class="form-control" name="mydevice" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label  for="newdevice">Device Serial Number</label>
+                                        <input id="newdevice" type="text" class="form-control" name="newdevice" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Device Type</label>
+                                        <select class="form-control" name="newtype">
+                                            <option value="router">Router</option>
+                                            <option value="baroceptor">Baroceptor</option>
+                                            <option value="hygrometer">Hygrometer</option>
+                                            <option value="particulator">Particulator</option>
+                                            <option value="lighter">Lighter</option>
+                                            <option value="lamp">Lamp</option>
+                                            <option value="door">Door</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="newnickname">Nickname</label>
+                                        <input id="newnickname" type="text" class="form-control" name="newnickname" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Home</label>
+                                        <input type="text" class="form-control" name="home" value=<%=home%> readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="newremark">Remark</label>
+                                        <input type="text" class="form-control" name="newremark">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-warning">OK</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+            </div>
 
 	<%- include script.html %>
 
@@ -75,20 +142,23 @@
             
 			window.deviceOperateEvents = {
 				'click .deviceEdit': function (e, value, row, index) {
-	            	console.log(value);
-	            	console.log(row);
-	            	console.log(index);
-	            alert('You click Edit action, row: ' + JSON.stringify(row));
+	            	                    
+                    $("#mydevice").val(row.device);
+                    $("#newdevice").val(row.device);
+                    $("#newnickname").val(row.nickname);
+                    $("#newremark").val(row.remark);
 	            },
 
 	            'click .deviceRemove': function (e, value, row, index) {
-	            	$.post('/device/removeDevice',{
-	            		device: row.device
-	            		});
-	                $('#deviceTable').bootstrapTable('remove', {
-	                    field: 'device',
-	                    values: [row.device]
-	                });
+                    if (confirm('Are you sure to remove?')){
+                        $.post('/device/removeDevice',{
+                            device: row.device
+                            });
+                        $('#deviceTable').bootstrapTable('remove', {
+                            field: 'device',
+                            values: [row.device]
+                        });
+                    }
 	            }
 			};
 
@@ -152,12 +222,12 @@
 
         	function deviceOperateFormatter(value, row, index){
 	            return [
-	            '<a class="deviceEdit" href="javascript:void(0)" title="Edit">',
-	            '<i class="glyphicon glyphicon-edit"></i>',
-	            '</a>',
-	            '<a class="deviceRemove" href="javascript:void(0)" title="Remove">',
-	            '<i class="glyphicon glyphicon-remove"></i>',
-	            '</a>'
+                    '<a class="deviceEdit col-md-6" href="#" title="Edit" data-toggle="modal" data-target="#deviceEditModel">',
+                    '<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>',
+                    '</a>',
+                    '<a class="deviceRemove col-md-6" href="#" title="Remove">',
+                    '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>',
+                    '</a>'
 	            ].join('');
         	};
 		});

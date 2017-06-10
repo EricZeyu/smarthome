@@ -7,31 +7,31 @@ const
 module.exports = {
 
 	deviceRender(req, res, next){
-		console.log("device page");
-		console.log(req.params.home);
+		// console.log("device page");
+		console.log("params",req.params.home);
+		req.session.home = req.params.home;
+
 		res.render('device', {
 								username : req.session.username,
 								authority: req.session.authority,
-								home: req.params.home
+								home: req.session.home
 		});
 	},
 
 	deviceAdd(req, res, next){
-		if (req.session.authority == 'owner'){
+		if (req.session.authority !== 'member'){
 
 			device_model.add(req.body.device,
 							req.body.type,
 							req.body.nickname,
-							req.body.home,
+							req.session.home,
 							req.body.remark);
 		}
-
-		res.redirect('/deivce/deivce');
 	},
 
 	deviceRemove(req, res, next){
 
-		if (req.session.authority == 'owner'){
+		if (req.session.authority !== 'member'){
 
 			device_model.delete(req.body.device);
 		}
@@ -39,22 +39,16 @@ module.exports = {
 
 	devicesList(req, res, next){
 
-		// if (req.session.authority == 'root'){
+		if (req.session.authority == 'root'){
 
-		// }else{
-		// 	user_model.getCreator(req.session.username, function(data){
-
-		// 		home_model.getHomes(data, function(data){
-
-		// 			data.map((item) => {
-						
-		// 					device_model.homeDevices(item.home, function(data){
-
-
-		// 					});
-		// 			});
-		// 		});
-		// 	});
-		// }
+			console.log("root call", req.session.authority);
+			device_model.all(function(data){
+				res.json(data);
+			});
+		}else{
+			device_model.homeDevices(req.session.home, function(data){
+				res.json(data);
+			});
+		}
 	}
 };
