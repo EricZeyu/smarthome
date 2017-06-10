@@ -18,9 +18,9 @@ module.exports = {
 								});
 	},
 
-	add(name, password, creator){
-		ct.query("INSERT INTO user(name, password, authority, creator) VALUES(?, ?, ?, ?)",
-								[name, password, 'member', creator],
+	add(name, password, creator, home){
+		ct.query("INSERT INTO user(name, password, authority, creator, home) VALUES(?, ?, ?, ?, ?)",
+								[name, password, 'member', creator, home],
 								function(err, result){
 									if(err) {
 										console.log("[INSERT ERROR] - ", err.message);

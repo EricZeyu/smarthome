@@ -39,7 +39,6 @@ const
 	// });
 	// u.register('zeyu', 'zeyu', 'Banhu');
 	// u.delete('root');
-	// u.add('root','root','root','root');
 	// u.add('test','test','owner','test');
 	// u.add('zeyu','zeyu','owner','zeyu');
 	u.testAll();

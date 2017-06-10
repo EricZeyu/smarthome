@@ -41,12 +41,9 @@ module.exports = {
 	},
 
 	accountRegister(req, res, next){
-		console.log("accountRegister call");
-		console.log(req.body);
 
 		user_model.notexistname(req.body.username, function(data){
 			if (data == true){
-				console.log(req.body);
 				user_model.register(req.body.username, req.body.password, req.body.home);
 				res.redirect('/');
 			}else{
