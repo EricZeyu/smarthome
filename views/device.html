@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8"> 
-	<title>Device</title>
+	<title>无线设备</title>
 	<%- include style.html %>
 </head>
 <body>
@@ -12,18 +12,18 @@
 	<div class="col-md-9">
 		<div class="panel panel-info">
 		  	<div class="panel-heading">
-		    	<h3 class="panel-title"><%= home %></h3>
+                <h3 class="panel-title"><span class="glyphicon glyphicon-home" aria-hidden="true"><%= home %></span></h3>
 		  	</div>
 			<div id="deviceToolbar">
                 <div class="btn-group" role="group" aria-label="...">
 				  	<button type="button" class="btn btn-success">
-				  		Import<span class="glyphicon glyphicon-import" aria-hidden="true"></span>
+				  		导入<span class="glyphicon glyphicon-import" aria-hidden="true"></span>
 				  	</button>
 				  	<button type="button" class="btn btn-info">
-				  		Export<span class="glyphicon glyphicon-export" aria-hidden="true"></span>
+				  		导出<span class="glyphicon glyphicon-export" aria-hidden="true"></span>
 				  	</button>
 				  	<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#deviceAddModel">
-				  		Add<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+				  		新增<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 				  	</button>
 				</div>
             </div>
@@ -38,37 +38,37 @@
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                                     &times;
                                 </button>
-                                <h4 class="modal-title" id="myModalLabel" style="color: Coral">Add New Device</h4>
+                                <h4 class="modal-title" id="myModalLabel" style="color: Coral">新增无线设备</h4>
                             </div>
                             <div class="modal-body">
                                 <form role="form" action="/device/deviceAdd" method="POST">
                                     <div class="form-group">
-                                        <label>Device Serial Number</label>
+                                        <label>设备序列号</label>
                                         <input type="text" class="form-control" name="device" placeholder="Device serial number" required>
                                     </div>
                                     <div class="form-group">
-                                        <label>Device Type</label>
+                                        <label>设备类型</label>
                                         <select class="form-control" name="type">
-                                            <option value="router">Router</option>
-                                            <option value="baroceptor">Baroceptor</option>
-                                            <option value="hygrometer">Hygrometer</option>
-                                            <option value="particulator">Particulator</option>
-                                            <option value="lighter">Lighter</option>
-                                            <option value="lamp">Lamp</option>
-                                            <option value="door">Door</option>
+                                            <option value="router">无线路由器</option>
+                                            <option value="baroceptor">气压传感器</option>
+                                            <option value="hygrometer">湿度传感器</option>
+                                            <option value="particulator">PM2.5监测器</option>
+                                            <option value="lighter">光照传感器</option>
+                                            <option value="lamp">照明灯</option>
+                                            <option value="door">无线门锁</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label>Nickname</label>
+                                        <label>自定义名称</label>
                                         <input type="text" class="form-control" name="nickname" placeholder="Nickname" required>
                                     </div>
                                     <div class="form-group">
-                                        <label>Remark</label>
+                                        <label>备注</label>
                                         <input type="text" class="form-control" name="remark" placeholder="Remark">
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                        <button type="submit" class="btn btn-warning">OK</button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                        <button type="submit" class="btn btn-warning">确定</button>
                                     </div>
                                 </form>
                             </div>
@@ -83,41 +83,41 @@
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                                     &times;
                                 </button>
-                                <h4 class="modal-title" id="myModalLabel" style="color: Coral">Edit Device</h4>
+                                <h4 class="modal-title" id="myModalLabel" style="color: Coral">修改无线设备</h4>
                             </div>
                             <div class="modal-body">
                                 <form role="form" action="/device/deviceEdit" method="POST">
                                     <div class="form-group">
-                                        <label  for="mydevice">Device Serial Number</label>
+                                        <label  for="mydevice">原设备序列号</label>
                                         <input id="mydevice" type="text" class="form-control" name="mydevice" readonly>
                                     </div>
                                     <div class="form-group">
-                                        <label  for="newdevice">Device Serial Number</label>
+                                        <label  for="newdevice">设备序列号</label>
                                         <input id="newdevice" type="text" class="form-control" name="newdevice" required>
                                     </div>
                                     <div class="form-group">
-                                        <label>Device Type</label>
-                                        <select class="form-control" name="newtype">
-                                            <option value="router">Router</option>
-                                            <option value="baroceptor">Baroceptor</option>
-                                            <option value="hygrometer">Hygrometer</option>
-                                            <option value="particulator">Particulator</option>
-                                            <option value="lighter">Lighter</option>
-                                            <option value="lamp">Lamp</option>
-                                            <option value="door">Door</option>
+                                        <label>设备类型</label>
+                                        <select id="newtype" class="form-control" name="newtype">
+                                            <option value="router">无线路由器</option>
+                                            <option value="baroceptor">气压传感器</option>
+                                            <option value="hygrometer">湿度传感器</option>
+                                            <option value="particulator">PM2.5监测器</option>
+                                            <option value="lighter">光照传感器</option>
+                                            <option value="lamp">照明灯</option>
+                                            <option value="door">无线门锁</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="newnickname">Nickname</label>
+                                        <label for="newnickname">自定义名称</label>
                                         <input id="newnickname" type="text" class="form-control" name="newnickname" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="newremark">Remark</label>
-                                        <input type="text" class="form-control" name="newremark">
+                                        <label for="newremark">备注</label>
+                                        <input id="newremark" type="text" class="form-control" name="newremark">
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                        <button type="submit" class="btn btn-warning">OK</button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                        <button type="submit" class="btn btn-warning">确定</button>
                                     </div>
                                 </form>
                             </div>
@@ -138,12 +138,13 @@
 	            	                    
                     $("#mydevice").val(row.device);
                     $("#newdevice").val(row.device);
+                    $("#newtype").val(row.type);
                     $("#newnickname").val(row.nickname);
                     $("#newremark").val(row.remark);
 	            },
 
 	            'click .deviceRemove': function (e, value, row, index) {
-                    if (confirm('Are you sure to remove?')){
+                    if (confirm('确认删除该设备？')){
                         $.post('/device/removeDevice',{
                             device: row.device
                             });
@@ -160,7 +161,7 @@
                 url: "/device/devicesList",//数据源
                 striped: true,
                 pagination: true,//是否分页
-                pageSize: 5,//单页记录数
+                pageSize: 10,//单页记录数
                 pageList: [5, 10, 20, 50],//分页步进值
                 queryParamsType: "limit",//查询参数组织方式
                 queryParams: function getParams(params) {
@@ -179,33 +180,33 @@
                 columns: [
                     {
                         field: "device",//键名
-                        title: "Device",//标题
+                        title: "设备序列号",//标题
                         sortable: true,//是否可排序
                         order: "asc"//默认排序方式
                     },
                     {
                         field: "type",
-                        title: "Type",
+                        title: "设备类型",
                         sortable: true,
                     },
                     {
                         field: "nickname",
-                        title: "Nickname",
+                        title: "自定义名称",
                         sortable: true,
                     },                    
                     {
                         field: "creator",
-                        title: "Creator",
+                        title: "创建者",
                         sortable: true,
                     },
                     {
                         field: "remark",
-                        title: "Remark",
+                        title: "备注",
                         sortable: true,
                     },
                     {
                         field: "operate",
-                        title: "Operate",
+                        title: "操作",
                         align: "center",
                         events: deviceOperateEvents,
                         formatter: deviceOperateFormatter

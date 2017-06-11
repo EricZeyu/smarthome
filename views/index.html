@@ -2,22 +2,22 @@
 <html>
 <head>
 	<meta charset="utf-8"> 
-	<title>Smart Home</title>
+	<title>智慧家庭系统</title>
 	<%- include style.html %>
 </head>
 <body>
 <div class="jumbotron" style="background: MistyRose">
-  	<h1>Smart Home <small>For Better Life</small> </h1>
+  	<h1>智慧家庭 <small>为了更好的生活</small> </h1>
   	<div class="input-group" style="float: right;">
   		<form class="navbar-form navbar-left" role="search" action="/login" method="POST">
 		  	<div class="form-group">		  		
-		    	<input type="text" class="form-control" placeholder="Username" name="username">
-		    	<input type="password" class="form-control" placeholder="Password" name="password">
+		    	<input type="text" class="form-control" placeholder="用户名" name="username">
+		    	<input type="password" class="form-control" placeholder="密码" name="password">
 		  	</div>
-		  	<button type="submit" class="btn btn-primary">Login</button>
+		  	<button type="submit" class="btn btn-primary">登陆</button>
 		  	
 		  	<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">
-  				Register
+  				注册
 			</button>
 		</form>
 	</div>
@@ -50,30 +50,30 @@
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                                     &times;
                                 </button>
-                                <h4 class="modal-title" id="myModalLabel" style="color: Coral">New Account</h4>
+                                <h4 class="modal-title" id="myModalLabel" style="color: Coral">新账户申请</h4>
                             </div>
                             <div class="modal-body">
                                 <form role="form" action="/accountRegister" method="POST">
                     				      <div class="form-group">
                                     <div class="form-group">
-                                      <label>Username</label>
-                                    	<input type="text" class="form-control" name="username" placeholder="Username" required>
+                                      <label>用户名</label>
+                                    	<input type="text" class="form-control" name="username" placeholder="用户名" required>
                                     </div>
                                     <div class="form-group">
-                                      <label>Password</label>
-										                  <input type="password" class="form-control" name="password" placeholder="Password" required>
+                                      <label>密码</label>
+										                  <input type="password" class="form-control" name="password" placeholder="密码" required>
                                     </div>
                                     <div class="form-group">
-                                      <label>Confirm Password</label>
-										                  <input type="password" class="form-control" name="passwordconfirm" placeholder="Confirm Password" required>
+                                      <label>密码确认</label>
+										                  <input type="password" class="form-control" name="passwordconfirm" placeholder="密码确认" required>
                                     </div>
                                     <div class="form-group">
-                                      <label>Home</label>
-                                      <input type="text" class="form-control" name="home" placeholder="Home Name" required>
+                                      <label>家庭名称</label>
+                                      <input type="text" class="form-control" name="home" placeholder="家庭名称" required>
                                     </div>
                                     <div class="modal-footer">
-                                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                      <button type="submit" class="btn btn-warning">Register</button>
+                                      <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                      <button type="submit" class="btn btn-warning">注册</button>
                                     </div>
                                   </div>
                                 </form>

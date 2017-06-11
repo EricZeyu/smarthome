@@ -52,7 +52,7 @@ module.exports = {
 				res.json(data);
 			});
 		}else if (req.session.authority == 'owner'){
-				user_model.mygateway(req.session.username, function(data){
+				gateway_model.mygateway(req.session.username, function(data){
 					res.json(data);
 				});
 			}else{

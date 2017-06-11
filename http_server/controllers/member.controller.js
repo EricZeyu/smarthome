@@ -16,7 +16,8 @@ module.exports = {
 		if (req.session.authority == 'owner'){
 			user_model.add(req.body.memberName,
 							req.body.memberPassword,
-							req.session.username);
+							req.session.username,
+							req.session.home);
 		}
 
 		res.redirect('/member');
@@ -56,5 +57,9 @@ module.exports = {
 						});
 					});
 				}
+	},
+
+	memberLogs(req, res, next){
+		res.json('ok');
 	}
 };

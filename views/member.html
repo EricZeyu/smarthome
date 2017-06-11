@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8"> 
-	<title>Member</title>
+	<title>家庭成员</title>
 	<%- include style.html %>
 </head>
 <body>
@@ -12,18 +12,12 @@
 	<div class="col-md-9">
 		<div class="panel panel-success">
 		  	<div class="panel-heading">
-		    	<h3 class="panel-title">Members</h3>
+		    	<h3 class="panel-title">成员信息</h3>
 		  	</div>
 			<div id="memberToolbar">
                 <div class="btn-group" role="group" aria-label="...">
-				  	<button type="button" class="btn btn-success">
-				  		Import<span class="glyphicon glyphicon-import" aria-hidden="true"></span>
-				  	</button>
-				  	<button type="button" class="btn btn-info">
-				  		Export<span class="glyphicon glyphicon-export" aria-hidden="true"></span>
-				  	</button>
-				  	<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#memberAddModel">
-				  		Add<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+				  	<button type="button" class="btn btn-success" data-toggle="modal" data-target="#memberAddModel">
+				  		添加新成员<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 				  	</button>
 				</div>
             </div>
@@ -39,25 +33,25 @@
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                                     &times;
                                 </button>
-                                <h4 class="modal-title" id="myModalLabel" style="color: Coral">Add New Member</h4>
+                                <h4 class="modal-title" id="myModalLabel" style="color: Coral">新增成员</h4>
                             </div>
                             <div class="modal-body">
                                 <form role="form" action="/member/memberAdd" method="POST">
                                     <div class="form-group">
-                                        <label>Member Name</label>
-                                        <input type="text" class="form-control" name="memberName" placeholder="Member Name" required>
+                                        <label>成员名称</label>
+                                        <input type="text" class="form-control" name="memberName" placeholder="成员名称" required>
                                     </div>
                                     <div class="form-group">
-                                        <label>Member Password</label>
-                                        <input type="password" class="form-control" name="memberPassword" placeholder="Member Password" required>
+                                        <label>密码</label>
+                                        <input type="password" class="form-control" name="memberPassword" placeholder="密码" required>
                                     </div>
                                     <div class="form-group">
-                                        <label>Password Confirm</label>
-                                        <input type="password" class="form-control" name="memberPasswordConfirm" placeholder="Password Confirm" required>
+                                        <label>密码确认</label>
+                                        <input type="password" class="form-control" name="memberPasswordConfirm" placeholder="密码确认" required>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                        <button type="submit" class="btn btn-warning">OK</button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                        <button type="submit" class="btn btn-warning">确定</button>
                                     </div>
                                 </form>
                             </div>
@@ -72,29 +66,29 @@
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                                     &times;
                                 </button>
-                                <h4 class="modal-title" id="myModalLabel" style="color: Coral">Edit Member</h4>
+                                <h4 class="modal-title" id="myModalLabel" style="color: Coral">修改成员信息</h4>
                             </div>
                             <div class="modal-body">
                                 <form role="form" action="/member/memberEdit" method="POST">
                                     <div class="form-group">
-                                        <label for="mymemberName">Member Name</label>
+                                        <label for="mymemberName">成员名称</label>
                                         <input id="mymemberName" type="text" class="form-control" name="mymemberName" readonly>
                                     </div>
                                     <div class="form-group">
-                                        <label for="oldmemberPassword">Member Password</label>
+                                        <label for="oldmemberPassword">原密码</label>
                                         <input id="oldmemberPassword" type="password" class="form-control" name="oldmemberPassword" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="newmemberPassword">New Member Password</label>
+                                        <label for="newmemberPassword">新密码</label>
                                         <input id="newmemberPassword" type="password" class="form-control" name="newmemberPassword" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="newmemberPasswordConfirm">Password Confirm</label>
+                                        <label for="newmemberPasswordConfirm">新密码确认</label>
                                         <input id="newmemberPasswordConfirm" type="password" class="form-control" name="newmemberPasswordConfirm" required>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                        <button type="submit" class="btn btn-warning">OK</button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                        <button type="submit" class="btn btn-warning">确定</button>
                                     </div>
                                 </form>
                             </div>
@@ -116,7 +110,7 @@
 
 	            'click .memberRemove': function (e, value, row, index) {
 
-                    if (confirm('Are you sure to remove?')){
+                    if (confirm('确认移除该成员吗？')){
                         $.post('/member/memberRemove',{
                             name: row.name
                             });
@@ -152,28 +146,28 @@
                 columns: [
                     {
                         field: "name",//键名
-                        title: "name",//标题
+                        title: "成员名称",//标题
                         sortable: true,//是否可排序
                         order: "asc"//默认排序方式
                     },
                     {
                         field: "authority",
-                        title: "authority",
+                        title: "权限",
                         sortable: true,
                     },
                     {
                         field: "creator",
-                        title: "creator",
+                        title: "创建者",
                         sortable: true,
                     },
                     {
                         field: "online",
-                        title: "online",
+                        title: "在线状态",
                         sortable: true,
                     },
                     {
                         field: "operate",
-                        title: "Operate",
+                        title: "操作",
                         align: "center",
                         events: memberOperateEvents,
                         formatter: memberOperateFormatter

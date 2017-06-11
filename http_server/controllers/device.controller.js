@@ -38,8 +38,6 @@ module.exports = {
 	devicesList(req, res, next){
 
 		if (req.session.authority == 'root'){
-
-			console.log("root call", req.session.authority);
 			device_model.all(function(data){
 				res.json(data);
 			});
@@ -54,5 +52,9 @@ module.exports = {
 					});
 				});
 			}
+	},
+
+	deviceRecords(req, res, next){
+		res.json('ok');
 	}
 };

@@ -8,6 +8,7 @@ router.post('/memberAdd', memberController.memberAdd);
 router.post('/memberEdit', memberController.memberEdit);
 router.post('/memberRemove', memberController.memberRemove);
 router.get('/membersList', memberController.membersList);
+router.get('/logs', memberController.memberLogs);
 
 
 module.exports = router;

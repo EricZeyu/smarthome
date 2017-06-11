@@ -5,6 +5,7 @@ const
 
 
 router.get('/', homeController.homeRender);
+router.get('/homeStatus', homeController.homeStatus);
 
 
 module.exports = router;
