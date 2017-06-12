@@ -66,8 +66,20 @@ module.exports = {
 
 	deviceRecords(req, res, next){
 		
-		records_model.all(function(data){
-			res.json(data);
-		});
+		if (req.session.authority == 'root'){
+				res.json([]);
+		}else if (req.session.authority == 'owner'){
+
+					records_model.myDeviceRecords(req.session.username, function(data){
+						res.json(data);
+					});
+			}else{
+				user_model.getCreator(req.session.username, function(data){
+					records_model.myDeviceRecords(data, function(data){
+						res.json(data);
+					});
+				});
+			}
+
 	}
 };

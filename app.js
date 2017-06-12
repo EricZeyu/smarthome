@@ -55,13 +55,16 @@ const
 	// gmm.add('D8B04CBE2939', '10.8.208.134', '3333', 'Banhu');
 	// gmm.add('AC243FB00876', '10.8.208.135', '3334', 'ZJUT');
 
-	let rds = require("./http_server/models/records.model");
-	let tt = new Date()
-	// rds.add('6105','zeyu','down','turn on');
-	rds.all(function(data){
-		console.log(data);
-	});
+	// let rds = require("./http_server/models/records.model");
+	// rds.createTable('zjut');
+	// rds.createTable('zeyu');
 
+	// rds.add('zeyu', '6105','lamp', '6105','up','turn off');
+	// rds.add('zeyu', '6105','lamp', '6105','down','turn on');
+	// rds.add('zjut', '6105','lamp', '6105','down','turn on');
+	// rds.myDeviceRecords('zeyu', function(data){
+	// 	console.log(data);
+	// });
 
 
 	app.use((req,res,next) => {

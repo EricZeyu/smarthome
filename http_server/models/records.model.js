@@ -3,20 +3,39 @@ const
 
 module.exports = {
 
-	// add(device, source, dir, time, value){
-	// 	ct.query("INSERT INTO records(device, source, dir, time, value) VALUES(?, ?, ?, ?, ?)",
-	// 							[device, source, dir, time, value],
-	// 							function(err, result){
-	// 								if(err) {
-	// 									console.log("[INSERT ERROR] - ", err.message);
-	// 									return;
-	// 									}
-	// 							});
-	// },
+	createTable(owner){
+		let s = 'CREATE TABLE IF NOT EXISTS ' + owner + '_records('
+				+ 'ID INT(10) UNSIGNED AUTO_INCREMENT NOT NULL,'
+				+ 'device VARCHAR(45) NOT NULL,'
+				+ 'type VARCHAR(45) NOT NULL,'
+				+ 'source VARCHAR(45) NOT NULL,'
+				+ 'dir VARCHAR(45) NOT NULL,'
+				+ 'time TIMESTAMP,'
+				+ 'value VARCHAR(45) NOT NULL,'
+				+ 'PRIMARY KEY ( ' + 'ID' + ' )'
+				+ ')ENGINE=InnoDB DEFAULT CHARSET=utf8;'
 
-	add(device, source, dir, value){
-		ct.query("INSERT INTO records(device, source, dir, value) VALUES(?, ?, ?, ?)",
-								[device, source, dir, value],
+		ct.query(s, function(err, result){
+			if(err) {
+						console.log("[CREATETABLE ERROR] - ", err.message);
+						return;
+					}
+		});
+	},
+
+	dropTable(owner){
+		let s = 'DROP TABLE ' + owner + '_records';
+		ct.query(s, function(err, result){
+			if(err) {
+						console.log("[CREATETABLE ERROR] - ", err.message);
+						return;
+					}
+		});
+	},
+
+	add(tableOwner, device, type, source, dir, value){
+		ct.query("INSERT INTO " + tableOwner + "_records(device, type, source, dir, value) VALUES(?, ?, ?, ?, ?)",
+								[device, type, source, dir, value],
 								function(err, result){
 									if(err) {
 										console.log("[INSERT ERROR] - ", err.message);
@@ -25,20 +44,8 @@ module.exports = {
 								});
 	},
 
-	delete(ID){
-		ct.query("DELETE FROM records WHERE ID = ?",
-								[ID],
-								function(err, result){
-									if(err) {
-										console.log("[DELETE ERROR] - ", err.message);
-										return;
-										}
-								});
-	},
-
-	myDeviceRecords(device, callback){
-		ct.query("SELECT * FROM records WHERE (device = ?)",
-				[device],
+	myDeviceRecords(tableOwner, callback){
+		ct.query("SELECT * FROM " + tableOwner + '_records',
 				function(err, result){
 					if (err) {
 						console.log("[SELECT ERROR] - ", err.message);
@@ -49,37 +56,15 @@ module.exports = {
 								return {
 											"ID" : item.ID,
 											"device" : item.device,
+											"type" : item.type,
 											"source" : item.source,
 											"dir" : item.dir,
-											"time" : item.time,
+											"time" : item.time.toLocaleString(),
 											"value" : item.value
 										}
 								});
 					
 					callback(records);
 		});
-	},
-
-	all(callback){
-		ct.query("SELECT * FROM records",
-				function(err, result){
-					if (err) {
-						console.log("[SELECT ERROR] - ", err.message);
-						callback(error());
-					}
-
-					let records = result.map((item) => {
-								return {
-											"ID" : item.ID,
-											"device" : item.device,
-											"source" : item.source,
-											"dir" : item.dir,
-											"time" : item.time.toLocaleString(),
-											"value" : item.value									
-										}
-								});
-
-					callback(records);
-				});
 	}
 }

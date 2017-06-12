@@ -1,5 +1,6 @@
 const
 	user_model = require('../models/user.model'),
+	records_model = require('../models/records.model'),	
 	co = require('co');
 
 module.exports = {
@@ -11,9 +12,13 @@ module.exports = {
 				req.session.username = data.name;
 				req.session.authority = data.authority;
 				if (req.session.authority == 'member'){
-					user_model.getHome(req.session.username, function(data){
-						req.session.home = data;
+
+					user_model.getCreator(req.session.username, function(data){
+						user_model.getHome(data, function(data){
+							req.session.home = data;
+						});
 					});
+
 				}else{
 					req.session.home = data.home;
 				}
@@ -45,6 +50,7 @@ module.exports = {
 		user_model.notexistname(req.body.username, function(data){
 			if (data == true){
 				user_model.register(req.body.username, req.body.password, req.body.home);
+				records_model.createTable(req.body.username);
 				res.redirect('/');
 			}else{
 				res.redirect('/');
