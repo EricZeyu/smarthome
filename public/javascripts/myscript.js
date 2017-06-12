@@ -1,46 +1,29 @@
 $(document).ready(function(){
 
-	// $("#myModal").on('show.bs.modal', function(){
-	// 	$("#username").val("");
-	// 	$("#password").val("");
-	// 	$("#passwordconfirm").val("");
-	// });
-	
-	// $("#myModalSettings").on('show.bs.modal', function(){
-	// 	$("#old_password").val("");
-	// 	$("#new_password").val("");
-	// 	$("#new_passwordconfirm").val("");
-	// });
+	function startDate(){
+		let date = new Date();
+		let weekday = new Array("星期日","星期一","星期二","星期三","星期四","星期五","星期六");
+		// let h = checkTime(date.getHours());
+		// let m = checkTime(date.getMinutes());
+		// let s = checkTime(date.getSeconds());
+		// $("#Date").text(date.getFullYear() + '/'
+		// 				+ date.getMonth() + '/'
+		// 				+ date.getDate() + ' '
+		// 				+ h + ':'
+		// 				+ m + ':'
+		// 				+ s + ' '
+		// 				+ weekday[date.getDay()]);
+		$("#Date").text(date.toLocaleString() + ' ' + weekday[date.getDay()]);
+	}
 
-	// $("#homeAddModel").on('show.bs.modal', function(){
-	// 	// $("#homeIn").val("");
-	// 	// $("#locationIn").val("");
-	// 	// $("#contactIn").val("");
-	// 	// $("#mailIn").val("");
-	// 	// $("#telIn").val("");
-	// 	// $("#MAC").val("");
-	// 	// $("#IP").val("");
-	// 	// $("#port").val("");
-	// });
+	function checkTime(i){
+		if (i<10){
+			i = '0' + i;
+		}
+		return i;
+	}
 
-	// $("#account_register").click(function(){
-	// 	$("#myModal").modal('hide');
-	// 	$.post('/account_register',
-	// 	{
-	// 		username : $("#username").val(),
-	// 		password : $("#password").val(),
-	// 		passwordconfirm : $("#passwordconfirm").val()
-	// 	});
-	// });
-
-	// $("#account_settings").click(function(){
-	// 	$("#myModalSettings").modal('hide');
-	// 	$.post('/account_settings',
-	// 		{
-	// 			old_password : $("#old_password").val(),
-	// 			new_password : $("#new_password").val(),
-	// 			new_passwordconfirm : $("#new_passwordconfirm").val()
-	// 		});
-	// });
+	startDate();
+	setInterval(startDate, 1000);
 		
 });

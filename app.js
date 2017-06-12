@@ -55,6 +55,13 @@ const
 	// gmm.add('D8B04CBE2939', '10.8.208.134', '3333', 'Banhu');
 	// gmm.add('AC243FB00876', '10.8.208.135', '3334', 'ZJUT');
 
+	let rds = require("./http_server/models/records.model");
+	let tt = new Date()
+	// rds.add('6105','zeyu','down','turn on');
+	rds.all(function(data){
+		console.log(data);
+	});
+
 
 
 	app.use((req,res,next) => {

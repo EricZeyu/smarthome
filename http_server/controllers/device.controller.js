@@ -1,5 +1,6 @@
 const
 	device_model = require('../models/device.model'),
+	records_model = require('../models/records.model'),
 	user_model = require('../models/user.model'),
 	co = require('co');
 
@@ -54,7 +55,19 @@ module.exports = {
 			}
 	},
 
+	deviceRecordsRender(req, res, next){
+		
+		res.render('records', {
+								username : req.session.username,
+								authority: req.session.authority,
+								home: req.session.home
+		});
+	},
+
 	deviceRecords(req, res, next){
-		res.json('ok');
+		
+		records_model.all(function(data){
+			res.json(data);
+		});
 	}
 };

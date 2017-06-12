@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<title>记录查询</title>
+	<%- include style.html %>
+</head>
+<body>
+    <%- include nav.html %>
+    <%- include homeLeftNav.html %>
+
+	<div class="col-md-9">
+		<div class="panel panel-info">
+		  	<div class="panel-heading">
+                <h3 class="panel-title"><span class="glyphicon glyphicon-home" aria-hidden="true"><%= home %></span></h3>
+		  	</div>
+		  	<table id="recordsTable"></table>
+		</div>
+	</div>
+
+	<%- include script.html %>
+
+	<script>
+		
+		$(document).ready(function(){
+            $("#home").addClass("active");
+            $("#records").addClass("active");
+            
+			window.recordsOperateEvents = {
+				'click .recordsOpen': function (e, value, row, index) {
+	            	                    
+                    console.log(row);
+	            }
+			};
+
+	        $('#recordsTable').bootstrapTable({
+				method: "get",//请求方式
+                url: "/device/deviceRecords",//数据源
+                striped: true,
+                pagination: true,//是否分页
+                pageSize: 20,//单页记录数
+                pageList: [10, 20, 50, 100],//分页步进值
+                queryParamsType: "limit",//查询参数组织方式
+                queryParams: function getParams(params) {
+                    //params obj
+                    params.other = "otherInfo";
+                    return params;
+                },
+                search: true,//是否搜索
+                searchOnEnterKey: false,//回车搜索
+                searchAlign: "right",//查询框对齐方式                
+                showRefresh: true,//刷新按钮
+                showColumns: true,//列选择按钮
+                columns: [
+                    {
+                        field: "time",//键名
+                        title: "时间",//标题
+                        sortable: true,//是否可排序
+                        order: "asc"//默认排序方式
+                    },
+                    {
+                        field: "device",
+                        title: "设备序列号",
+                        sortable: true,
+                    },                    
+                    {
+                        field: "type",
+                        title: "设备类型",
+                        sortable: true,
+                    },
+                    {
+                        field: "nickname",
+                        title: "自定义名称",
+                        sortable: true,
+                    },                    
+                    {
+                        field: "source",
+                        title: "数据源",
+                        sortable: true,
+                    },
+                    {
+                        field: "dir",
+                        title: "数据流向",
+                        sortable: true,
+                    },
+                    {
+                        field: "value",
+                        title: "值",
+                        sortable: true,
+                    },
+                    {
+                        field: "operate",
+                        title: "操作",
+                        align: "center",
+                        events: recordsOperateEvents,
+                        formatter: recordsOperateFormatter
+                    }
+                ],
+            });
+
+        	function recordsOperateFormatter(value, row, index){
+	            return [
+                    '<a class="recordsOpen col-md-6" href="#" title="Open">',
+                    '<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>',
+                    '</a>'
+	            ].join('');
+        	};
+		});
+
+		$(document).unload(function(){
+		});
+
+	</script>
+</body>
+</html>
