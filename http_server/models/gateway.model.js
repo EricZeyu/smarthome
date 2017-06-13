@@ -88,7 +88,7 @@ module.exports = {
 											"IP" : item.IP,
 											"port" : item.port,
 											"creator" : item.creator,
-											"state" : item.state										
+											"state" : item.state
 										}
 								});
 

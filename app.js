@@ -66,6 +66,9 @@ const
 	// 	console.log(data);
 	// });
 
+	// let tS = require('./tcp_server/controllers/tcpSocket.controller');
+	// console.log(tS.getState('10.8.158.1'));
+
 
 	app.use((req,res,next) => {
 	  if(req.session.username || req.originalUrl === '/' || req.originalUrl === '/login') {

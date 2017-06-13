@@ -8,14 +8,13 @@ const
 	Rec = require('./models/Received.model'),
 	Send = require('./models/Send.model');
 
-let 
-	sockets = [],
-	sockets_Read = [],
-	sockets_Written = [];
-
 exports.create_tcp_server = function(){
 
-	var tcp_server = net.createServer();
+	const
+		sockets = [],
+		sockets_Read = [],
+		sockets_Written = [];
+		tcp_server = net.createServer();
 
 	tcp_server.on('error', (err) => {
 		console.log("An error has occurred---%s", err.code);
@@ -31,6 +30,8 @@ exports.create_tcp_server = function(){
 		socket.setKeepAlive(true, 3000);
 
 		sockets.push(socket);
+
+		console.log(sockets);
 
 		// gateway.connect(socket);
 
