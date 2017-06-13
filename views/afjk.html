@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<title>智慧家庭</title>
+	<%- include style.html %>
+</head>
+<body>
+	<%- include nav.html %>
+	<%- include homeLeftNav.html %>
+	
+	<div class="col-md-9">
+		<div class="panel panel-info">
+		  	<div class="panel-heading">		  		
+                <h3 class="panel-title"><span class="glyphicon glyphicon-eye-open" aria-hidden="true">安防监控</span></h3>
+		  	</div>
+                        <ul class="list-group">
+                            <li class="list-group-item">可视对讲门铃</li>
+                            <li class="list-group-item">室外红外对射</li>
+                            <li class="list-group-item">烟雾预警</li>
+                            <li class="list-group-item">电子锁</li>
+                        </ul>
+		</div>
+	</div>
+
+	<%- include script.html %>
+	<script>
+		
+		$(document).ready(function(){
+
+			$("#home").addClass("active");
+			$("#afjk").addClass("active");
+
+		});
+
+		$(document).unload(function(){
+		});
+
+	</script>
+</body>
+</html>

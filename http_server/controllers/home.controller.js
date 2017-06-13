@@ -52,22 +52,14 @@ module.exports = {
 		// });
 
 		// res.json(Status);
+	},
+
+	homeIndex(req, res, next){
+		// console.log(req.params.index);
+		res.render(req.params.index, {
+								username : req.session.username,
+								authority: req.session.authority,
+								home : req.session.home
+		});
 	}
-
-	// homeList(req, res, next){
-
-	// 		if (req.session.authority == 'root'){
-	// 			home_model.all(function(data){
-	// 				// console.log(data);
-	// 				res.json(data);
-	// 			});
-	// 		}else{
-	// 				res.redirect('/');
-	// 				// user_model.getCreator(req.session.username, function(data){
-	// 				// 	home_model.getHomes(data, function(data){
-	// 				// 		res.json(data);
-	// 				// 	});
-	// 				// });
-	// 			}
-	// }
 };

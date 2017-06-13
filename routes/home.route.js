@@ -7,5 +7,7 @@ const
 router.get('/', homeController.homeRender);
 router.get('/homeStatus', homeController.homeStatus);
 
+router.get('/:index', homeController.homeIndex);
+
 
 module.exports = router;
