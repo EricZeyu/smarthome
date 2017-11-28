@@ -3,8 +3,32 @@ const
 	tcp_port = '4001';
 
 const
+	SOP = 0xAA,
+	SEQ = 0x00,
+
+	Received_succeed = 0x00,
+	Received_succeed_length = 0x00,
+	Received_failed = 0xFF,
+	Received_failed_length = 0x00,
+	Transmitted_succeed = 0x55,
+
+	Join_CLUSTERID  = 1,
+	Num_CLUSTERID = 2,
+	IEEEAddr_CLUSTERID  = 3,
+	ShortAddr_CLUSTERID  = 4,
+	Voltage_CLUSTERID = 5,
+	WirelessQuality_CLUSTERID  = 6,
+	Temperature_CLUSTERID = 7,
+	Humidity_CLUSTERID = 8,
+	Gas_CLUSTERID = 9,
+	Pressure_CLUSTERID = 10,
+	Lamp_CLUSTERID = 11,
+	Motor_CLUSTERID = 12;
+
+const
+	tcpRecords_model = require('./models/tcpRecords.model'),
+	tcpgateway_model = require('./models/tcpgateway.model'),
 	net = require('net'),
-	gateway = require('./models/gateway.model'),
 	Rec = require('./models/Received.model'),
 	Send = require('./models/Send.model');
 
@@ -26,12 +50,12 @@ exports.create_tcp_server = function(){
 
 	//---TCP
 	tcp_server.on('connection', (socket) => {
-	//	socket.setEncoding('utf8');
+	//	socket.setEncoding('hex');
 		socket.setKeepAlive(true, 3000);
 
 		sockets.push(socket);
 
-		console.log(sockets);
+	//	console.log(sockets);
 
 		// gateway.connect(socket);
 
@@ -56,7 +80,73 @@ exports.create_tcp_server = function(){
 		});
 
 		socket.on('data', (data) => {
+			// 接收数据包解析
+			if (data[0]==SOP){
 
+				var Len,Seq,State,FCS;
+
+				Len = data[1];
+				Seq = data[2];
+				State = data[3];
+				FCS = 0x00;			//校验和异或验证
+				for (var i = 1; i < 4 + Len; i++){
+					FCS = FCS ^ data[i];	
+				}
+
+				if ((FCS == data[4 + Len]) && (State == Transmitted_succeed)){
+					console.log("Received succeed! FCS = %s", FCS);
+					if (Len > 0){
+						var devNum = data[4];
+						var devCmd = data[5];
+
+						var devData = [];
+						for (var i = 0; i < Len-2; i++){
+							devData.push(data[i + 6]);
+						}
+
+						console.log(devCmd);
+						var devValue;
+						switch (devCmd){
+							case Join_CLUSTERID: break;
+							case Num_CLUSTERID: break;
+							case IEEEAddr_CLUSTERID: break;
+							case ShortAddr_CLUSTERID: break;
+							case Voltage_CLUSTERID: break;
+							case WirelessQuality_CLUSTERID: break;
+							case Temperature_CLUSTERID: {devValue = devData[0]; break;}
+							case Humidity_CLUSTERID: devValue = devData[0]; break;
+							case Gas_CLUSTERID: break;
+							case Pressure_CLUSTERID: break;
+							case Lamp_CLUSTERID: break;
+							case Motor_CLUSTERID: break;
+							default: break;
+						}
+
+					//	console.log("revData.length = ",revData.length);
+					//	console.log(revData);
+
+					//如果数据包解析成功，则将数据存入数据库中，并推送至http服务器
+					// sockets_Read.push({
+					// 			"IP":socket.remoteAddress,
+					// 			"port":socket.remotePort,
+					// 			"buf":revData
+					// 			});
+
+
+					tcpgateway_model.findRecordsTableName(socket.remoteAddress, function(data){
+						console.log(data);
+						tcpRecords_model.pushDeviceRecords(data, devNum, "sensor", devNum, "up", devValue);
+					});
+					}
+				}
+				else{
+					console.log("Received failed! FCS = %s",FCS);
+				}
+
+
+			}
+
+			/*
 			Rec.prase_json(data);
 
 			sockets_Read.push({
@@ -75,7 +165,7 @@ exports.create_tcp_server = function(){
 			 });
 
 			socket.write("Hello.");
-		//	socket.pause();
+		//	socket.pause();*/
 		});
 	});
 }

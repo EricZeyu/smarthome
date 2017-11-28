@@ -52,8 +52,9 @@ const
 
 	// let gmm = require("./http_server/models/gateway.model");
 	// gmm.delete('z');
-	// gmm.add('D8B04CBE2939', '10.8.208.134', '3333', 'Banhu');
+	// gmm.add('D8B04CBE2939', '10.12.13.128', '3333', 'Banhu');
 	// gmm.add('AC243FB00876', '10.8.208.135', '3334', 'ZJUT');
+	//gmm.all();
 
 	// let rds = require("./http_server/models/records.model");
 	// rds.createTable('zjut');

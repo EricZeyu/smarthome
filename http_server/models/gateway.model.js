@@ -92,6 +92,7 @@ module.exports = {
 										}
 								});
 
+					console.log(gateway);
 					callback(gateway);
 				});
 	}
