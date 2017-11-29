@@ -22,12 +22,10 @@
                             <h3 class="panel-title"><span class="glyphicon glyphicon-cloud" aria-hidden="true">自主感应</span></h3>
                         </div>
                         <ul class="list-group">
-                            <li class="list-group-item">室温</li>
-                            <li class="list-group-item">气压</li>
+                            <li class="list-group-item">室温</li>       
                             <li class="list-group-item">湿度</li>
-                            <li class="list-group-item">PM2.5</li>
-                            <li class="list-group-item">天然气探测</li>
-                            <li class="list-group-item">漏水探测</li>
+                            <li class="list-group-item">气压</li>
+                            <li class="list-group-item">空气质量</li>
                         </ul>
                     </div>
                 </div>                
@@ -37,12 +35,18 @@
                             <h3 class="panel-title"><span class="glyphicon glyphicon-off" aria-hidden="true">灯光控制</span></h3>
                         </div>
                         <ul class="list-group">
-                            <li class="list-group-item">顶灯</li>
-                            <li class="list-group-item">壁灯</li>
-                            <li class="list-group-item">台灯</li>
-                            <li class="list-group-item">节能灯</li>
-                            <li class="list-group-item">调色灯</li>
-                            <li class="list-group-item">调光灯</li>
+                            <li class="list-group-item">顶灯
+                              <button class="btn-xs" id="dingdeng_kai"><span class="glyphicon glyphicon-play"></span></button>
+                              <button class="btn-xs" id="dengdeng_guan"><span class="glyphicon glyphicon-off"></span></button>
+                            </li>
+                            <li class="list-group-item">壁灯
+                              <button class="btn-xs" id="biding_kai"><span class="glyphicon glyphicon-play"></span></button>
+                              <button class="btn-xs" id="biding_guan"><span class="glyphicon glyphicon-off"></span></button>
+                            </li>
+                            <li class="list-group-item">台灯
+                              <button class="btn-xs" id="taiding_kai"><span class="glyphicon glyphicon-play"></span></button>
+                              <button class="btn-xs" id="taiding_guan"><span class="glyphicon glyphicon-off"></span></button>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -67,10 +71,14 @@
                             <h3 class="panel-title"><span class="glyphicon glyphicon-th-large" aria-hidden="true">电动窗帘</span></h3>
                         </div>
                         <ul class="list-group">
-                            <li class="list-group-item">电动窗帘</li>
-                            <li class="list-group-item">电动卷帘</li>
-                            <li class="list-group-item">电动晾衣架</li>
-                            <li class="list-group-item">升降电动窗帘</li>
+                            <li class="list-group-item">电动窗帘
+                              <button class="btn-xs" id="chuanglian_sheng"><span class="glyphicon glyphicon-arrow-up"></span></button>
+                              <button class="btn-xs" id="chuanglian_jiang"><span class="glyphicon glyphicon-arrow-down"></span></button>
+                            </li>
+                            <li class="list-group-item">电动晾衣架
+                              <button class="btn-xs" id="yijia_sheng"><span class="glyphicon glyphicon-arrow-up"></span></button>
+                              <button class="btn-xs" id="yijia_jiang"><span class="glyphicon glyphicon-arrow-down"></span></button>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -83,7 +91,7 @@
                             <li class="list-group-item">电视机</li>
                             <li class="list-group-item">VR游戏</li>
                             <li class="list-group-item">投影升降</li>
-                            <li class="list-group-item">高保真音响</li>
+                            <li class="list-group-item">音响</li>
                         </ul>
                     </div>
                 </div>
@@ -93,8 +101,8 @@
                             <h3 class="panel-title"><span class="glyphicon glyphicon-asterisk" aria-hidden="true">智能温控</span></h3>
                         </div>
                         <ul class="list-group">
-                            <li class="list-group-item">中央空调</li>
-                            <li class="list-group-item">地暖系列</li>
+                            <li class="list-group-item">空调</li>
+                            <li class="list-group-item">地暖</li>
                             <li class="list-group-item">除湿</li>
                             <li class="list-group-item">通风</li>
                         </ul>
@@ -110,7 +118,6 @@
 		$(document).ready(function(){
 
 			$("#home").addClass("active");
-			$("#status").addClass("active");
 
 			// window.homeOperateEvents = {
 

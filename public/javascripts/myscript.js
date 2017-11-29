@@ -14,6 +14,19 @@ $(document).ready(function(){
 		// 				+ s + ' '
 		// 				+ weekday[date.getDay()]);
 		$("#Date").text(date.toLocaleString() + ' ' + weekday[date.getDay()]);
+
+		$.get("/home/homeStatus", function(data,status){
+			console.log(data);
+			if (data.state == "On"){
+				$("#zhuangtai").text("基站断开连接！").css({"color":"red"});
+				
+			}else{
+				$("#zhuangtai").text("基站连接成功！").css({"color":"green"});
+				$("#IP").text("IP = " + data.IP);
+				$("#port").text("port = " + data.port);
+			}
+			
+		});
 	}
 
 	function checkTime(i){

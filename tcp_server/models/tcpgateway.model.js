@@ -20,5 +20,17 @@ module.exports = {
 					
 					
 		});
+	},
+
+	changezhuangtai(IP, state){
+		ct.query("UPDATE gateway SET state = ? WHERE (IP = ?)",
+								[state],
+								function(err, result){
+									if(err) {
+										console.log("[UPDATE ERROR] - ", err.message);
+										return;
+										}
+								
+			});
 	}
 }

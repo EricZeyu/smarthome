@@ -57,7 +57,7 @@ exports.create_tcp_server = function(){
 
 	//	console.log(sockets);
 
-		// gateway.connect(socket);
+		tcpgateway_model.changezhuangtai(socket.remoteAddress, "On");
 
 		console.log("Tcp socket connected to IP: " + socket.remoteAddress + ", port : " + socket.remotePort);
 
@@ -66,7 +66,7 @@ exports.create_tcp_server = function(){
 
 			sockets.splice(sockets.indexOf(socket), 1);
 
-		// gateway.disconnect(socket);
+			tcpgateway_model.changezhuangtai(socket.remoteAddress, "Off");
 
 			socket.destroy();
 		});
@@ -76,7 +76,7 @@ exports.create_tcp_server = function(){
 			
 			sockets.splice(sockets.indexOf(socket), 1);
 
-			// gateway.disconnect(socket);
+			tcpgateway_model.changezhuangtai(socket.remoteAddress, "Off");
 		});
 
 		socket.on('data', (data) => {
@@ -114,11 +114,11 @@ exports.create_tcp_server = function(){
 							case Voltage_CLUSTERID: break;
 							case WirelessQuality_CLUSTERID: break;
 							case Temperature_CLUSTERID: {devValue = devData[0]; break;}
-							case Humidity_CLUSTERID: devValue = devData[0]; break;
-							case Gas_CLUSTERID: break;
-							case Pressure_CLUSTERID: break;
-							case Lamp_CLUSTERID: break;
-							case Motor_CLUSTERID: break;
+							case Humidity_CLUSTERID: {devValue = devData[0]; break;}
+							case Gas_CLUSTERID: {devValue = devData[0]; break;}
+							case Pressure_CLUSTERID: {devValue = devData[0]; break;}
+							case Lamp_CLUSTERID: {devValue = devData[0]; break;}
+							case Motor_CLUSTERID: {devValue = devData[0]; break;}
 							default: break;
 						}
 
@@ -134,9 +134,9 @@ exports.create_tcp_server = function(){
 
 
 					tcpgateway_model.findRecordsTableName(socket.remoteAddress, function(data){
-						console.log(data);
-						tcpRecords_model.pushDeviceRecords(data, devNum, "sensor", devNum, "up", devValue);
-					});
+							console.log(data);
+							tcpRecords_model.pushDeviceRecords(data, devNum, "sensor", devNum, "up", devValue);
+						});
 					}
 				}
 				else{
