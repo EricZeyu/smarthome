@@ -33,8 +33,6 @@ module.exports = {
 		if (req.session.authority !== 'member'){
 
 			device_model.delete(req.body.device);
-
-			console.log("deviceRemove@@@");
 		}
 	},
 

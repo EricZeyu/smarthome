@@ -35,9 +35,6 @@ const
 exports.create_tcp_server = function(){
 
 	const
-		sockets = [],
-		sockets_Read = [],
-		sockets_Written = [];
 		tcp_server = net.createServer();
 
 	tcp_server.on('error', (err) => {
@@ -53,20 +50,22 @@ exports.create_tcp_server = function(){
 	//	socket.setEncoding('hex');
 		socket.setKeepAlive(true, 3000);
 
-		sockets.push(socket);
+		// sockets.push(socket);
+		Send.newsocket(socket);
 
 	//	console.log(sockets);
 
-		tcpgateway_model.changezhuangtai(socket.remoteAddress, "On");
+		tcpgateway_model.changezhuangtai("On", socket.remoteAddress);
 
 		console.log("Tcp socket connected to IP: " + socket.remoteAddress + ", port : " + socket.remotePort);
 
 		socket.on('error', (err) => {
 			console.log("An error has been occurred---%s---%s:%s", err.code, socket.remoteAddress, socket.remotePort);
 
-			sockets.splice(sockets.indexOf(socket), 1);
+			// sockets.splice(sockets.indexOf(socket), 1);
+			Send.cutsocket(socket);
 
-			tcpgateway_model.changezhuangtai(socket.remoteAddress, "Off");
+			tcpgateway_model.changezhuangtai("Off", socket.remoteAddress);
 
 			socket.destroy();
 		});
@@ -74,9 +73,10 @@ exports.create_tcp_server = function(){
 		socket.on('end',  () => {
 			console.log("TCP client " + socket.remoteAddress + ":" + socket.remotePort + " ended.");
 			
-			sockets.splice(sockets.indexOf(socket), 1);
+			// sockets.splice(sockets.indexOf(socket), 1);
+			Send.cutsocket(socket);			
 
-			tcpgateway_model.changezhuangtai(socket.remoteAddress, "Off");
+			tcpgateway_model.changezhuangtai("Off", socket.remoteAddress);
 		});
 
 		socket.on('data', (data) => {
@@ -122,19 +122,9 @@ exports.create_tcp_server = function(){
 							default: break;
 						}
 
-					//	console.log("revData.length = ",revData.length);
-					//	console.log(revData);
-
-					//如果数据包解析成功，则将数据存入数据库中，并推送至http服务器
-					// sockets_Read.push({
-					// 			"IP":socket.remoteAddress,
-					// 			"port":socket.remotePort,
-					// 			"buf":revData
-					// 			});
-
-
 					tcpgateway_model.findRecordsTableName(socket.remoteAddress, function(data){
-							console.log(data);
+						//	console.log(socket.remoteAddress);
+						//	console.log(data);
 							tcpRecords_model.pushDeviceRecords(data, devNum, "sensor", devNum, "up", devValue);
 						});
 					}
@@ -145,7 +135,6 @@ exports.create_tcp_server = function(){
 
 
 			}
-
 			/*
 			Rec.prase_json(data);
 

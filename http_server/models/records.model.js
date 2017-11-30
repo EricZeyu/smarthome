@@ -66,5 +66,67 @@ module.exports = {
 					
 					callback(records);
 		});
+	},
+/*
+	getLatestRecord(tableOwner, devices, callback){
+		let cup,temper;
+		devices.map((item) => {
+
+				switch (item.type){
+					case "temper":{
+						cup = ct.query("SELECT * FROM " + tableOwner + "_records WHERE (device=?) ORDER BY time DESC limit 1",
+								[item.device],
+								function(err, result){
+									if (err) {
+										console.log("[SELECT ERROR] - ", err.message);
+										return;
+									}
+									return result;
+								});
+						// temper = cup[0].value;
+						console.log("temper ==== ",cup);
+						break;
+					}
+					default: break;
+				}
+		});
+
+		let s = [{
+			"wendu" : 23,
+			"shidu" : "56%",
+			"qiya" : "1.433",
+			"kongqizhiliang" : "ok"
+		}];
+
+		console.log("ssssss ====",s);
+		callback(s);
+	}*/
+
+	getLatestRecord(tableOwner, device, dir, callback){
+		ct.query("SELECT * FROM " + tableOwner + "_records WHERE (device=? AND dir=?) ORDER BY time DESC limit 1",
+				[device, dir],
+				function(err, result){
+					if (err) {
+						console.log("[SELECT ERROR] - ", err.message);
+						callback(error());
+					}
+
+					// // console.log("Search result ====",result);
+					// let onerecord = result.map((item) => {
+					// 			return {
+					// 						"ID" : item.ID,
+					// 						"device" : item.device,
+					// 						"type" : item.type,
+					// 						"source" : item.source,
+					// 						"dir" : item.dir,
+					// 						"time" : item.time.toLocaleString(),
+					// 						"value" : item.value
+					// 					}
+					// 			});
+
+					// console.log("LastestRecord = ", result);
+					
+					callback(result);
+				});
 	}
 }

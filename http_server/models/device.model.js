@@ -53,6 +53,19 @@ module.exports = {
 		});
 	},
 
+	onedevice(creator, type, callback){
+		ct.query("SELECT * FROM device WHERE (creator = ? AND type=?) limit 1",
+				[creator, type],
+				function(err, result){
+					if (err) {
+						console.log("[SELECT ERROR] - ", err.message);
+						callback(error());
+					}else {
+						callback(result);
+					}
+		});
+	},
+
 	all(callback){
 		ct.query("SELECT * FROM device",
 				function(err, result){

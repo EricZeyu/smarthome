@@ -22,9 +22,9 @@ module.exports = {
 		});
 	},
 
-	changezhuangtai(IP, state){
+	changezhuangtai(state, IP){
 		ct.query("UPDATE gateway SET state = ? WHERE (IP = ?)",
-								[state],
+								[state, IP],
 								function(err, result){
 									if(err) {
 										console.log("[UPDATE ERROR] - ", err.message);
