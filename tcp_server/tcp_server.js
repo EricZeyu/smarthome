@@ -6,11 +6,7 @@ const
 	SOP = 0xAA,
 	SEQ = 0x00,
 
-	Received_succeed = 0x00,
-	Received_succeed_length = 0x00,
-	Received_failed = 0xFF,
-	Received_failed_length = 0x00,
-	Transmitted_succeed = 0x55,
+	Received_succeed = 0x55,
 
 	Join_CLUSTERID  = 1,
 	Num_CLUSTERID = 2,
@@ -80,6 +76,8 @@ exports.create_tcp_server = function(){
 		});
 
 		socket.on('data', (data) => {
+
+			console.log("RevData = ",data);
 			// 接收数据包解析
 			if (data[0]==SOP){
 
@@ -93,9 +91,9 @@ exports.create_tcp_server = function(){
 					FCS = FCS ^ data[i];	
 				}
 
-				if ((FCS == data[4 + Len]) && (State == Transmitted_succeed)){
-					console.log("Received succeed! FCS = %s", FCS);
-					if (Len > 0){
+				if ((FCS == data[4 + Len]) && (State == Received_succeed)){
+				//	console.log("Received succeed! FCS = %s", FCS);
+					if (Len > 2){
 						var devNum = data[4];
 						var devCmd = data[5];
 
@@ -104,7 +102,7 @@ exports.create_tcp_server = function(){
 							devData.push(data[i + 6]);
 						}
 
-						console.log(devCmd);
+						// console.log(devCmd);
 						var devValue;
 						switch (devCmd){
 							case Join_CLUSTERID: break;
@@ -122,12 +120,18 @@ exports.create_tcp_server = function(){
 							default: break;
 						}
 
-					tcpgateway_model.findRecordsTableName(socket.remoteAddress, function(data){
-						//	console.log(socket.remoteAddress);
-						//	console.log(data);
-							tcpRecords_model.pushDeviceRecords(data, devNum, "sensor", devNum, "up", devValue);
-						});
+						if (devCmd==Temperature_CLUSTERID
+							|| devCmd==Humidity_CLUSTERID
+							|| devCmd==Gas_CLUSTERID
+							|| devCmd==Pressure_CLUSTERID){
+							tcpgateway_model.findRecordsTableName(socket.remoteAddress, function(data){
+							//	console.log(socket.remoteAddress);
+							//	console.log(data);
+								tcpRecords_model.pushDeviceRecords(data, devNum, "sensor", devNum, "up", devValue);
+							});
+						}
 					}
+
 				}
 				else{
 					console.log("Received failed! FCS = %s",FCS);

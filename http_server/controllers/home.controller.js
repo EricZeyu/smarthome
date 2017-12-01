@@ -55,18 +55,16 @@ module.exports = {
 
 		// console.log("homejizhan call");
 
-		let jizhan;
-
 		if (req.session.authority == 'root') {
 				res.json();
 		}else if (req.session.authority == 'owner'){
 				gateway_model.mygateway(req.session.username, function(data){
-					jizhan = data[0];
+					res.json(data[0]);
 				});
 			}else{
 				user_model.getCreator(req.session.username, function(data){
 					gateway_model.mygateway(data, function(data){
-						jizhan = data[0];
+						res.json(data[0]);
 					});
 				});
 			}
@@ -101,6 +99,7 @@ module.exports = {
 					device_model.onedevice(req.session.username, "hygrometer", function(dev){
 						record_model.getLatestRecord(req.session.username, dev[0].device, "up", function(record){
 								res.json(record[0]);
+
 						});
 					});
 			}else{
@@ -136,24 +135,26 @@ module.exports = {
 	},
 
 	homeqiya(req, res, next){
+
+		res.json({"value":1.433});
 		// console.log("homeqiya call");
-		if (req.session.authority == 'root') {
-				res.json();
-		}else if (req.session.authority == 'owner'){
-					device_model.onedevice(req.session.username, "baroceptor", function(dev){
-						record_model.getLatestRecord(req.session.username, dev[0].device, "up", function(record){
-								res.json(record[0]);
-						});
-					});
-			}else{
-				user_model.getCreator(req.session.username, function(ownername){
-					device_model.onedevice(ownername, "baroceptor", function(dev){
-						record_model.getLatestRecord(ownername, dev[0].device, "up", function(record){
-								res.json(record[0]);
-						});
-					});
-				});
-			}
+		// if (req.session.authority == 'root') {
+		// 		res.json();
+		// }else if (req.session.authority == 'owner'){
+		// 			device_model.onedevice(req.session.username, "baroceptor", function(dev){
+		// 				record_model.getLatestRecord(req.session.username, dev[0].device, "up", function(record){
+		// 						res.json(record[0]);
+		// 				});
+		// 			});
+		// 	}else{
+		// 		user_model.getCreator(req.session.username, function(ownername){
+		// 			device_model.onedevice(ownername, "baroceptor", function(dev){
+		// 				record_model.getLatestRecord(ownername, dev[0].device, "up", function(record){
+		// 						res.json(record[0]);
+		// 				});
+		// 			});
+		// 		});
+		// 	}
 	},
 
 	homeStatus(req, res, next){

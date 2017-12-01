@@ -45,7 +45,7 @@ module.exports = {
 	},
 
 	myDeviceRecords(tableOwner, callback){
-		ct.query("SELECT * FROM " + tableOwner + '_records',
+		ct.query("SELECT * FROM " + tableOwner + '_records ORDER BY time DESC',
 				function(err, result){
 					if (err) {
 						console.log("[SELECT ERROR] - ", err.message);

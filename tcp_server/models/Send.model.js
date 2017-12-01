@@ -37,17 +37,33 @@ module.exports = {
 		}
 	},
 
-	pushLastSend(IP, data){
-
-		console.log("Start sending...", data);
-
+	pushLastSend(IP, num, CLUSTERID, data){
+		
 		let flag = false;
-		sockets.map((item)=>{
-			if (item.remoteAddress == IP){
-				item.write(data);
-				flag = true;
-			}
-		});
+		if (sockets.length>0){
+			sockets.map((item)=>{
+					if (item.remoteAddress == IP){
+
+						//上位机向基站发送命令时，seq=0x00,state=0x44
+						let FCS = 0x03 ^ 0x00 ^ 0x44 ^ num ^ CLUSTERID ^ data;
+						// tf[0] = 0xAA;
+						// tf[1] = 0x03;
+						// tf[2] = 0x00;
+						// tf[3] = 0x55;
+						// tf[4] = num;
+						// tf[5] = CLUSTERID;
+						// tf[6] = data;
+						// tf[7] = tf[1]^tf[2]^tf[3]^tf[4]^tf[5]^tf[6];
+
+
+						let tf = new Buffer([0xAA, 0x03, 0x00, 0x44, num, CLUSTERID, data, FCS]);
+
+						console.log("tf=",tf);
+						item.write(tf);
+						flag = true;
+					}
+				});
+		}
 
 		if (flag){
 			console.log("pushLastSend...  true");
@@ -55,4 +71,27 @@ module.exports = {
 			console.log("pushLastSend...  false");			
 		}
 	}
+
+	// pushLastSend(IP, data){
+
+	// 	console.log("Start sending...", data);
+
+	// 	let flag = false;
+	// 	if (sockets.length>0){
+	// 		sockets.map((item)=>{
+	// 				if (item.remoteAddress == IP){
+
+
+	// 					item.write(data);
+	// 					flag = true;
+	// 				}
+	// 			});
+	// 	}
+
+	// 	if (flag){
+	// 		console.log("pushLastSend...  true");
+	// 	}else{
+	// 		console.log("pushLastSend...  false");			
+	// 	}
+	// }
 }

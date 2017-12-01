@@ -15,24 +15,12 @@ $(document).ready(function(){
 		// 				+ weekday[date.getDay()]);
 		$("#Date").text(date.toLocaleString() + ' ' + weekday[date.getDay()]);
 
-		// $.get("/home/homeStatus", function(data,status){
-		// 	console.log(data);
-		// 	if (data.state == "On"){
-		// 		$("#zhuangtai").text("基站断开连接！").css({"color":"red"});
-				
-		// 	}else{
-		// 		$("#zhuangtai").text("基站连接成功！").css({"color":"green"});
-		// 		$("#IP").text("IP = " + data.IP);
-		// 		$("#port").text("port = " + data.port);
-		// 	}
-			
-		// });
-
 		$.get("/home/homejizhan", function(data,status){
 		//	console.log(data);
 			if (data.state == "Off"){
 				$("#zhuangtai").text("基站断开连接！").css({"color":"red"});
-				
+				$("#IP").text("IP ");
+				$("#port").text("port ");				
 			}else{
 				$("#zhuangtai").text("基站连接成功！").css({"color":"green"});
 				$("#IP").text("IP = " + data.IP);
@@ -42,13 +30,28 @@ $(document).ready(function(){
 		});
 
 		$.get("/home/homewendu", function(data,status){
-		//	console.log(data);
+			// console.log(data);
 			$("#shiwen").text("室温 " + data.value + "℃");
-		});		
+		});
+
 		$.get("/home/homeshidu", function(data,status){
-		//	console.log(data);
+			// console.log(data);
 			$("#shidu").text("湿度 " + data.value + "%");
 		});
+
+		$.get("/home/homekongqizhiliang", function(data,status){
+			// console.log(data);
+			if (data.value == 1){
+				$("#kongqizhiliang").text("空气质量  正常");
+			}else{
+				$("#kongqizhiliang").text("空气质量  不适宜易感染人群");
+			}
+		});
+
+		// $.get("/home/homeqiya", function(data,status){
+		// 	// console.log(data);
+		// 	$("#qiya").text("气压  "+data.value+"kPa");
+		// });
 	}
 
 	function checkTime(i){
