@@ -124,10 +124,10 @@ exports.create_tcp_server = function(){
 							|| devCmd==Humidity_CLUSTERID
 							|| devCmd==Gas_CLUSTERID
 							|| devCmd==Pressure_CLUSTERID){
-							tcpgateway_model.findRecordsTableName(socket.remoteAddress, function(data){
+							tcpgateway_model.findRecordsTableName(socket.remoteAddress, function(ownername){
 							//	console.log(socket.remoteAddress);
 							//	console.log(data);
-								tcpRecords_model.pushDeviceRecords(data, devNum, "sensor", devNum, "up", devValue);
+								tcpRecords_model.pushDeviceRecords(ownername, devNum, "sensor", devNum, "up", devValue);
 							});
 						}
 					}

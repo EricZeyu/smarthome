@@ -15,10 +15,10 @@ router.get('/homeqiya', homeController.homeqiya);
 
 router.post('/dingdeng_kai', tcpSocketcontroller.dingdeng_kai);
 router.post('/dingdeng_guan', tcpSocketcontroller.dingdeng_guan);
-router.post('/biding_kai', tcpSocketcontroller.biding_kai);
-router.post('/biding_guan', tcpSocketcontroller.biding_guan);
-router.post('/taiding_kai', tcpSocketcontroller.taiding_kai);
-router.post('/taiding_guan', tcpSocketcontroller.taiding_guan);
+router.post('/bideng_kai', tcpSocketcontroller.bideng_kai);
+router.post('/bideng_guan', tcpSocketcontroller.bideng_guan);
+router.post('/taideng_kai', tcpSocketcontroller.taideng_kai);
+router.post('/taideng_guan', tcpSocketcontroller.taideng_guan);
 
 router.post('/chuanglian_sheng', tcpSocketcontroller.chuanglian_sheng);
 router.post('/chuanglian_jiang', tcpSocketcontroller.chuanglian_jiang);

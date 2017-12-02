@@ -75,23 +75,23 @@ $(document).ready(function(){
 			console.log(data);
 		});		
 	});	
-	$("#biding_kai").click(function(){
-		$.post("/home/biding_kai", function(data,status){
+	$("#bideng_kai").click(function(){
+		$.post("/home/bideng_kai", function(data,status){
 			console.log(data);
 		});		
 	});	
-	$("#biding_guan").click(function(){
-		$.post("/home/biding_guan", function(data,status){
+	$("#bideng_guan").click(function(){
+		$.post("/home/bideng_guan", function(data,status){
 			console.log(data);
 		});		
 	});
-	$("#taiding_kai").click(function(){
-		$.post("/home/taiding_kai", function(data,status){
+	$("#taideng_kai").click(function(){
+		$.post("/home/taideng_kai", function(data,status){
 			console.log(data);
 		});		
 	});	
-	$("#taiding_guan").click(function(){
-		$.post("/home/taiding_guan", function(data,status){
+	$("#taideng_guan").click(function(){
+		$.post("/home/taideng_guan", function(data,status){
 			console.log(data);
 		});		
 	});
